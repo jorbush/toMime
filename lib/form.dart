@@ -115,7 +115,7 @@ class _FormGameState extends State<FormGame> {
                         hintText: "Enter here a name",
                         suffixIcon: IconButton(
                           onPressed: () {
-                            if (lastName != playerName || lastName == '') {
+                            if (canBeAdded()) {
                               setState(() {
                                 print(
                                     'lastName: $lastName, playerName: $playerName');
@@ -131,7 +131,7 @@ class _FormGameState extends State<FormGame> {
                         ),
                       ),
                       onSubmitted: (value) {
-                        if (lastName != playerName || lastName == '') {
+                        if (canBeAdded()) {
                           setState(() {
                             print(
                                 'lastName: $lastName, playerName: $playerName');
@@ -255,5 +255,13 @@ class _FormGameState extends State<FormGame> {
     } else {
       print("TextField is empty");
     }
+  }
+
+  // Method to prove that a player can be added to the game.
+  bool canBeAdded() {
+    if (lastName == playerName) {
+      print('Player $playerName has been already added.');
+    }
+    return lastName != playerName || lastName == '';
   }
 }
