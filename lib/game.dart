@@ -35,7 +35,7 @@ class _GameState extends State<Game> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
     CardController controller;
     players = ModalRoute.of(context).settings.arguments;
     screenName = players[indexPlayer].name;

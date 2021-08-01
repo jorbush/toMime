@@ -15,7 +15,7 @@ class _FormGameState extends State<FormGame> {
   @override
   Widget build(BuildContext context) {
     var _controller = TextEditingController();
-    //SystemChrome.setEnabledSystemUIOverlays([]);
+    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
     return Scaffold(
       backgroundColor: Color.fromRGBO(0, 180, 255, 1),
       body: Padding(
@@ -171,7 +171,7 @@ class _FormGameState extends State<FormGame> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 10, 0, 20),
                     child: SizedBox(
-                      height: 330,
+                      height: 430,
                       child: new ListView.builder(
                         itemCount: players.length,
                         itemBuilder: (context, index) {
