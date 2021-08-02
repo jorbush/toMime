@@ -259,9 +259,20 @@ class _FormGameState extends State<FormGame> {
 
   // Method to prove that a player can be added to the game.
   bool canBeAdded() {
-    if (lastName == playerName) {
+    if (hasAlreadyBeenAdded(playerName)) {
       print('Player $playerName has been already added.');
     }
-    return lastName != playerName || lastName == '';
+    return !hasAlreadyBeenAdded(playerName) || lastName == '';
+  }
+
+  // Method to prove that a player has already been added.
+  bool hasAlreadyBeenAdded(String pName) {
+    bool added = false;
+    for (Player p in players) {
+      if (p.name == pName) {
+        added = true;
+      }
+    }
+    return added;
   }
 }
