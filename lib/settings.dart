@@ -30,7 +30,63 @@ class _SettingsState extends State<Settings> {
                 ],
               ),
             ),
-            Text('settings'),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(24, 0, 24, 23),
+              child: Column(children: [
+                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Stack(
+                    children: [
+                      Text(
+                        "SETTINGS",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 40.0,
+                            fontFamily: 'LuckiestGuy'),
+                      ),
+                      Text(
+                        "SETTINGS",
+                        style: TextStyle(
+                            fontSize: 40.0,
+                            fontFamily: 'LuckiestGuy',
+                            foreground: Paint()
+                              ..style = PaintingStyle.stroke
+                              ..strokeWidth = 2
+                              ..color = Colors.black),
+                      ),
+                    ],
+                  ),
+                ]),
+                SizedBox(
+                  height: 40,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Stack(
+                      children: [
+                        Text(
+                          "LANGUAGE",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 30.0,
+                              fontFamily: 'LuckiestGuy'),
+                        ),
+                        Text(
+                          "LANGUAGE",
+                          style: TextStyle(
+                              fontSize: 30.0,
+                              fontFamily: 'LuckiestGuy',
+                              foreground: Paint()
+                                ..style = PaintingStyle.stroke
+                                ..strokeWidth = 1
+                                ..color = Colors.black),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ]),
+            ),
           ]),
         ));
   }
