@@ -70,7 +70,7 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 SizedBox(
-                  height: 600.0,
+                  height: 560.0,
                   child: Container(
                     width: 500.0,
                     child: FlatButton(
