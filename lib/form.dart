@@ -201,13 +201,15 @@ class _FormGameState extends State<FormGame> {
                       ),
                     ),
                   ),
-                  OutlineButton(
-                    borderSide: BorderSide(
-                        color: Colors.white,
-                        style: BorderStyle.solid,
-                        width: 2),
-                    shape: new RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(30.0)),
+                  OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      side: BorderSide(
+                          color: Colors.white,
+                          style: BorderStyle.solid,
+                          width: 2),
+                      shape: new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(30.0)),
+                    ),
                     onPressed: () {
                       if (players.length > 2) {
                         print('Starting game...');

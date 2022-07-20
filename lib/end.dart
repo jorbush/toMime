@@ -130,11 +130,15 @@ class _EndState extends State<End> {
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 270, 0, 0),
-                child: OutlineButton(
-                  borderSide: BorderSide(
-                      color: Colors.white, style: BorderStyle.solid, width: 2),
-                  shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(30.0)),
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    side: BorderSide(
+                        color: Colors.white,
+                        style: BorderStyle.solid,
+                        width: 2),
+                    shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(30.0)),
+                  ),
                   onPressed: () {
                     Navigator.popUntil(context, ModalRoute.withName('/form'));
                   },
