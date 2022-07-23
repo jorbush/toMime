@@ -11,7 +11,7 @@ class FormGame extends StatefulWidget {
 class _FormGameState extends State<FormGame> {
   String playerName = "";
   List<Player> players = [];
-  String lastName = "";
+  String lastPlayerName = "";
   @override
   Widget build(BuildContext context) {
     var _controller = TextEditingController();
@@ -115,14 +115,7 @@ class _FormGameState extends State<FormGame> {
                         hintText: "Enter here a name",
                         suffixIcon: IconButton(
                           onPressed: () {
-                            if (canBeAdded()) {
-                              setState(() {
-                                print(
-                                    'lastName: $lastName, playerName: $playerName');
-                                addPlayer();
-                              });
-                              _controller.clear();
-                            }
+                            addNewPlayer(_controller);
                           },
                           icon: Icon(
                             Icons.check,
@@ -131,14 +124,7 @@ class _FormGameState extends State<FormGame> {
                         ),
                       ),
                       onSubmitted: (value) {
-                        if (canBeAdded()) {
-                          setState(() {
-                            print(
-                                'lastName: $lastName, playerName: $playerName');
-                            addPlayer();
-                          });
-                          _controller.clear();
-                        }
+                        addNewPlayer(_controller);
                       },
                     ),
                   ),
@@ -240,10 +226,21 @@ class _FormGameState extends State<FormGame> {
   }
 
   // Method for add a player to the game.
+  void addNewPlayer(controller) async {
+    if (canBeAdded()) {
+      setState(() {
+        print('lastPlayerName: $lastPlayerName, playerName: $playerName');
+        addPlayer();
+      });
+      controller.clear();
+    }
+  }
+
+  // Method for add a player to the game.
   void addPlayer() async {
     if (playerName != '' && players.length < 10) {
       players.add(Player(name: playerName, points: 0));
-      lastName = playerName;
+      lastPlayerName = playerName;
       print('Player $playerName added');
       Player p;
       int playerCount = 0;
@@ -264,7 +261,7 @@ class _FormGameState extends State<FormGame> {
     if (hasAlreadyBeenAdded(playerName)) {
       print('Player $playerName has been already added.');
     }
-    return !hasAlreadyBeenAdded(playerName) || lastName == '';
+    return !hasAlreadyBeenAdded(playerName) || lastPlayerName == '';
   }
 
   // Method to prove that a player has already been added.
