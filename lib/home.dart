@@ -29,7 +29,7 @@ class _HomeState extends State<Home> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
                       IconButton(
-                        color: Colors.grey[800],
+                        color: Colors.black,
                         iconSize: 36.0,
                         onPressed: () {
                           Navigator.pushNamed(context, '/settings');
