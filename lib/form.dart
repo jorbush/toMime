@@ -155,7 +155,7 @@ class _FormGameState extends State<FormGame> {
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 20),
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
                     child: SizedBox(
                       height: 370,
                       child: new ListView.builder(
