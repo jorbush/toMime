@@ -41,7 +41,7 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(36, 10, 26, 0),
+                  padding: const EdgeInsets.fromLTRB(36, 10, 36, 0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -73,7 +73,7 @@ class _HomeState extends State<Home> {
                   height: 560.0,
                   child: Container(
                     width: 500.0,
-                    child: FlatButton(
+                    child: TextButton(
                       onPressed: () {
                         Navigator.pushNamed(context, '/form');
                       },
