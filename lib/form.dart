@@ -15,7 +15,7 @@ class _FormGameState extends State<FormGame> {
   @override
   Widget build(BuildContext context) {
     var _controller = TextEditingController();
-    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     return Scaffold(
       backgroundColor: Color.fromRGBO(0, 180, 255, 1),
       body: Padding(

@@ -11,7 +11,7 @@ class _EndState extends State<End> {
   List<Player> players;
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     players = ModalRoute.of(context).settings.arguments;
     players.sort((a, b) => b.points.compareTo(a.points));
     print('${players[0].name}');
