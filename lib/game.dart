@@ -60,6 +60,12 @@ class _GameState extends State<Game> {
     );
   }
 
+  void restartTimer() {
+    _timer.cancel();
+    seconds = 30;
+    startTimer();
+  }
+
   @override
   void dispose() {
     _timer.cancel();
@@ -146,12 +152,14 @@ class _GameState extends State<Game> {
                       showListPlayersSolve();
                       //_startTimer();
                       setState(() {
+                        restartTimer();
                         updatePlayer();
                         print('Current player: ${screenName.toUpperCase()}');
                       });
                     } else if (orientation == CardSwipeOrientation.LEFT) {
                       print('Card swiped to the left.');
                       setState(() {
+                        restartTimer();
                         updatePlayer();
                         print('Current player: ${screenName.toUpperCase()}');
                         if (numCard == cardImages.length) {
