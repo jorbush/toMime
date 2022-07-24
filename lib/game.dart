@@ -152,19 +152,20 @@ class _GameState extends State<Game> {
                       showListPlayersSolve();
                       //_startTimer();
                       setState(() {
-                        restartTimer();
+                        _timer.cancel();
                         updatePlayer();
                         print('Current player: ${screenName.toUpperCase()}');
                       });
                     } else if (orientation == CardSwipeOrientation.LEFT) {
                       print('Card swiped to the left.');
                       setState(() {
-                        restartTimer();
                         updatePlayer();
                         print('Current player: ${screenName.toUpperCase()}');
                         if (numCard == cardImages.length) {
                           Navigator.pushNamed(context, '/end',
                               arguments: players);
+                        } else {
+                          restartTimer();
                         }
                       });
                     }
@@ -347,6 +348,8 @@ class _GameState extends State<Game> {
                 Navigator.pop(context);
                 if (numCard == cardImages.length) {
                   Navigator.pushNamed(context, '/end', arguments: players);
+                } else {
+                  restartTimer();
                 }
               },
               title: Text(
