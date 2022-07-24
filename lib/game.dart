@@ -24,13 +24,46 @@ class _GameState extends State<Game> {
     'assets/car.jpg',
     'assets/chainsaw.jpg'
   ];
-  int seconds = 60;
-  Timer timer;
+
+  @override
+  void initState() {
+    super.initState();
+    startTimer();
+  }
+
   @override
   void setState(fn) {
     if (mounted) {
       super.setState(fn);
     }
+  }
+
+  Timer _timer;
+  int seconds = 30;
+
+  void startTimer() {
+    const oneSec = const Duration(seconds: 1);
+    _timer = new Timer.periodic(
+      oneSec,
+      (Timer timer) {
+        if (seconds <= 0) {
+          setState(() {
+            timer.cancel();
+          });
+        } else {
+          setState(() {
+            seconds--;
+            print('Time left: ' + seconds.toString());
+          });
+        }
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
 
   @override
@@ -40,7 +73,7 @@ class _GameState extends State<Game> {
     players = ModalRoute.of(context).settings.arguments;
     screenName = players[indexPlayer].name;
     screenPoints = players[indexPlayer].points.toString();
-    _startTimer();
+    //startTimer();
     return Scaffold(
       backgroundColor: Color.fromRGBO(0, 180, 255, 1),
       body: SafeArea(
@@ -321,21 +354,6 @@ class _GameState extends State<Game> {
         },
       ),
     );
-  }
-
-  void _startTimer() {
-    seconds = 30;
-    timer = new Timer.periodic(Duration(seconds: seconds), (timer) {
-      setState(() {
-        if (seconds > 0) {
-          seconds--;
-          print('Seconds left: $seconds');
-        } else {
-          timer.cancel();
-          print('Timer finished');
-        }
-      });
-    });
   }
 }
 
