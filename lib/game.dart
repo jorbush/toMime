@@ -60,9 +60,9 @@ class _GameState extends State<Game> {
     );
   }
 
-  void restartTimer() {
+  void restartTimer(_seconds) {
     _timer.cancel();
-    seconds = 30;
+    seconds = _seconds;
     startTimer();
   }
 
@@ -165,7 +165,7 @@ class _GameState extends State<Game> {
                           Navigator.pushNamed(context, '/end',
                               arguments: players);
                         } else {
-                          restartTimer();
+                          restartTimer(30);
                         }
                       });
                     }
@@ -349,7 +349,7 @@ class _GameState extends State<Game> {
                 if (numCard == cardImages.length) {
                   Navigator.pushNamed(context, '/end', arguments: players);
                 } else {
-                  restartTimer();
+                  restartTimer(31);
                 }
               },
               title: Text(
