@@ -24,6 +24,7 @@ class _GameState extends State<Game> {
     'assets/car.jpg',
     'assets/chainsaw.jpg'
   ];
+  CardController controller;
 
   @override
   void initState() {
@@ -48,6 +49,7 @@ class _GameState extends State<Game> {
       (Timer timer) {
         if (seconds <= 0) {
           setState(() {
+            controller.triggerLeft();
             timer.cancel();
           });
         } else {
@@ -75,7 +77,6 @@ class _GameState extends State<Game> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-    CardController controller;
     players = ModalRoute.of(context).settings.arguments;
     screenName = players[indexPlayer].name;
     screenPoints = players[indexPlayer].points.toString();
@@ -408,7 +409,7 @@ class _TinderAnimationState extends State<TinderAnimation>
           cardBuilder: (context, index) => Card(
             child: Image.asset('${cardImages[index]}'),
           ),
-          totalNum: 5,
+          totalNum: cardImages.length,
           stackNum: 4,
           swipeEdge: 4.0,
           maxWidth: MediaQuery.of(context).size.width * 0.9,
