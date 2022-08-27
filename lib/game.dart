@@ -175,6 +175,13 @@ class _GameState extends State<Game> {
                       (CardSwipeOrientation orientation, int index) {
                     if (orientation == CardSwipeOrientation.RIGHT) {
                       print('Card swiped to the right.');
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: Colors.green,
+                          content: Text('CORRECT'),
+                          duration: Duration(milliseconds: 400),
+                        ),
+                      );
                       players[indexPlayer].points += 50;
                       showListPlayersSolve();
                       //_startTimer();
@@ -185,6 +192,13 @@ class _GameState extends State<Game> {
                       });
                     } else if (orientation == CardSwipeOrientation.LEFT) {
                       print('Card swiped to the left.');
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: Colors.red,
+                          content: Text('INCORRECT'),
+                          duration: Duration(milliseconds: 400),
+                        ),
+                      );
                       setState(() {
                         updatePlayer();
                         print('Current player: ${screenName.toUpperCase()}');
