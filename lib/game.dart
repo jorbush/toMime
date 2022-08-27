@@ -18,11 +18,13 @@ class _GameState extends State<Game> {
   List<Player> players;
   List<Player> playersSolve = [];
   List<String> cardImages = [
+    'assets/hammer.jpg',
+    'assets/plane.jpg',
+    'assets/chick.jpg',
     'assets/chicken.jpg',
     'assets/ball.jpg',
-    'assets/plane.jpg',
     'assets/car.jpg',
-    'assets/chainsaw.jpg'
+    'assets/chainsaw.jpg',
   ];
   CardController controller;
 
@@ -94,7 +96,7 @@ class _GameState extends State<Game> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.fromLTRB(30, 90, 30, 0),
+                padding: const EdgeInsets.fromLTRB(30, 35, 30, 25),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -123,19 +125,43 @@ class _GameState extends State<Game> {
                 ),
               ),
               Container(
-                height: 435,
+                height: MediaQuery.of(context).size.height - 360,
                 child: TinderSwapCard(
+                  //allowVerticalMovement: false,
                   orientation: AmassOrientation.BOTTOM,
                   cardBuilder: (context, index) => Card(
-                    child: Image.asset('${cardImages[index]}'),
+                    child: Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.all(10),
+                          child: Image.asset('${cardImages[index]}'),
+                          height: MediaQuery.of(context).size.height * 0.44,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Icon(
+                              Icons.close,
+                              size: 80,
+                              color: Colors.red,
+                            ),
+                            Icon(
+                              Icons.check,
+                              size: 80,
+                              color: Colors.green,
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
-                  totalNum: 5,
-                  stackNum: 4,
+                  totalNum: cardImages.length,
+                  stackNum: 3,
                   swipeEdge: 4.0,
-                  maxWidth: MediaQuery.of(context).size.width * 0.9,
-                  maxHeight: MediaQuery.of(context).size.width * 0.9,
-                  minWidth: MediaQuery.of(context).size.width * 0.8,
-                  minHeight: MediaQuery.of(context).size.width * 0.8,
+                  maxWidth: MediaQuery.of(context).size.width * 0.85,
+                  maxHeight: MediaQuery.of(context).size.height * 0.9,
+                  minWidth: MediaQuery.of(context).size.width * 0.65,
+                  minHeight: MediaQuery.of(context).size.height * 0.65,
                   cardController: controller = CardController(),
                   swipeUpdateCallback:
                       (DragUpdateDetails details, Alignment align) {
@@ -174,7 +200,7 @@ class _GameState extends State<Game> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 70, 0, 20),
+                padding: const EdgeInsets.fromLTRB(0, 40, 0, 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
