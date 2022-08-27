@@ -96,7 +96,7 @@ class _GameState extends State<Game> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.fromLTRB(30, 35, 30, 25),
+                padding: const EdgeInsets.fromLTRB(30, 30, 30, 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -175,13 +175,22 @@ class _GameState extends State<Game> {
                       (CardSwipeOrientation orientation, int index) {
                     if (orientation == CardSwipeOrientation.RIGHT) {
                       print('Card swiped to the right.');
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          backgroundColor: Colors.green,
-                          content: Text('CORRECT'),
-                          duration: Duration(milliseconds: 400),
+                      ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
+                        backgroundColor: Colors.green,
+                        content: Container(
+                          height: 20,
+                          child: Text(
+                            "CORRECT",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 30.0,
+                                fontFamily: 'LuckiestGuy'),
+                          ),
                         ),
-                      );
+                        duration: Duration(milliseconds: 1000),
+                        behavior: SnackBarBehavior.fixed,
+                      ));
                       players[indexPlayer].points += 50;
                       showListPlayersSolve();
                       //_startTimer();
@@ -192,13 +201,23 @@ class _GameState extends State<Game> {
                       });
                     } else if (orientation == CardSwipeOrientation.LEFT) {
                       print('Card swiped to the left.');
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          backgroundColor: Colors.red,
-                          content: Text('INCORRECT'),
-                          duration: Duration(milliseconds: 400),
+                      ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
+                        backgroundColor: Colors.red,
+                        content: Container(
+                          height: 20,
+                          child: Text(
+                            "INCORRECT",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 30.0,
+                                fontFamily: 'LuckiestGuy'),
+                          ),
                         ),
-                      );
+                        duration: Duration(milliseconds: 1000),
+                        behavior: SnackBarBehavior.fixed,
+                      ));
+
                       setState(() {
                         updatePlayer();
                         print('Current player: ${screenName.toUpperCase()}');
@@ -214,7 +233,7 @@ class _GameState extends State<Game> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 40, 0, 20),
+                padding: const EdgeInsets.fromLTRB(0, 25, 0, 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
