@@ -96,7 +96,7 @@ class _GameState extends State<Game> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.fromLTRB(30, 30, 30, 20),
+                padding: const EdgeInsets.fromLTRB(30, 25, 30, 15),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -233,7 +233,7 @@ class _GameState extends State<Game> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 25, 0, 20),
+                padding: const EdgeInsets.fromLTRB(0, 35, 0, 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
