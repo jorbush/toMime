@@ -21,11 +21,10 @@ class _GameState extends State<Game> {
     'assets/chick.jpeg',
     'assets/hammer.jpg',
     'assets/plane.jpg',
-    'assets/chick.jpg',
     'assets/chicken.jpg',
     'assets/ball.jpg',
     'assets/car.jpg',
-    'assets/chainsaw.jpg',
+    'assets/chainsaw.jpeg',
   ];
   CardController controller;
 
