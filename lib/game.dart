@@ -18,6 +18,7 @@ class _GameState extends State<Game> {
   List<Player> players;
   List<Player> playersSolve = [];
   List<String> cardImages = [
+    'assets/chick.jpeg',
     'assets/hammer.jpg',
     'assets/plane.jpg',
     'assets/chick.jpg',
