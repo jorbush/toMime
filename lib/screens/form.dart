@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:to_mime/widgets/cartoon_text.dart';
 
 import '../models/player.dart';
 
@@ -43,29 +44,7 @@ class _FormGameState extends State<FormGame> {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Stack(
-                        children: [
-                          Text(
-                            "NEW GAME",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 40.0,
-                                fontFamily: 'LuckiestGuy'),
-                          ),
-                          Text(
-                            "NEW GAME",
-                            style: TextStyle(
-                                fontSize: 40.0,
-                                fontFamily: 'LuckiestGuy',
-                                foreground: Paint()
-                                  ..style = PaintingStyle.stroke
-                                  ..strokeWidth = 2
-                                  ..color = Colors.black),
-                          ),
-                        ],
-                      ),
-                    ],
+                    children: [CartoonText(text: "NEW GAME", textSize: 40.0)],
                   ),
                   SizedBox(
                     height: 40,

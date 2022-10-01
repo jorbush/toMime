@@ -25,26 +25,48 @@ class CartoonText extends StatelessWidget {
         this.strokeWidth.toString() +
         ' ' +
         this.fontFamily.toString());
-    return Stack(
-      children: <Widget>[
-        Text(
-          this.text,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              fontSize: this.textSize,
-              fontFamily: this.fontFamily,
-              foreground: Paint()
-                ..style = PaintingStyle.stroke
-                ..strokeWidth = this.strokeWidth
-                ..color = Colors.black),
-        ),
-        Text(this.text,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: this.textSize,
-                fontFamily: this.fontFamily,
-                color: Colors.white))
-      ],
-    );
+    return this.fontFamily == 'LuckiestGuy'
+        ? Stack(
+            children: <Widget>[
+              Text(this.text,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: this.textSize,
+                      fontFamily: this.fontFamily,
+                      color: Colors.white)),
+              Text(
+                this.text,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: this.textSize,
+                    fontFamily: this.fontFamily,
+                    foreground: Paint()
+                      ..style = PaintingStyle.stroke
+                      ..strokeWidth = this.strokeWidth
+                      ..color = Colors.black),
+              ),
+            ],
+          )
+        : Stack(
+            children: <Widget>[
+              Text(
+                this.text,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: this.textSize,
+                    fontFamily: this.fontFamily,
+                    foreground: Paint()
+                      ..style = PaintingStyle.stroke
+                      ..strokeWidth = this.strokeWidth
+                      ..color = Colors.black),
+              ),
+              Text(this.text,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: this.textSize,
+                      fontFamily: this.fontFamily,
+                      color: Colors.white))
+            ],
+          );
   }
 }
