@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:to_mime/widgets/cartoon_text.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -45,27 +46,10 @@ class _HomeState extends State<Home> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Stack(
-                        children: <Widget>[
-                          Text(
-                            "TO MIME",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 40.0,
-                                fontFamily: 'Pacifico',
-                                foreground: Paint()
-                                  ..style = PaintingStyle.stroke
-                                  ..strokeWidth = 5
-                                  ..color = Colors.black),
-                          ),
-                          Text("TO MIME",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 40.0,
-                                  fontFamily: 'Pacifico',
-                                  color: Colors.white))
-                        ],
-                      )
+                      CartoonText(
+                        text: "TO MIME",
+                        textSize: 40.0,
+                      ),
                     ],
                   ),
                 ),
