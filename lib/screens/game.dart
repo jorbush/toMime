@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_tindercard/flutter_tindercard.dart';
-import 'package:to_mime/Player.dart';
+import 'package:to_mime/models/player.dart';
 
 class Game extends StatefulWidget {
   @override

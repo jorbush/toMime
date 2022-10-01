@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'Player.dart';
+import '../models/player.dart';
 
 class FormGame extends StatefulWidget {
   @override

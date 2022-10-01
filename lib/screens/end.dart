@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:to_mime/Player.dart';
+import 'package:to_mime/models/player.dart';
 
 class End extends StatefulWidget {
   @override

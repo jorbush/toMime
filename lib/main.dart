@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:to_mime/form.dart';
-import 'package:to_mime/home.dart';
-import 'package:to_mime/settings.dart';
+import 'package:to_mime/screens/form.dart';
+import 'package:to_mime/screens/home.dart';
+import 'package:to_mime/screens/settings.dart';
 
-import 'end.dart';
-import 'game.dart';
+import 'screens/end.dart';
+import 'screens/game.dart';
 
 void main() => runApp(
       MaterialApp(
