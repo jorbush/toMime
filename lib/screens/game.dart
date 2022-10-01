@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_tindercard/flutter_tindercard.dart';
 import 'package:to_mime/models/player.dart';
+import 'package:to_mime/widgets/cartoon_text.dart';
 
 class Game extends StatefulWidget {
   @override
@@ -100,26 +101,9 @@ class _GameState extends State<Game> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Stack(
-                      children: [
-                        Text(
-                          "$seconds",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 70.0,
-                              fontFamily: 'LuckiestGuy'),
-                        ),
-                        Text(
-                          "$seconds",
-                          style: TextStyle(
-                              fontSize: 70.0,
-                              fontFamily: 'LuckiestGuy',
-                              foreground: Paint()
-                                ..style = PaintingStyle.stroke
-                                ..strokeWidth = 2
-                                ..color = Colors.black),
-                        ),
-                      ],
+                    CartoonText(
+                      text: "$seconds",
+                      textSize: 70.0,
                     ),
                   ],
                 ),
@@ -237,50 +221,10 @@ class _GameState extends State<Game> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Stack(
-                      children: [
-                        Text(
-                          "PLAYER: ",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 30.0,
-                              fontFamily: 'LuckiestGuy'),
-                        ),
-                        Text(
-                          "PLAYER: ",
-                          style: TextStyle(
-                              fontSize: 30.0,
-                              fontFamily: 'LuckiestGuy',
-                              foreground: Paint()
-                                ..style = PaintingStyle.stroke
-                                ..strokeWidth = 2
-                                ..color = Colors.black),
-                        ),
-                      ],
-                    ),
+                    CartoonText(text: "PLAYER: ", textSize: 30.0),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-                      child: Stack(
-                        children: [
-                          Text(
-                            screenName,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 30.0,
-                                fontFamily: 'LuckiestGuy'),
-                          ),
-                          Text(
-                            screenName,
-                            style: TextStyle(
-                                fontSize: 30.0,
-                                fontFamily: 'LuckiestGuy',
-                                foreground: Paint()
-                                  ..style = PaintingStyle.stroke
-                                  ..strokeWidth = 2
-                                  ..color = Colors.black),
-                          ),
-                        ],
-                      ),
+                      child: CartoonText(text: screenName, textSize: 30.0),
                     ),
                   ],
                 ),
@@ -288,51 +232,10 @@ class _GameState extends State<Game> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Stack(
-                    children: [
-                      Text(
-                        "POINTS: ",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 30.0,
-                            fontFamily: 'LuckiestGuy'),
-                      ),
-                      Text(
-                        "POINTS: ",
-                        style: TextStyle(
-                            fontSize: 30.0,
-                            fontFamily: 'LuckiestGuy',
-                            foreground: Paint()
-                              ..style = PaintingStyle.stroke
-                              ..strokeWidth = 2
-                              ..color = Colors.black),
-                      ),
-                    ],
-                  ),
+                  CartoonText(text: "POINTS: ", textSize: 30.0),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                    child: Stack(
-                      children: [
-                        Text(
-                          screenPoints,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 30.0,
-                              fontFamily: 'LuckiestGuy'),
-                        ),
-                        Text(
-                          screenPoints,
-                          style: TextStyle(
-                              fontSize: 30.0,
-                              fontFamily: 'LuckiestGuy',
-                              foreground: Paint()
-                                ..style = PaintingStyle.stroke
-                                ..strokeWidth = 2
-                                ..color = Colors.black),
-                        ),
-                      ],
-                    ),
-                  ),
+                      padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                      child: CartoonText(text: screenPoints, textSize: 30.0)),
                 ],
               ),
             ],
@@ -423,66 +326,6 @@ class _GameState extends State<Game> {
             ),
           );
         },
-      ),
-    );
-  }
-}
-
-class TinderAnimation extends StatefulWidget {
-  @override
-  _TinderAnimationState createState() => _TinderAnimationState();
-}
-
-class _TinderAnimationState extends State<TinderAnimation>
-    with TickerProviderStateMixin {
-  List<String> cardImages = [
-    'assets/chicken.jpg',
-    'assets/ball.jpg',
-    'assets/plane.jpg',
-    'assets/car.jpg',
-    'assets/chainsaw.jpg'
-  ];
-  @override
-  Widget build(BuildContext context) {
-    CardController controller;
-    return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        title: Text(
-          'Tinder',
-          style: TextStyle(
-              fontSize: 20.0,
-              fontFamily: 'LuckiestGuy',
-              foreground: Paint()
-                ..style = PaintingStyle.stroke
-                ..strokeWidth = 2
-                ..color = Colors.black),
-        ),
-      ),
-      body: Container(
-        height: MediaQuery.of(context).size.height * 0.7,
-        child: TinderSwapCard(
-          orientation: AmassOrientation.BOTTOM,
-          cardBuilder: (context, index) => Card(
-            child: Image.asset('${cardImages[index]}'),
-          ),
-          totalNum: cardImages.length,
-          stackNum: 4,
-          swipeEdge: 4.0,
-          maxWidth: MediaQuery.of(context).size.width * 0.9,
-          maxHeight: MediaQuery.of(context).size.width * 0.9,
-          minWidth: MediaQuery.of(context).size.width * 0.9,
-          minHeight: MediaQuery.of(context).size.width * 0.9,
-          cardController: controller = CardController(),
-          swipeUpdateCallback: (DragUpdateDetails details, Alignment align) {
-            if (align.x < 0) {
-            } else if (align.x < 0) {}
-          },
-          swipeCompleteCallback:
-              (CardSwipeOrientation orientation, int index) {},
-        ),
       ),
     );
   }

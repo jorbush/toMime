@@ -8,23 +8,24 @@ class CartoonText extends StatelessWidget {
   final double textSize;
   final double strokeWidth;
   final String fontFamily;
+  final Color color;
 
-  CartoonText({
-    @required this.text,
-    @required this.textSize,
-    this.strokeWidth = 2,
-    this.fontFamily = 'LuckiestGuy',
-  });
+  CartoonText(
+      {@required this.text,
+      @required this.textSize,
+      this.strokeWidth = 2,
+      this.fontFamily = 'LuckiestGuy',
+      this.color = Colors.white});
 
   @override
   Widget build(BuildContext context) {
-    print(this.text.toString() +
-        ' ' +
-        this.textSize.toString() +
-        ' ' +
-        this.strokeWidth.toString() +
-        ' ' +
-        this.fontFamily.toString());
+    // print(this.text.toString() +
+    //     ' ' +
+    //     this.textSize.toString() +
+    //     ' ' +
+    //     this.strokeWidth.toString() +
+    //     ' ' +
+    //     this.fontFamily.toString());
     return this.fontFamily == 'LuckiestGuy'
         ? Stack(
             children: <Widget>[
@@ -33,7 +34,7 @@ class CartoonText extends StatelessWidget {
                   style: TextStyle(
                       fontSize: this.textSize,
                       fontFamily: this.fontFamily,
-                      color: Colors.white)),
+                      color: this.color)),
               Text(
                 this.text,
                 textAlign: TextAlign.center,

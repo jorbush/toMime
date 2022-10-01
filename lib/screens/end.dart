@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:to_mime/models/player.dart';
+import 'package:to_mime/widgets/cartoon_text.dart';
 
 class End extends StatefulWidget {
   @override
@@ -31,103 +32,35 @@ class _EndState extends State<End> {
                 padding: const EdgeInsets.fromLTRB(30, 70, 30, 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Stack(
-                      children: [
-                        Text(
-                          "RESULTS",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 50.0,
-                              fontFamily: 'LuckiestGuy'),
-                        ),
-                        Text(
-                          "RESULTS",
-                          style: TextStyle(
-                              fontSize: 50.0,
-                              fontFamily: 'LuckiestGuy',
-                              foreground: Paint()
-                                ..style = PaintingStyle.stroke
-                                ..strokeWidth = 2
-                                ..color = Colors.black),
-                        ),
-                      ],
-                    ),
-                  ],
+                  children: [CartoonText(text: "RESULTS", textSize: 50.0)],
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(30, 70, 30, 20),
-                child: Stack(
-                  children: [
-                    Text(
-                      "1. ${players[0].name.toUpperCase()} ${players[0].points}",
-                      style: TextStyle(
-                          color: Color.fromRGBO(255, 215, 0, 1),
-                          fontSize: 45.0,
-                          fontFamily: 'LuckiestGuy'),
-                    ),
-                    Text(
-                      "1. ${players[0].name.toUpperCase()} ${players[0].points}",
-                      style: TextStyle(
-                          fontSize: 45.0,
-                          fontFamily: 'LuckiestGuy',
-                          foreground: Paint()
-                            ..style = PaintingStyle.stroke
-                            ..strokeWidth = 2
-                            ..color = Colors.black),
-                    ),
-                  ],
-                ),
+                child: CartoonText(
+                    text:
+                        "1. ${players[0].name.toUpperCase()} ${players[0].points}",
+                    textSize: 45.0,
+                    color: Color.fromRGBO(255, 215, 0, 1)),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Stack(
-                  children: [
-                    Text(
-                      "2. ${players[1].name.toUpperCase()} ${players[1].points}",
-                      style: TextStyle(
-                          color: Color.fromRGBO(192, 192, 192, 1),
-                          fontSize: 37.0,
-                          fontFamily: 'LuckiestGuy'),
-                    ),
-                    Text(
-                      "2. ${players[1].name.toUpperCase()} ${players[1].points}",
-                      style: TextStyle(
-                          fontSize: 37.0,
-                          fontFamily: 'LuckiestGuy',
-                          foreground: Paint()
-                            ..style = PaintingStyle.stroke
-                            ..strokeWidth = 1
-                            ..color = Colors.black),
-                    ),
-                  ],
-                ),
-              ),
+                  padding: const EdgeInsets.all(8.0),
+                  child: CartoonText(
+                    text:
+                        "2. ${players[1].name.toUpperCase()} ${players[1].points}",
+                    textSize: 37.0,
+                    strokeWidth: 1,
+                    color: Color.fromRGBO(192, 192, 192, 1),
+                  )),
               Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Stack(
-                  children: [
-                    Text(
-                      "3. ${players[2].name.toUpperCase()} ${players[2].points}",
-                      style: TextStyle(
-                          color: Color.fromRGBO(205, 127, 50, 1),
-                          fontSize: 30.0,
-                          fontFamily: 'LuckiestGuy'),
-                    ),
-                    Text(
-                      "3. ${players[2].name.toUpperCase()} ${players[2].points}",
-                      style: TextStyle(
-                          fontSize: 30.0,
-                          fontFamily: 'LuckiestGuy',
-                          foreground: Paint()
-                            ..style = PaintingStyle.stroke
-                            ..strokeWidth = 1
-                            ..color = Colors.black),
-                    ),
-                  ],
-                ),
-              ),
+                  padding: const EdgeInsets.all(8.0),
+                  child: CartoonText(
+                    text:
+                        "3. ${players[2].name.toUpperCase()} ${players[2].points}",
+                    textSize: 30,
+                    strokeWidth: 1,
+                    color: Color.fromRGBO(205, 127, 50, 1),
+                  )),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 270, 0, 0),
                 child: OutlinedButton(
