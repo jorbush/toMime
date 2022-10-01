@@ -49,12 +49,14 @@ class _HomeState extends State<Home> {
                       CartoonText(
                         text: "TO MIME",
                         textSize: 40.0,
+                        fontFamily: 'Pacifico',
+                        strokeWidth: 5,
                       ),
                     ],
                   ),
                 ),
                 SizedBox(
-                  height: 560.0,
+                  height: 60.0,
                   child: Container(
                     width: 500.0,
                     child: TextButton(
@@ -79,29 +81,34 @@ class _HomeState extends State<Home> {
                       size: 40.0,
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Stack(
-                        children: <Widget>[
-                          Text(
-                            "TAP TO START",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 29.0,
-                                fontFamily: 'LuckiestGuy'),
-                          ),
-                          Text(
-                            "TAP TO START",
-                            style: TextStyle(
-                                fontSize: 29.0,
-                                fontFamily: 'LuckiestGuy',
-                                foreground: Paint()
-                                  ..style = PaintingStyle.stroke
-                                  ..strokeWidth = 2
-                                  ..color = Colors.black),
-                          ),
-                        ],
-                      ),
-                    ),
+                        padding: const EdgeInsets.all(8.0),
+                        child: CartoonText(
+                          text: "TAP TO START",
+                          textSize: 29.0,
+                          strokeWidth: 2,
+                        )
+                        //     Stack(
+                        //   children: <Widget>[
+                        //     Text(
+                        //       "TAP TO START",
+                        //       style: TextStyle(
+                        //           color: Colors.white,
+                        //           fontSize: 29.0,
+                        //           fontFamily: 'LuckiestGuy'),
+                        //     ),
+                        //     Text(
+                        //       "TAP TO START",
+                        //       style: TextStyle(
+                        //           fontSize: 29.0,
+                        //           fontFamily: 'LuckiestGuy',
+                        //           foreground: Paint()
+                        //             ..style = PaintingStyle.stroke
+                        //             ..strokeWidth = 2
+                        //             ..color = Colors.black),
+                        //     ),
+                        //   ],
+                        // ),
+                        ),
                     Icon(
                       Icons.remove,
                       color: Colors.white,
