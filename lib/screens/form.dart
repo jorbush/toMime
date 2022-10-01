@@ -52,27 +52,11 @@ class _FormGameState extends State<FormGame> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Stack(
-                        children: [
-                          Text(
-                            "ENTER THE PLAYER'S NAME:",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 22.0,
-                                fontFamily: 'LuckiestGuy'),
-                          ),
-                          Text(
-                            "ENTER THE PLAYER'S NAME:",
-                            style: TextStyle(
-                                fontSize: 22.0,
-                                fontFamily: 'LuckiestGuy',
-                                foreground: Paint()
-                                  ..style = PaintingStyle.stroke
-                                  ..strokeWidth = 1
-                                  ..color = Colors.black),
-                          ),
-                        ],
-                      ),
+                      CartoonText(
+                        text: "ENTER THE PLAYER'S NAME:",
+                        textSize: 22.0,
+                        strokeWidth: 1,
+                      )
                     ],
                   ),
                   Padding(
@@ -109,29 +93,7 @@ class _FormGameState extends State<FormGame> {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Stack(
-                        children: [
-                          Text(
-                            "PLAYERS",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 28.0,
-                                fontFamily: 'LuckiestGuy'),
-                          ),
-                          Text(
-                            "PLAYERS",
-                            style: TextStyle(
-                                fontSize: 28.0,
-                                fontFamily: 'LuckiestGuy',
-                                foreground: Paint()
-                                  ..style = PaintingStyle.stroke
-                                  ..strokeWidth = 2
-                                  ..color = Colors.black),
-                          ),
-                        ],
-                      ),
-                    ],
+                    children: [CartoonText(text: "PLAYERS", textSize: 28.0)],
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
