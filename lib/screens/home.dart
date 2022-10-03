@@ -10,7 +10,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    final mediaQuery = MediaQuery.of(context);
     return Scaffold(
       backgroundColor: Color.fromRGBO(0, 180, 255, 1),
       body: AnnotatedRegion<SystemUiOverlayStyle>(
@@ -56,7 +56,7 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 SizedBox(
-                  height: 60.0,
+                  height: mediaQuery.size.height * 0.65,
                   child: Container(
                     width: 500.0,
                     child: TextButton(
