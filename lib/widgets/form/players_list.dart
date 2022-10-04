@@ -20,7 +20,7 @@ class PlayersList extends StatelessWidget {
       padding:
           EdgeInsets.fromLTRB(0, heightScreen * 0.02, 0, heightScreen * 0.08),
       child: SizedBox(
-        height: heightScreen * 0.40,
+        height: heightScreen * 0.30,
         child: ListView.builder(
           itemCount: players.length,
           itemBuilder: (context, index) {

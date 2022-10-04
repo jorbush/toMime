@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:to_mime/widgets/form/game_modes.dart';
 
 import '../form/players_list.dart';
 import '../cartoon_text.dart';
@@ -17,6 +18,8 @@ class _NewGameState extends State<NewGame> {
   List<Player> _players = [];
   String _lastPlayerName = "";
   final int _maxPlayers = 10;
+  bool _gestures = true;
+  bool _sounds = true;
 
   // Method for add a player to the game.
   void _addNewPlayer(controller) async {
@@ -76,6 +79,20 @@ class _NewGameState extends State<NewGame> {
         print('Player $_playerName has been removed.');
       });
     }
+  }
+
+  void _setGestures() {
+    setState(() {
+      _gestures = !_gestures;
+      print("Gestures -> $_gestures");
+    });
+  }
+
+  void _setSounds() {
+    setState(() {
+      _sounds = !_sounds;
+      print("Sounds -> $_sounds");
+    });
   }
 
   @override
@@ -185,6 +202,11 @@ class _NewGameState extends State<NewGame> {
                   deletePlayer: _deleteNewPlayer,
                   heightScreen: mediaQuery.size.height,
                 ),
+                GameModes(
+                    gestures: _gestures,
+                    sounds: _sounds,
+                    setGestures: _setGestures,
+                    setSounds: _setSounds),
                 OutlinedButton(
                   style: OutlinedButton.styleFrom(
                     side: BorderSide(
