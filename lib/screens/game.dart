@@ -237,8 +237,22 @@ class _GameState extends State<Game> {
                             child: Image.asset('${_cardImages[index]}'),
                             height: MediaQuery.of(context).size.height * 0.44,
                           ),
-                          Icon(
-                            _gameMode,
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(
+                                0,
+                                MediaQuery.of(context).size.width * 0.025,
+                                MediaQuery.of(context).size.width * 0.025,
+                                0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Icon(
+                                  _gameMode,
+                                  size:
+                                      MediaQuery.of(context).size.width * 0.15,
+                                ),
+                              ],
+                            ),
                           ),
                         ]),
                         Row(
