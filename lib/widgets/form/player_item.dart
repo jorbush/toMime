@@ -25,14 +25,30 @@ class _PlayerItemState extends State<PlayerItem> {
           onTap: () {
             print('You have pressed the player ${widget.player.name}');
           },
-          title: Text(
-            widget.player.name.toUpperCase(),
-            style:
-                TextStyle(fontFamily: 'LuckiestGuy', color: Colors.grey[800]),
-          ),
           leading: CircleAvatar(
             backgroundImage: AssetImage('assets/blank_profile.png'),
           ),
+          title: Text(
+            widget.player.name.toUpperCase(),
+            style: TextStyle(
+              fontFamily: 'LuckiestGuy',
+              color: Colors.grey[800],
+            ),
+          ),
+          trailing: MediaQuery.of(context).size.width > 460
+              ? TextButton.icon(
+                  icon: const Icon(Icons.delete),
+                  label: const Text('Delete'),
+                  style: TextButton.styleFrom(
+                    foregroundColor: Theme.of(context).errorColor,
+                  ),
+                  onPressed: () => widget.deletePlayer(widget.player.name),
+                )
+              : IconButton(
+                  icon: const Icon(Icons.delete),
+                  color: Theme.of(context).errorColor,
+                  onPressed: () => widget.deletePlayer(widget.player.name),
+                ),
         ),
       ),
     );
