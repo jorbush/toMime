@@ -13,27 +13,27 @@ class NewGame extends StatefulWidget {
 }
 
 class _NewGameState extends State<NewGame> {
-  String playerName = "";
+  String _playerName = "";
   List<Player> _players = [];
-  String lastPlayerName = "";
+  String _lastPlayerName = "";
 
   // Method for add a player to the game.
-  void addNewPlayer(controller) async {
-    if (canBeAdded()) {
+  void _addNewPlayer(controller) async {
+    if (_canBeAdded()) {
       setState(() {
-        print('lastPlayerName: $lastPlayerName, playerName: $playerName');
-        addPlayer();
+        print('lastPlayerName: $_lastPlayerName, playerName: $_playerName');
+        _addPlayer();
       });
       controller.clear();
     }
   }
 
   // Method for add a player to the game.
-  void addPlayer() async {
-    if (playerName != '' && _players.length < 10) {
-      _players.add(Player(name: playerName, points: 0));
-      lastPlayerName = playerName;
-      print('Player $playerName added');
+  void _addPlayer() async {
+    if (_playerName != '' && _players.length < 10) {
+      _players.add(Player(name: _playerName, points: 0));
+      _lastPlayerName = _playerName;
+      print('Player $_playerName added');
       Player p;
       int playerCount = 0;
       print('PLAYERS:');
@@ -49,15 +49,15 @@ class _NewGameState extends State<NewGame> {
   }
 
   // Method to prove that a player can be added to the game.
-  bool canBeAdded() {
-    if (hasAlreadyBeenAdded(playerName)) {
-      print('Player $playerName has been already added.');
+  bool _canBeAdded() {
+    if (_hasAlreadyBeenAdded(_playerName)) {
+      print('Player $_playerName has been already added.');
     }
-    return !hasAlreadyBeenAdded(playerName) || lastPlayerName == '';
+    return !_hasAlreadyBeenAdded(_playerName) || _lastPlayerName == '';
   }
 
   // Method to prove that a player has already been added.
-  bool hasAlreadyBeenAdded(String pName) {
+  bool _hasAlreadyBeenAdded(String pName) {
     bool added = false;
     for (Player p in _players) {
       if (p.name == pName) {
@@ -68,11 +68,11 @@ class _NewGameState extends State<NewGame> {
   }
 
   // Method to delete a player of the new game.
-  void deleteNewPlayer(String namePlayer) async {
-    if (hasAlreadyBeenAdded(namePlayer)) {
+  void _deleteNewPlayer(String namePlayer) async {
+    if (_hasAlreadyBeenAdded(namePlayer)) {
       setState(() {
         _players.removeWhere((player) => player.name == namePlayer);
-        print('Player $playerName has been removed.');
+        print('Player $_playerName has been removed.');
       });
     }
   }
@@ -132,7 +132,7 @@ class _NewGameState extends State<NewGame> {
                     controller: _controller,
                     keyboardType: TextInputType.name,
                     onChanged: (name) {
-                      playerName = name;
+                      _playerName = name;
                     },
                     style: TextStyle(
                         color: Colors.white,
@@ -145,7 +145,7 @@ class _NewGameState extends State<NewGame> {
                       hintText: "Enter here a name",
                       suffixIcon: IconButton(
                         onPressed: () {
-                          addNewPlayer(_controller);
+                          _addNewPlayer(_controller);
                         },
                         icon: Icon(
                           Icons.check,
@@ -154,7 +154,7 @@ class _NewGameState extends State<NewGame> {
                       ),
                     ),
                     onSubmitted: (value) {
-                      addNewPlayer(_controller);
+                      _addNewPlayer(_controller);
                     },
                   ),
                 ),
@@ -166,7 +166,7 @@ class _NewGameState extends State<NewGame> {
                 ),
                 PlayersList(
                   players: _players,
-                  deletePlayer: deleteNewPlayer,
+                  deletePlayer: _deleteNewPlayer,
                   heightScreen: mediaQuery.size.height,
                 ),
                 OutlinedButton(
