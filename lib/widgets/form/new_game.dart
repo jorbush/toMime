@@ -16,6 +16,7 @@ class _NewGameState extends State<NewGame> {
   String _playerName = "";
   List<Player> _players = [];
   String _lastPlayerName = "";
+  final int _maxPlayers = 10;
 
   // Method for add a player to the game.
   void _addNewPlayer(controller) async {
@@ -30,7 +31,7 @@ class _NewGameState extends State<NewGame> {
 
   // Method for add a player to the game.
   void _addPlayer() async {
-    if (_playerName != '' && _players.length < 10) {
+    if (_playerName != '' && _players.length < _maxPlayers) {
       _players.add(Player(name: _playerName, points: 0));
       _lastPlayerName = _playerName;
       print('Player $_playerName added');
@@ -41,7 +42,7 @@ class _NewGameState extends State<NewGame> {
         playerCount++;
         print('   Player $playerCount: ${p.name}');
       }
-    } else if (_players.length >= 10) {
+    } else if (_players.length >= _maxPlayers) {
       print("Too many players.");
     } else {
       print("TextField is empty");
@@ -158,12 +159,27 @@ class _NewGameState extends State<NewGame> {
                     },
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CartoonText(text: "PLAYERS", textSize: 28.0),
-                  ],
-                ),
+                Stack(children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CartoonText(
+                        text: "PLAYERS ",
+                        textSize: 28.0,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      CartoonText(
+                        text: "${_players.length}/$_maxPlayers",
+                        textSize: 28.0,
+                        strokeWidth: 1.5,
+                      ),
+                    ],
+                  ),
+                ]),
                 PlayersList(
                   players: _players,
                   deletePlayer: _deleteNewPlayer,
