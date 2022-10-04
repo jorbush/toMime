@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import './cartoon_text.dart';
 import '../models/player.dart';
 
 class ResultItem extends StatelessWidget {
@@ -40,26 +41,24 @@ class ResultItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
     return Card(
       elevation: 0,
       color: Colors.transparent,
       margin: EdgeInsets.symmetric(
         vertical: 8,
-        horizontal: 5,
+        horizontal: mediaQuery.size.width * 0.075,
       ),
       child: ListTile(
-        leading: CircleAvatar(
-          backgroundColor: getTextColor(position),
-          radius: 30,
-          child: Padding(
-            padding: const EdgeInsets.all(6),
-            child: FittedBox(
-              child: Text('\$${player.points}'),
-            ),
-          ),
+        title: CartoonText(
+          text: "${position}. ${player.name}",
+          textSize: 35.0,
+          color: getTextColor(position),
         ),
-        title: Text(
-          player.name,
+        trailing: CartoonText(
+          text: player.points.toString(),
+          textSize: 35.0,
+          color: getTextColor(position),
         ),
       ),
     );

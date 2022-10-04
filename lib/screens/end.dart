@@ -33,10 +33,10 @@ class End extends StatelessWidget {
                     children: [CartoonText(text: "RESULTS", textSize: 50.0)],
                   ),
                 ),
-                ResultsList(players, mediaQuery.size.height * 0.37),
+                ResultsList(players, mediaQuery.size.height * 0.47),
                 Padding(
                   padding: EdgeInsets.fromLTRB(
-                      0, mediaQuery.size.height * 0.17, 0, 0),
+                      0, mediaQuery.size.height * 0.1, 0, 0),
                   child: OutlinedButton(
                     style: OutlinedButton.styleFrom(
                       side: BorderSide(
