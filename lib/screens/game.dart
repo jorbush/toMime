@@ -28,11 +28,13 @@ class _GameState extends State<Game> {
     'assets/chainsaw.jpeg',
   ];
   CardController _controller;
+  Timer _timer;
+  int seconds = 30;
 
   @override
   void initState() {
     super.initState();
-    startTimer();
+    _startTimer();
   }
 
   @override
@@ -42,10 +44,7 @@ class _GameState extends State<Game> {
     }
   }
 
-  Timer _timer;
-  int seconds = 30;
-
-  void startTimer() {
+  void _startTimer() {
     const oneSec = const Duration(seconds: 1);
     _timer = new Timer.periodic(
       oneSec,
@@ -68,7 +67,7 @@ class _GameState extends State<Game> {
   void restartTimer(_seconds) {
     _timer.cancel();
     seconds = _seconds;
-    startTimer();
+    _startTimer();
   }
 
   @override
@@ -77,7 +76,7 @@ class _GameState extends State<Game> {
     super.dispose();
   }
 
-  void updatePlayersSolve() {
+  void _updatePlayersSolve() {
     _playersSolve.clear();
     for (int i = 0; i < _players.length; i++) {
       if (_players[i].name != _screenName) {
@@ -89,7 +88,7 @@ class _GameState extends State<Game> {
   }
 
   void showListPlayersSolve() {
-    updatePlayersSolve();
+    _updatePlayersSolve();
     print('$_playersSolve');
     showDialog(
         context: context,
@@ -102,7 +101,7 @@ class _GameState extends State<Game> {
               style:
                   TextStyle(fontFamily: 'LuckiestGuy', color: Colors.grey[900]),
             ),
-            content: setupAlertDialoadContainer(),
+            content: _setupAlertDialoadContainer(),
           );
         });
   }
@@ -117,7 +116,7 @@ class _GameState extends State<Game> {
     _numCard++;
   }
 
-  void updatePlayerPointsByName(String name) {
+  void _updatePlayerPointsByName(String name) {
     for (int i = 0; i < _players.length; i++) {
       if (_players[i].name == _screenName) {
         _players[i].points += 100;
@@ -127,7 +126,7 @@ class _GameState extends State<Game> {
     }
   }
 
-  Widget setupAlertDialoadContainer() {
+  Widget _setupAlertDialoadContainer() {
     return Container(
       height: 300.0, // Change as per your requirement
       width: 300.0, // Change as per your requirement
@@ -139,7 +138,7 @@ class _GameState extends State<Game> {
               onTap: () {
                 print(
                     'You have pressed the player ${_playersSolve[index].name}');
-                updatePlayerPointsByName(_playersSolve[index].name);
+                _updatePlayerPointsByName(_playersSolve[index].name);
                 _playersSolve = [];
                 Navigator.pop(context);
                 if (_numCard == _cardImages.length) {
