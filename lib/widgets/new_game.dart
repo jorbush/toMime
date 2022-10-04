@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:to_mime/widgets/player_item.dart';
+import 'package:to_mime/widgets/players_list.dart';
 import './cartoon_text.dart';
 import '../models/player.dart';
 
@@ -12,7 +14,7 @@ class NewGame extends StatefulWidget {
 
 class _NewGameState extends State<NewGame> {
   String playerName = "";
-  List<Player> players = [];
+  List<Player> _players = [];
   String lastPlayerName = "";
 
   // Method for add a player to the game.
@@ -28,18 +30,18 @@ class _NewGameState extends State<NewGame> {
 
   // Method for add a player to the game.
   void addPlayer() async {
-    if (playerName != '' && players.length < 10) {
-      players.add(Player(name: playerName, points: 0));
+    if (playerName != '' && _players.length < 10) {
+      _players.add(Player(name: playerName, points: 0));
       lastPlayerName = playerName;
       print('Player $playerName added');
       Player p;
       int playerCount = 0;
       print('PLAYERS:');
-      for (p in players) {
+      for (p in _players) {
         playerCount++;
         print('   Player $playerCount: ${p.name}');
       }
-    } else if (players.length >= 10) {
+    } else if (_players.length >= 10) {
       print("Too many players.");
     } else {
       print("TextField is empty");
@@ -57,12 +59,22 @@ class _NewGameState extends State<NewGame> {
   // Method to prove that a player has already been added.
   bool hasAlreadyBeenAdded(String pName) {
     bool added = false;
-    for (Player p in players) {
+    for (Player p in _players) {
       if (p.name == pName) {
         added = true;
       }
     }
     return added;
+  }
+
+  // Method to delete a player of the new game.
+  void deleteNewPlayer(String namePlayer) async {
+    if (hasAlreadyBeenAdded(namePlayer)) {
+      setState(() {
+        _players.removeWhere((player) => player.name == namePlayer);
+        print('Player $playerName has been removed.');
+      });
+    }
   }
 
   @override
@@ -148,41 +160,14 @@ class _NewGameState extends State<NewGame> {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [CartoonText(text: "PLAYERS", textSize: 28.0)],
+                  children: [
+                    CartoonText(text: "PLAYERS", textSize: 28.0),
+                  ],
                 ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0, mediaQuery.size.height * 0.02,
-                      0, mediaQuery.size.height * 0.08),
-                  child: SizedBox(
-                    height: mediaQuery.size.height * 0.40,
-                    child: ListView.builder(
-                      itemCount: players.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 1.0, horizontal: 4.0),
-                          child: Card(
-                            child: ListTile(
-                              onTap: () {
-                                print(
-                                    'You have pressed the player ${players[index].name}');
-                              },
-                              title: Text(
-                                players[index].name.toUpperCase(),
-                                style: TextStyle(
-                                    fontFamily: 'LuckiestGuy',
-                                    color: Colors.grey[800]),
-                              ),
-                              leading: CircleAvatar(
-                                backgroundImage:
-                                    AssetImage('assets/blank_profile.png'),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
+                PlayersList(
+                  players: _players,
+                  deletePlayer: deleteNewPlayer,
+                  heightScreen: mediaQuery.size.height,
                 ),
                 OutlinedButton(
                   style: OutlinedButton.styleFrom(
@@ -191,12 +176,14 @@ class _NewGameState extends State<NewGame> {
                         style: BorderStyle.solid,
                         width: 2),
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0)),
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
                   ),
                   onPressed: () {
-                    if (players.length > 2) {
+                    if (_players.length > 2) {
                       print('Starting game...');
-                      Navigator.pushNamed(context, '/game', arguments: players);
+                      Navigator.pushNamed(context, '/game',
+                          arguments: _players);
                     } else {
                       print('Not enought players to start the game.');
                     }
