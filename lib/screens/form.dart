@@ -103,7 +103,7 @@ class _FormGameState extends State<FormGame> {
                   ]),
                   Padding(
                       padding: EdgeInsets.fromLTRB(
-                          24, 0, 24, mediaQuery.size.height * 0.04),
+                          24, 0, 24, mediaQuery.size.height * 0.01),
                       child: Column(children: [
                         SizedBox(
                           height: mediaQuery.size.height * 0.03,
@@ -165,7 +165,7 @@ class _FormGameState extends State<FormGame> {
                               0,
                               mediaQuery.size.height * 0.02,
                               0,
-                              mediaQuery.size.height * 0.04),
+                              mediaQuery.size.height * 0.08),
                           child: SizedBox(
                             height: mediaQuery.size.height * 0.40,
                             child: ListView.builder(
