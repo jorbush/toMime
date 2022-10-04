@@ -72,8 +72,7 @@ class _FormGameState extends State<FormGame> {
     return Scaffold(
       backgroundColor: Color.fromRGBO(0, 180, 255, 1),
       body: Padding(
-        padding: EdgeInsets.fromLTRB(16, mediaQuery.size.height * 0.07, 16,
-            mediaQuery.size.height * 0.04),
+        padding: EdgeInsets.fromLTRB(16, mediaQuery.size.height * 0.07, 16, 0),
         child: Column(
           children: [
             Padding(
@@ -82,12 +81,16 @@ class _FormGameState extends State<FormGame> {
                 children: [
                   Stack(children: [
                     Row(children: [
-                      IconButton(
-                        icon: Icon(Icons.arrow_back_ios),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        color: Colors.white,
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(
+                            mediaQuery.size.width * 0.02, 0, 0, 0),
+                        child: IconButton(
+                          icon: Icon(Icons.arrow_back_ios),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          color: Colors.white,
+                        ),
                       ),
                     ]),
                     Padding(
@@ -103,7 +106,7 @@ class _FormGameState extends State<FormGame> {
                   ]),
                   Padding(
                       padding: EdgeInsets.fromLTRB(
-                          24, 0, 24, mediaQuery.size.height * 0.01),
+                          24, 0, 24, mediaQuery.size.height * 0.02),
                       child: Column(children: [
                         SizedBox(
                           height: mediaQuery.size.height * 0.03,
