@@ -8,6 +8,7 @@ class End extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Player> players = ModalRoute.of(context).settings.arguments;
     players.sort((a, b) => b.points.compareTo(a.points));
+    final mediaQuery = MediaQuery.of(context);
     //print('${players[0].name}');
     return Scaffold(
         backgroundColor: Color.fromRGBO(0, 180, 255, 1),
@@ -22,15 +23,20 @@ class End extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(30, 70, 30, 20),
+                  padding: EdgeInsets.fromLTRB(
+                      30,
+                      mediaQuery.size.height * 0.09,
+                      30,
+                      mediaQuery.size.height * 0.05),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [CartoonText(text: "RESULTS", textSize: 50.0)],
                   ),
                 ),
-                ResultsList(players, 200),
+                ResultsList(players, mediaQuery.size.height * 0.27),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 270, 0, 0),
+                  padding: EdgeInsets.fromLTRB(
+                      0, mediaQuery.size.height * 0.27, 0, 0),
                   child: OutlinedButton(
                     style: OutlinedButton.styleFrom(
                       side: BorderSide(
