@@ -4,8 +4,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_tindercard/flutter_tindercard.dart';
-import 'package:to_mime/models/player.dart';
-import 'package:to_mime/widgets/cartoon_text.dart';
+import '../models/player.dart';
+import '../widgets/cartoon_text.dart';
 
 class Game extends StatefulWidget {
   @override
@@ -195,6 +195,7 @@ class _GameState extends State<Game> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
     _players = ModalRoute.of(context).settings.arguments;
     _screenName = _players[_indexPlayer].name;
     _screenPoints = _players[_indexPlayer].points.toString();
@@ -224,7 +225,7 @@ class _GameState extends State<Game> {
                 ),
               ),
               Container(
-                height: MediaQuery.of(context).size.height - 360,
+                height: mediaQuery.size.height - 360,
                 child: TinderSwapCard(
                   //allowVerticalMovement: false,
                   orientation: AmassOrientation.BOTTOM,
@@ -235,21 +236,20 @@ class _GameState extends State<Game> {
                           Container(
                             margin: EdgeInsets.all(10),
                             child: Image.asset('${_cardImages[index]}'),
-                            height: MediaQuery.of(context).size.height * 0.44,
+                            height: mediaQuery.size.height * 0.44,
                           ),
                           Padding(
                             padding: EdgeInsets.fromLTRB(
                                 0,
-                                MediaQuery.of(context).size.width * 0.025,
-                                MediaQuery.of(context).size.width * 0.025,
+                                mediaQuery.size.width * 0.025,
+                                mediaQuery.size.width * 0.025,
                                 0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 Icon(
                                   _gameMode,
-                                  size:
-                                      MediaQuery.of(context).size.width * 0.15,
+                                  size: mediaQuery.size.width * 0.15,
                                 ),
                               ],
                             ),
@@ -276,10 +276,10 @@ class _GameState extends State<Game> {
                   totalNum: _cardImages.length,
                   stackNum: 3,
                   swipeEdge: 4.0,
-                  maxWidth: MediaQuery.of(context).size.width * 0.85,
-                  maxHeight: MediaQuery.of(context).size.height * 0.9,
-                  minWidth: MediaQuery.of(context).size.width * 0.65,
-                  minHeight: MediaQuery.of(context).size.height * 0.65,
+                  maxWidth: mediaQuery.size.width * 0.85,
+                  maxHeight: mediaQuery.size.height * 0.9,
+                  minWidth: mediaQuery.size.width * 0.65,
+                  minHeight: mediaQuery.size.height * 0.65,
                   cardController: _controller = CardController(),
                   swipeUpdateCallback:
                       (DragUpdateDetails details, Alignment align) {

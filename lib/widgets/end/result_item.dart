@@ -50,10 +50,13 @@ class ResultItem extends StatelessWidget {
         horizontal: mediaQuery.size.width * 0.075,
       ),
       child: ListTile(
-        title: CartoonText(
-          text: "${position}. ${player.name}",
-          textSize: 35.0,
-          color: getTextColor(position),
+        title: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: CartoonText(
+            text: "${position}. ${player.name}",
+            textSize: 35.0,
+            color: getTextColor(position),
+          ),
         ),
         trailing: CartoonText(
           text: player.points.toString(),
