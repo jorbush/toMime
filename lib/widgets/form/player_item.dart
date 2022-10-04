@@ -40,26 +40,31 @@ class _PlayerItemState extends State<PlayerItem> {
         return showDialog(
           context: context,
           builder: (ctx) => AlertDialog(
-            title: CartoonText(
-              text: 'Are you sure?',
-              textSize: 22.0,
-              strokeWidth: 1,
+            title: null,
+            contentPadding: EdgeInsets.fromLTRB(
+                0,
+                MediaQuery.of(context).size.height * 0.04,
+                0,
+                MediaQuery.of(context).size.height * 0.025),
+            content: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CartoonText(
+                  text: 'Are you sure?',
+                  textSize: 24.0,
+                  strokeWidth: 1.5,
+                ),
+              ],
             ),
-            content: Text(
-              'Do you want to remove the player ${widget.player.name.toUpperCase()} from the new game?',
-              // style: TextStyle(
-              //   fontFamily: 'LuckiestGuy',
-              //   color: Colors.grey[800],
-              // ),
-            ),
+            actionsAlignment: MainAxisAlignment.center,
             actions: <Widget>[
               TextButton(
                 //Color.fromRGBO(0, 180, 255, 1)
                 child: CartoonText(
                   text: 'No',
-                  textSize: 18,
+                  textSize: 20,
                   color: Color.fromRGBO(0, 180, 255, 1),
-                  strokeWidth: 0.5,
+                  strokeWidth: 1,
                 ),
                 onPressed: () {
                   Navigator.of(ctx).pop(false);
@@ -68,9 +73,9 @@ class _PlayerItemState extends State<PlayerItem> {
               TextButton(
                 child: CartoonText(
                   text: 'Yes',
-                  textSize: 18,
+                  textSize: 20,
                   color: Color.fromRGBO(0, 180, 255, 1),
-                  strokeWidth: 0.5,
+                  strokeWidth: 1,
                 ),
                 onPressed: () {
                   Navigator.of(ctx).pop(true);
