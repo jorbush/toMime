@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:to_mime/widgets/cartoon_text.dart';
 import '../../models/player.dart';
 
 class PlayerItem extends StatefulWidget {
@@ -18,8 +19,71 @@ class PlayerItem extends StatefulWidget {
 class _PlayerItemState extends State<PlayerItem> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 1.0, horizontal: 4.0),
+    return Dismissible(
+      key: ValueKey(widget.player.name),
+      background: Container(
+        color: Theme.of(context).errorColor,
+        child: Icon(
+          Icons.delete,
+          color: Colors.white,
+          size: 30,
+        ),
+        alignment: Alignment.centerRight,
+        padding: EdgeInsets.only(right: 20),
+        margin: EdgeInsets.symmetric(
+          horizontal: 15,
+          vertical: 4,
+        ),
+      ),
+      direction: DismissDirection.endToStart,
+      confirmDismiss: (direction) {
+        return showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: CartoonText(
+              text: 'Are you sure?',
+              textSize: 22.0,
+              strokeWidth: 1,
+            ),
+            content: Text(
+              'Do you want to remove the player ${widget.player.name.toUpperCase()} from the new game?',
+              // style: TextStyle(
+              //   fontFamily: 'LuckiestGuy',
+              //   color: Colors.grey[800],
+              // ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                //Color.fromRGBO(0, 180, 255, 1)
+                child: CartoonText(
+                  text: 'No',
+                  textSize: 18,
+                  color: Color.fromRGBO(0, 180, 255, 1),
+                  strokeWidth: 0.5,
+                ),
+                onPressed: () {
+                  Navigator.of(ctx).pop(false);
+                },
+              ),
+              TextButton(
+                child: CartoonText(
+                  text: 'Yes',
+                  textSize: 18,
+                  color: Color.fromRGBO(0, 180, 255, 1),
+                  strokeWidth: 0.5,
+                ),
+                onPressed: () {
+                  Navigator.of(ctx).pop(true);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+      onDismissed: (direction) {
+        //Provider.of<Cart>(context, listen: false).removeItem(productId);
+        widget.deletePlayer(widget.player.name);
+      },
       child: Card(
         child: ListTile(
           onTap: () {
@@ -35,20 +99,20 @@ class _PlayerItemState extends State<PlayerItem> {
               color: Colors.grey[800],
             ),
           ),
-          trailing: MediaQuery.of(context).size.width > 460
-              ? TextButton.icon(
-                  icon: const Icon(Icons.delete),
-                  label: const Text('Delete'),
-                  style: TextButton.styleFrom(
-                    foregroundColor: Theme.of(context).errorColor,
-                  ),
-                  onPressed: () => widget.deletePlayer(widget.player.name),
-                )
-              : IconButton(
-                  icon: const Icon(Icons.delete),
-                  color: Theme.of(context).errorColor,
-                  onPressed: () => widget.deletePlayer(widget.player.name),
-                ),
+          // trailing: MediaQuery.of(context).size.width > 460
+          //     ? TextButton.icon(
+          //         icon: const Icon(Icons.delete),
+          //         label: const Text('Delete'),
+          //         style: TextButton.styleFrom(
+          //           foregroundColor: Theme.of(context).errorColor,
+          //         ),
+          //         onPressed: () => widget.deletePlayer(widget.player.name),
+          //       )
+          //     : IconButton(
+          //         icon: const Icon(Icons.delete),
+          //         color: Theme.of(context).errorColor,
+          //         onPressed: () => widget.deletePlayer(widget.player.name),
+          //       ),
         ),
       ),
     );
