@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/cartoon_text.dart';
-import '../widgets/results_list.dart';
+import '../widgets/end/results_list.dart';
 import '../models/player.dart';
 
 class End extends StatelessWidget {

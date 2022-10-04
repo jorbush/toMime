@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:to_mime/widgets/player_item.dart';
-import 'package:to_mime/widgets/players_list.dart';
-import './cartoon_text.dart';
-import '../models/player.dart';
+
+import '../form/players_list.dart';
+import '../cartoon_text.dart';
+import '../../models/player.dart';
 
 class NewGame extends StatefulWidget {
   const NewGame({Key key}) : super(key: key);

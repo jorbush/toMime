@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:to_mime/widgets/cartoon_text.dart';
-import 'package:to_mime/widgets/new_game.dart';
-
-import '../models/player.dart';
+import '../widgets/form/new_game.dart';
 
 class FormGame extends StatelessWidget {
   @override

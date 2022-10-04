@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:to_mime/widgets/result_item.dart';
-import './cartoon_text.dart';
-import '../models/player.dart';
+import '../end/result_item.dart';
+import '../../models/player.dart';
 
 class ResultsList extends StatelessWidget {
   final List<Player> players;

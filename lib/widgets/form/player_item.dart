@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../models/player.dart';
+import '../../models/player.dart';
 
 class PlayerItem extends StatefulWidget {
   final Player player;
