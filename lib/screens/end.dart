@@ -33,10 +33,10 @@ class End extends StatelessWidget {
                     children: [CartoonText(text: "RESULTS", textSize: 50.0)],
                   ),
                 ),
-                ResultsList(players, mediaQuery.size.height * 0.27),
+                ResultsList(players, mediaQuery.size.height * 0.37),
                 Padding(
                   padding: EdgeInsets.fromLTRB(
-                      0, mediaQuery.size.height * 0.27, 0, 0),
+                      0, mediaQuery.size.height * 0.17, 0, 0),
                   child: OutlinedButton(
                     style: OutlinedButton.styleFrom(
                       side: BorderSide(
@@ -50,7 +50,11 @@ class End extends StatelessWidget {
                       Navigator.popUntil(context, ModalRoute.withName('/form'));
                     },
                     child: Padding(
-                      padding: const EdgeInsets.fromLTRB(50, 22, 50, 18),
+                      padding: EdgeInsets.fromLTRB(
+                          50,
+                          mediaQuery.size.height * 0.026,
+                          50,
+                          mediaQuery.size.height * 0.019),
                       child: Text(
                         'RETURN HOME',
                         style: TextStyle(

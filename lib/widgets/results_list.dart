@@ -12,15 +12,15 @@ class ResultsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: listHeight,
-      child: ListView(
-        children: players
-            .map((player) => ResultItem(
-                  player: player,
-                ))
-            .toList(),
-      ),
-    );
+        height: listHeight,
+        child: ListView.builder(
+            itemCount: players.length,
+            itemBuilder: (context, index) {
+              return ResultItem(
+                player: players.elementAt(index),
+                position: index + 1,
+              );
+            }));
     // Padding(
     //   padding: const EdgeInsets.fromLTRB(30, 70, 30, 20),
     //   child: CartoonText(
