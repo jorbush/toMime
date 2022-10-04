@@ -12,13 +12,13 @@ class Game extends StatefulWidget {
 }
 
 class _GameState extends State<Game> {
-  String screenPoints = '1000';
-  String screenName = 'JORDInito';
-  int indexPlayer = 0;
-  int numCard = 0;
-  List<Player> players;
-  List<Player> playersSolve = [];
-  List<String> cardImages = [
+  String _screenPoints = '1000';
+  String _screenName = 'JORDInito';
+  int _indexPlayer = 0;
+  int _numCard = 0;
+  List<Player> _players;
+  List<Player> _playersSolve = [];
+  List<String> _cardImages = [
     'assets/chick.jpeg',
     'assets/hammer.jpg',
     'assets/plane.jpg',
@@ -27,7 +27,7 @@ class _GameState extends State<Game> {
     'assets/car.jpg',
     'assets/chainsaw.jpeg',
   ];
-  CardController controller;
+  CardController _controller;
 
   @override
   void initState() {
@@ -52,7 +52,7 @@ class _GameState extends State<Game> {
       (Timer timer) {
         if (seconds <= 0) {
           setState(() {
-            controller.triggerLeft();
+            _controller.triggerLeft();
             timer.cancel();
           });
         } else {
@@ -77,12 +77,98 @@ class _GameState extends State<Game> {
     super.dispose();
   }
 
+  void updatePlayersSolve() {
+    _playersSolve.clear();
+    for (int i = 0; i < _players.length; i++) {
+      if (_players[i].name != _screenName) {
+        _playersSolve.add(_players[i]);
+        print(
+            'Player ${_players[i].name} added to playersSolve (screenName = $_screenName).');
+      }
+    }
+  }
+
+  void showListPlayersSolve() {
+    updatePlayersSolve();
+    print('$_playersSolve');
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: Color.fromRGBO(0, 180, 255, 1),
+            title: Text(
+              'Who has solved it?',
+              textAlign: TextAlign.center,
+              style:
+                  TextStyle(fontFamily: 'LuckiestGuy', color: Colors.grey[900]),
+            ),
+            content: setupAlertDialoadContainer(),
+          );
+        });
+  }
+
+  void updatePlayer() async {
+    _indexPlayer++;
+    if (_indexPlayer >= _players.length) {
+      _indexPlayer = 0;
+    }
+    _screenName = _players[_indexPlayer].name;
+    _screenPoints = _players[_indexPlayer].points.toString();
+    _numCard++;
+  }
+
+  void updatePlayerPointsByName(String name) {
+    for (int i = 0; i < _players.length; i++) {
+      if (_players[i].name == _screenName) {
+        _players[i].points += 100;
+        print(
+            'Now player ${_players[i].name} has ${_players[i].points} points.');
+      }
+    }
+  }
+
+  Widget setupAlertDialoadContainer() {
+    return Container(
+      height: 300.0, // Change as per your requirement
+      width: 300.0, // Change as per your requirement
+      child: new ListView.builder(
+        itemCount: _playersSolve.length,
+        itemBuilder: (context, index) {
+          return Card(
+            child: ListTile(
+              onTap: () {
+                print(
+                    'You have pressed the player ${_playersSolve[index].name}');
+                updatePlayerPointsByName(_playersSolve[index].name);
+                _playersSolve = [];
+                Navigator.pop(context);
+                if (_numCard == _cardImages.length) {
+                  Navigator.pushNamed(context, '/end', arguments: _players);
+                } else {
+                  restartTimer(31);
+                }
+              },
+              title: Text(
+                _playersSolve[index].name.toUpperCase(),
+                style: TextStyle(
+                    fontFamily: 'LuckiestGuy', color: Colors.grey[800]),
+              ),
+              leading: CircleAvatar(
+                backgroundImage: AssetImage('assets/blank_profile.png'),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-    players = ModalRoute.of(context).settings.arguments;
-    screenName = players[indexPlayer].name;
-    screenPoints = players[indexPlayer].points.toString();
+    _players = ModalRoute.of(context).settings.arguments;
+    _screenName = _players[_indexPlayer].name;
+    _screenPoints = _players[_indexPlayer].points.toString();
     //startTimer();
     return Scaffold(
       backgroundColor: Color.fromRGBO(0, 180, 255, 1),
@@ -118,7 +204,7 @@ class _GameState extends State<Game> {
                       children: [
                         Container(
                           margin: EdgeInsets.all(10),
-                          child: Image.asset('${cardImages[index]}'),
+                          child: Image.asset('${_cardImages[index]}'),
                           height: MediaQuery.of(context).size.height * 0.44,
                         ),
                         Row(
@@ -139,14 +225,14 @@ class _GameState extends State<Game> {
                       ],
                     ),
                   ),
-                  totalNum: cardImages.length,
+                  totalNum: _cardImages.length,
                   stackNum: 3,
                   swipeEdge: 4.0,
                   maxWidth: MediaQuery.of(context).size.width * 0.85,
                   maxHeight: MediaQuery.of(context).size.height * 0.9,
                   minWidth: MediaQuery.of(context).size.width * 0.65,
                   minHeight: MediaQuery.of(context).size.height * 0.65,
-                  cardController: controller = CardController(),
+                  cardController: _controller = CardController(),
                   swipeUpdateCallback:
                       (DragUpdateDetails details, Alignment align) {
                     if (align.x > 0) {
@@ -175,13 +261,13 @@ class _GameState extends State<Game> {
                         duration: Duration(milliseconds: 1000),
                         behavior: SnackBarBehavior.fixed,
                       ));
-                      players[indexPlayer].points += 50;
+                      _players[_indexPlayer].points += 50;
                       showListPlayersSolve();
                       //_startTimer();
                       setState(() {
                         _timer.cancel();
                         updatePlayer();
-                        print('Current player: ${screenName.toUpperCase()}');
+                        print('Current player: ${_screenName.toUpperCase()}');
                       });
                     } else if (orientation == CardSwipeOrientation.LEFT) {
                       print('Card swiped to the left.');
@@ -204,10 +290,10 @@ class _GameState extends State<Game> {
 
                       setState(() {
                         updatePlayer();
-                        print('Current player: ${screenName.toUpperCase()}');
-                        if (numCard == cardImages.length) {
+                        print('Current player: ${_screenName.toUpperCase()}');
+                        if (_numCard == _cardImages.length) {
                           Navigator.pushNamed(context, '/end',
-                              arguments: players);
+                              arguments: _players);
                         } else {
                           restartTimer(30);
                         }
@@ -224,7 +310,7 @@ class _GameState extends State<Game> {
                     CartoonText(text: "PLAYER: ", textSize: 30.0),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-                      child: CartoonText(text: screenName, textSize: 30.0),
+                      child: CartoonText(text: _screenName, textSize: 30.0),
                     ),
                   ],
                 ),
@@ -235,97 +321,12 @@ class _GameState extends State<Game> {
                   CartoonText(text: "POINTS: ", textSize: 30.0),
                   Padding(
                       padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                      child: CartoonText(text: screenPoints, textSize: 30.0)),
+                      child: CartoonText(text: _screenPoints, textSize: 30.0)),
                 ],
               ),
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  void updatePlayersSolve() {
-    playersSolve.clear();
-    for (int i = 0; i < players.length; i++) {
-      if (players[i].name != screenName) {
-        playersSolve.add(players[i]);
-        print(
-            'Player ${players[i].name} added to playersSolve (screenName = $screenName).');
-      }
-    }
-  }
-
-  void showListPlayersSolve() {
-    updatePlayersSolve();
-    print('$playersSolve');
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            backgroundColor: Color.fromRGBO(0, 180, 255, 1),
-            title: Text(
-              'Who has solved it?',
-              textAlign: TextAlign.center,
-              style:
-                  TextStyle(fontFamily: 'LuckiestGuy', color: Colors.grey[900]),
-            ),
-            content: setupAlertDialoadContainer(),
-          );
-        });
-  }
-
-  void updatePlayer() async {
-    indexPlayer++;
-    if (indexPlayer >= players.length) {
-      indexPlayer = 0;
-    }
-    screenName = players[indexPlayer].name;
-    screenPoints = players[indexPlayer].points.toString();
-    numCard++;
-  }
-
-  void updatePlayerPointsByName(String name) {
-    for (int i = 0; i < players.length; i++) {
-      if (players[i].name == screenName) {
-        players[i].points += 100;
-        print('Now player ${players[i].name} has ${players[i].points} points.');
-      }
-    }
-  }
-
-  Widget setupAlertDialoadContainer() {
-    return Container(
-      height: 300.0, // Change as per your requirement
-      width: 300.0, // Change as per your requirement
-      child: new ListView.builder(
-        itemCount: playersSolve.length,
-        itemBuilder: (context, index) {
-          return Card(
-            child: ListTile(
-              onTap: () {
-                print(
-                    'You have pressed the player ${playersSolve[index].name}');
-                updatePlayerPointsByName(playersSolve[index].name);
-                playersSolve = [];
-                Navigator.pop(context);
-                if (numCard == cardImages.length) {
-                  Navigator.pushNamed(context, '/end', arguments: players);
-                } else {
-                  restartTimer(31);
-                }
-              },
-              title: Text(
-                playersSolve[index].name.toUpperCase(),
-                style: TextStyle(
-                    fontFamily: 'LuckiestGuy', color: Colors.grey[800]),
-              ),
-              leading: CircleAvatar(
-                backgroundImage: AssetImage('assets/blank_profile.png'),
-              ),
-            ),
-          );
-        },
       ),
     );
   }
