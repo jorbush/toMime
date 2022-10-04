@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -30,11 +31,13 @@ class _GameState extends State<Game> {
   CardController _controller;
   Timer _timer;
   int seconds = 30;
+  IconData _gameMode;
 
   @override
   void initState() {
     super.initState();
     _startTimer();
+    _gameMode = IconData(0xf51b, fontFamily: 'MaterialIcons');
   }
 
   @override
@@ -106,7 +109,7 @@ class _GameState extends State<Game> {
         });
   }
 
-  void updatePlayer() async {
+  void _updatePlayer() async {
     _indexPlayer++;
     if (_indexPlayer >= _players.length) {
       _indexPlayer = 0;
@@ -126,6 +129,12 @@ class _GameState extends State<Game> {
     }
   }
 
+  /// _setupAlertDialoadContainer() is a function that returns a Container widget that contains a
+  /// ListView.builder widget that contains a Card widget that contains a ListTile widget that contains
+  /// a Text widget that contains a CircleAvatar widget
+  ///
+  /// Returns:
+  ///   A list of players that solved the puzzle.
   Widget _setupAlertDialoadContainer() {
     return Container(
       height: 300.0, // Change as per your requirement
@@ -162,9 +171,30 @@ class _GameState extends State<Game> {
     );
   }
 
+  IconData _getRandomGameMode() {
+    int _randomNumber = Random().nextInt(2);
+    print(_randomNumber);
+    switch (_randomNumber) {
+      case 0:
+        return IconData(0xf51b, fontFamily: 'MaterialIcons');
+        break;
+      case 1:
+        return IconData(0xf8ed, fontFamily: 'MaterialIcons');
+        break;
+      default:
+        print("_getRandomGameMode() -> ERROR");
+    }
+  }
+
+  void _updateGameMode() {
+    setState(() {
+      _gameMode = _getRandomGameMode();
+      print(_gameMode.toString());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     _players = ModalRoute.of(context).settings.arguments;
     _screenName = _players[_indexPlayer].name;
     _screenPoints = _players[_indexPlayer].points.toString();
@@ -201,11 +231,16 @@ class _GameState extends State<Game> {
                   cardBuilder: (context, index) => Card(
                     child: Column(
                       children: [
-                        Container(
-                          margin: EdgeInsets.all(10),
-                          child: Image.asset('${_cardImages[index]}'),
-                          height: MediaQuery.of(context).size.height * 0.44,
-                        ),
+                        Stack(children: [
+                          Container(
+                            margin: EdgeInsets.all(10),
+                            child: Image.asset('${_cardImages[index]}'),
+                            height: MediaQuery.of(context).size.height * 0.44,
+                          ),
+                          Icon(
+                            _gameMode,
+                          ),
+                        ]),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -265,7 +300,8 @@ class _GameState extends State<Game> {
                       //_startTimer();
                       setState(() {
                         _timer.cancel();
-                        updatePlayer();
+                        _updatePlayer();
+                        _updateGameMode();
                         print('Current player: ${_screenName.toUpperCase()}');
                       });
                     } else if (orientation == CardSwipeOrientation.LEFT) {
@@ -288,7 +324,8 @@ class _GameState extends State<Game> {
                       ));
 
                       setState(() {
-                        updatePlayer();
+                        _updatePlayer();
+                        _updateGameMode();
                         print('Current player: ${_screenName.toUpperCase()}');
                         if (_numCard == _cardImages.length) {
                           Navigator.pushNamed(context, '/end',
