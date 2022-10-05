@@ -123,10 +123,16 @@ class _GameState extends State<Game> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              Icon(
-                                _gameMode,
-                                size: mediaQuery.size.width * 0.15,
-                                color: Colors.white,
+                              // Icon(
+                              //   _gameMode,
+                              //   size: mediaQuery.size.width * 0.15,
+                              //   color: Colors.white,
+                              // ),
+                              IconButton(
+                                icon: Image.asset(
+                                  'assets/icon/music.png',
+                                ),
+                                iconSize: 44,
                               ),
                             ],
                           ),
@@ -142,6 +148,11 @@ class _GameState extends State<Game> {
                                 size: 80,
                                 color: Colors.red,
                               ),
+                              // IconButton(
+                              //   icon: Image.asset(
+                              //     'assets/icon/done.png',
+                              //   ),
+                              // ),
                               Icon(
                                 Icons.check_rounded,
                                 size: 80,
