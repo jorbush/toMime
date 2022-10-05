@@ -152,6 +152,7 @@ class _GameState extends State<Game> {
                               //   icon: Image.asset(
                               //     'assets/icon/done.png',
                               //   ),
+                              //   iconSize: 44,
                               // ),
                               Icon(
                                 Icons.check_rounded,
