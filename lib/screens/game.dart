@@ -92,61 +92,78 @@ class _GameState extends State<Game> {
                 ),
               ),
               Container(
-                height: mediaQuery.size.height - 360,
+                padding: EdgeInsets.all(0),
+                height: 435,
                 child: TinderSwapCard(
-                  //allowVerticalMovement: false,
+                  allowVerticalMovement: true,
                   orientation: AmassOrientation.BOTTOM,
                   cardBuilder: (context, index) => Card(
-                    child: Column(
+                    child: Stack(
+                      fit: StackFit.expand,
                       children: [
-                        Stack(children: [
-                          Container(
-                            margin: EdgeInsets.all(10),
-                            child: Image.asset('${_cardImages[index]}'),
-                            height: mediaQuery.size.height * 0.44,
+                        Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Card(
+                              child: Image.asset(
+                                '${_cardImages[index]}',
+                                fit: BoxFit.fill,
+                              ),
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                            )),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(
+                              0,
+                              mediaQuery.size.width * 0.045,
+                              mediaQuery.size.width * 0.045,
+                              0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Icon(
+                                _gameMode,
+                                size: mediaQuery.size.width * 0.15,
+                                color: Colors.white,
+                              ),
+                            ],
                           ),
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(
-                                0,
-                                mediaQuery.size.width * 0.025,
-                                mediaQuery.size.width * 0.025,
-                                0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Icon(
-                                  _gameMode,
-                                  size: mediaQuery.size.width * 0.15,
-                                ),
-                              ],
-                            ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Icon(
+                                Icons.close_rounded,
+                                size: 80,
+                                color: Colors.red,
+                              ),
+                              Icon(
+                                Icons.check_rounded,
+                                size: 80,
+                                color: Colors.green,
+                              ),
+                            ],
                           ),
-                        ]),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Icon(
-                              Icons.close,
-                              size: 80,
-                              color: Colors.red,
-                            ),
-                            Icon(
-                              Icons.check,
-                              size: 80,
-                              color: Colors.green,
-                            ),
-                          ],
-                        )
+                        ),
                       ],
                     ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
                   ),
                   totalNum: _cardImages.length,
-                  stackNum: 3,
+                  stackNum: 4,
                   swipeEdge: 4.0,
-                  maxWidth: mediaQuery.size.width * 0.85,
-                  maxHeight: mediaQuery.size.height * 0.9,
-                  minWidth: mediaQuery.size.width * 0.65,
-                  minHeight: mediaQuery.size.height * 0.65,
+                  maxWidth: mediaQuery.size.width * 0.9,
+                  maxHeight: mediaQuery.size.width * 0.9,
+                  minWidth: mediaQuery.size.width * 0.8,
+                  minHeight: mediaQuery.size.width * 0.8,
                   cardController: _controller = CardController(),
                   swipeUpdateCallback:
                       (DragUpdateDetails details, Alignment align) {
