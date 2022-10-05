@@ -176,7 +176,8 @@ class _GameState extends State<Game> {
                   cardController: _controller = CardController(),
                   swipeUpdateCallback:
                       (DragUpdateDetails details, Alignment align) {
-                    _setOpacityIcons(align.x);
+                    //TODO: stack problem -> the next card has the icon
+                    //_setOpacityIcons(align.x);
                   },
                   swipeCompleteCallback:
                       (CardSwipeOrientation orientation, int index) {
