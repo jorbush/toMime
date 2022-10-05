@@ -49,162 +49,10 @@ class _GameState extends State<Game> {
     }
   }
 
-  void _startTimer() {
-    const oneSec = const Duration(seconds: 1);
-    _timer = new Timer.periodic(
-      oneSec,
-      (Timer timer) {
-        if (seconds <= 0) {
-          setState(() {
-            _controller.triggerLeft();
-            timer.cancel();
-          });
-        } else {
-          setState(() {
-            seconds--;
-            print('Time left: ' + seconds.toString());
-          });
-        }
-      },
-    );
-  }
-
-  void restartTimer(_seconds) {
-    _timer.cancel();
-    seconds = _seconds;
-    _startTimer();
-  }
-
   @override
   void dispose() {
     _timer.cancel();
     super.dispose();
-  }
-
-  void _updatePlayersSolve() {
-    _playersSolve.clear();
-    for (int i = 0; i < _players.length; i++) {
-      if (_players[i].name != _screenName) {
-        _playersSolve.add(_players[i]);
-        print(
-            'Player ${_players[i].name} added to playersSolve (screenName = $_screenName).');
-      }
-    }
-  }
-
-  void showListPlayersSolve() {
-    _updatePlayersSolve();
-    print('$_playersSolve');
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            backgroundColor: Color.fromRGBO(0, 180, 255, 1),
-            title: Text(
-              'Who has solved it?',
-              textAlign: TextAlign.center,
-              style:
-                  TextStyle(fontFamily: 'LuckiestGuy', color: Colors.grey[900]),
-            ),
-            content: _setupAlertDialoadContainer(),
-          );
-        });
-  }
-
-  void _updatePlayer() async {
-    _indexPlayer++;
-    if (_indexPlayer >= _players.length) {
-      _indexPlayer = 0;
-    }
-    _screenName = _players[_indexPlayer].name;
-    _screenPoints = _players[_indexPlayer].points.toString();
-    _numCard++;
-  }
-
-  void _updatePlayerPointsByName(String name) {
-    for (int i = 0; i < _players.length; i++) {
-      if (_players[i].name == _screenName) {
-        _players[i].points += 100;
-        print(
-            'Now player ${_players[i].name} has ${_players[i].points} points.');
-      }
-    }
-  }
-
-  /// _setupAlertDialoadContainer() is a function that returns a Container widget that contains a
-  /// ListView.builder widget that contains a Card widget that contains a ListTile widget that contains
-  /// a Text widget that contains a CircleAvatar widget
-  ///
-  /// Returns:
-  ///   A list of players that solved the puzzle.
-  Widget _setupAlertDialoadContainer() {
-    return Container(
-      height: 300.0, // Change as per your requirement
-      width: 300.0, // Change as per your requirement
-      child: new ListView.builder(
-        itemCount: _playersSolve.length,
-        itemBuilder: (context, index) {
-          return Card(
-            child: ListTile(
-              onTap: () {
-                print(
-                    'You have pressed the player ${_playersSolve[index].name}');
-                _updatePlayerPointsByName(_playersSolve[index].name);
-                _playersSolve = [];
-                Navigator.pop(context);
-                if (_numCard == _cardImages.length) {
-                  Navigator.pushNamed(context, '/end', arguments: _players);
-                } else {
-                  restartTimer(31);
-                }
-              },
-              title: Text(
-                _playersSolve[index].name.toUpperCase(),
-                style: TextStyle(
-                    fontFamily: 'LuckiestGuy', color: Colors.grey[800]),
-              ),
-              leading: CircleAvatar(
-                backgroundImage: AssetImage('assets/blank_profile.png'),
-              ),
-            ),
-          );
-        },
-      ),
-    );
-  }
-
-  IconData _getRandomGameMode() {
-    int _randomNumber = Random().nextInt(2);
-    print(_randomNumber);
-    switch (_randomNumber) {
-      case 0:
-        return IconData(0xf51b, fontFamily: 'MaterialIcons');
-        break;
-      case 1:
-        return IconData(0xf8ed, fontFamily: 'MaterialIcons');
-        break;
-      default:
-        print("_getRandomGameMode() -> ERROR");
-        return IconData(0xf8ed, fontFamily: 'MaterialIcons');
-    }
-  }
-
-  void _updateGameMode() {
-    setState(() {
-      _gameMode = _getRandomGameMode();
-      print(_gameMode.toString());
-    });
-  }
-
-  void _getFormData(BuildContext context) {
-    Map _formData = ModalRoute.of(context).settings.arguments;
-    print(_formData);
-    _gameModeGestures = _formData["gamemode"]["gestures"];
-    _gameModeSounds = _formData["gamemode"]["sounds"];
-    _players = _formData["players"];
-    print(_gameModeGestures);
-    print(_gameModeSounds);
-    print(_players);
   }
 
   @override
@@ -393,5 +241,152 @@ class _GameState extends State<Game> {
         ),
       ),
     );
+  }
+
+  void _startTimer() {
+    const oneSec = const Duration(seconds: 1);
+    _timer = new Timer.periodic(
+      oneSec,
+      (Timer timer) {
+        if (seconds <= 0) {
+          setState(() {
+            _controller.triggerLeft();
+            timer.cancel();
+          });
+        } else {
+          setState(() {
+            seconds--;
+            print('Time left: ' + seconds.toString());
+          });
+        }
+      },
+    );
+  }
+
+  void restartTimer(_seconds) {
+    _timer.cancel();
+    seconds = _seconds;
+    _startTimer();
+  }
+
+  void _updatePlayersSolve() {
+    _playersSolve.clear();
+    for (int i = 0; i < _players.length; i++) {
+      if (_players[i].name != _screenName) {
+        _playersSolve.add(_players[i]);
+        print(
+            'Player ${_players[i].name} added to playersSolve (screenName = $_screenName).');
+      }
+    }
+  }
+
+  void showListPlayersSolve() {
+    _updatePlayersSolve();
+    print('$_playersSolve');
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: Color.fromRGBO(0, 180, 255, 1),
+            title: Text(
+              'Who has solved it?',
+              textAlign: TextAlign.center,
+              style:
+                  TextStyle(fontFamily: 'LuckiestGuy', color: Colors.grey[900]),
+            ),
+            content: _setupAlertDialoadContainer(),
+          );
+        });
+  }
+
+  void _updatePlayer() async {
+    _indexPlayer++;
+    if (_indexPlayer >= _players.length) {
+      _indexPlayer = 0;
+    }
+    _screenName = _players[_indexPlayer].name;
+    _screenPoints = _players[_indexPlayer].points.toString();
+    _numCard++;
+  }
+
+  void _updatePlayerPointsByName(String name) {
+    for (int i = 0; i < _players.length; i++) {
+      if (_players[i].name == _screenName) {
+        _players[i].points += 100;
+        print(
+            'Now player ${_players[i].name} has ${_players[i].points} points.');
+      }
+    }
+  }
+
+  ///   A list of players that solved the puzzle.
+  Widget _setupAlertDialoadContainer() {
+    return Container(
+      height: 300.0, // Change as per your requirement
+      width: 300.0, // Change as per your requirement
+      child: new ListView.builder(
+        itemCount: _playersSolve.length,
+        itemBuilder: (context, index) {
+          return Card(
+            child: ListTile(
+              onTap: () {
+                print(
+                    'You have pressed the player ${_playersSolve[index].name}');
+                _updatePlayerPointsByName(_playersSolve[index].name);
+                _playersSolve = [];
+                Navigator.pop(context);
+                if (_numCard == _cardImages.length) {
+                  Navigator.pushNamed(context, '/end', arguments: _players);
+                } else {
+                  restartTimer(31);
+                }
+              },
+              title: Text(
+                _playersSolve[index].name.toUpperCase(),
+                style: TextStyle(
+                    fontFamily: 'LuckiestGuy', color: Colors.grey[800]),
+              ),
+              leading: CircleAvatar(
+                backgroundImage: AssetImage('assets/blank_profile.png'),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  IconData _getRandomGameMode() {
+    int _randomNumber = Random().nextInt(2);
+    print(_randomNumber);
+    switch (_randomNumber) {
+      case 0:
+        return IconData(0xf51b, fontFamily: 'MaterialIcons');
+        break;
+      case 1:
+        return IconData(0xf8ed, fontFamily: 'MaterialIcons');
+        break;
+      default:
+        print("_getRandomGameMode() -> ERROR");
+        return IconData(0xf8ed, fontFamily: 'MaterialIcons');
+    }
+  }
+
+  void _updateGameMode() {
+    setState(() {
+      _gameMode = _getRandomGameMode();
+      print(_gameMode.toString());
+    });
+  }
+
+  void _getFormData(BuildContext context) {
+    Map _formData = ModalRoute.of(context).settings.arguments;
+    print(_formData);
+    _gameModeGestures = _formData["gamemode"]["gestures"];
+    _gameModeSounds = _formData["gamemode"]["sounds"];
+    _players = _formData["players"];
+    print(_gameModeGestures);
+    print(_gameModeSounds);
+    print(_players);
   }
 }
