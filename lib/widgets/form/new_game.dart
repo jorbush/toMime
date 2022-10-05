@@ -220,8 +220,16 @@ class _NewGameState extends State<NewGame> {
                   onPressed: () {
                     if (_players.length > 2) {
                       print('Starting game...');
+                      Map _gameModes = {
+                        'sounds': _sounds,
+                        'gestures': _gestures
+                      };
+                      Map _formData = {
+                        "players": _players,
+                        "gamemode": _gameModes
+                      };
                       Navigator.pushNamed(context, '/game',
-                          arguments: _players);
+                          arguments: _formData);
                     } else {
                       print('Not enought players to start the game.');
                     }

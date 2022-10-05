@@ -32,6 +32,8 @@ class _GameState extends State<Game> {
   Timer _timer;
   int seconds = 30;
   IconData _gameMode;
+  bool _gameModeGestures = true;
+  bool _gameModeSounds = true;
 
   @override
   void initState() {
@@ -183,6 +185,7 @@ class _GameState extends State<Game> {
         break;
       default:
         print("_getRandomGameMode() -> ERROR");
+        return IconData(0xf8ed, fontFamily: 'MaterialIcons');
     }
   }
 
@@ -193,10 +196,21 @@ class _GameState extends State<Game> {
     });
   }
 
+  void _getFormData(BuildContext context) {
+    Map _formData = ModalRoute.of(context).settings.arguments;
+    print(_formData);
+    _gameModeGestures = _formData["gamemode"]["gestures"];
+    _gameModeSounds = _formData["gamemode"]["sounds"];
+    _players = _formData["players"];
+    print(_gameModeGestures);
+    print(_gameModeSounds);
+    print(_players);
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
-    _players = ModalRoute.of(context).settings.arguments;
+    _getFormData(context);
     _screenName = _players[_indexPlayer].name;
     _screenPoints = _players[_indexPlayer].points.toString();
     //startTimer();
