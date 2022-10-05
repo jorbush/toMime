@@ -75,7 +75,12 @@ class _GameState extends State<Game> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.fromLTRB(30, 25, 30, 15),
+                padding: EdgeInsets.fromLTRB(
+                  30,
+                  mediaQuery.size.height * 0.025,
+                  30,
+                  mediaQuery.size.height * 0.015,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -215,14 +220,23 @@ class _GameState extends State<Game> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 35, 0, 20),
+                padding: EdgeInsets.fromLTRB(
+                  0,
+                  mediaQuery.size.height * 0.035,
+                  0,
+                  mediaQuery.size.height * 0.020,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CartoonText(text: "PLAYER: ", textSize: 30.0),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-                      child: CartoonText(text: _screenName, textSize: 30.0),
+                      padding: EdgeInsets.fromLTRB(
+                          mediaQuery.size.height * 0.015, 0, 0, 0),
+                      child: CartoonText(
+                        text: _screenName,
+                        textSize: 30.0,
+                      ),
                     ),
                   ],
                 ),
@@ -232,7 +246,12 @@ class _GameState extends State<Game> {
                 children: [
                   CartoonText(text: "POINTS: ", textSize: 30.0),
                   Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                      padding: EdgeInsets.fromLTRB(
+                        mediaQuery.size.height * 0.020,
+                        0,
+                        0,
+                        0,
+                      ),
                       child: CartoonText(text: _screenPoints, textSize: 30.0)),
                 ],
               ),
