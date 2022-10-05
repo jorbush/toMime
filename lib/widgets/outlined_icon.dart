@@ -14,16 +14,17 @@ class OutlinedIconCartoon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
+      alignment: Alignment.center,
       children: [
-        Icon(
-          iconData,
-          size: sizeIcon - 4.0,
-          color: colorIcon,
-        ),
         Icon(
           iconData,
           size: sizeIcon,
           color: Colors.black,
+        ),
+        Icon(
+          iconData,
+          size: sizeIcon - 2.0,
+          color: colorIcon,
         ),
       ],
     );
