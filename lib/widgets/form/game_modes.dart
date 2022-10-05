@@ -23,7 +23,7 @@ class GameModes extends StatelessWidget {
           padding: EdgeInsets.fromLTRB(
               0, MediaQuery.of(context).size.height * 0.01, 0, 0),
           child: CartoonText(
-            text: "MODES: ",
+            text: "GAME MODES: ",
             textSize: 22.0,
             strokeWidth: 1,
           ),
