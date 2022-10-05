@@ -1,12 +1,31 @@
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/material.dart';
 
 class OutlinedIconCartoon extends StatelessWidget {
-  const OutlinedIconCartoon({Key key}) : super(key: key);
+  final IconData iconData;
+  final Color colorIcon;
+  final double sizeIcon;
+
+  const OutlinedIconCartoon({
+    @required this.iconData,
+    this.colorIcon = Colors.white,
+    this.sizeIcon = 80,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Stack(
+      children: [
+        Icon(
+          iconData,
+          size: sizeIcon - 4.0,
+          color: colorIcon,
+        ),
+        Icon(
+          iconData,
+          size: sizeIcon,
+          color: Colors.black,
+        ),
+      ],
+    );
   }
 }
