@@ -57,6 +57,7 @@ flutter:
     - assets/
     - assets/icon/music.png
     - assets/icon/arms_up2.png
+    - assets/icon/done.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

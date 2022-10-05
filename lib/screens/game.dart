@@ -31,7 +31,7 @@ class _GameState extends State<Game> {
   CardController _controller;
   Timer _timer;
   int seconds = 30;
-  IconData _gameMode;
+  Image _gameMode;
   bool _gameModeGestures = true;
   bool _gameModeSounds = true;
 
@@ -129,16 +129,7 @@ class _GameState extends State<Game> {
                               //   color: Colors.white,
                               // ),
                               IconButton(
-                                icon: Image.asset(
-                                  'assets/icon/music.png',
-                                ),
-                                iconSize: 44,
-                                onPressed: () {},
-                              ),
-                              IconButton(
-                                icon: Image.asset(
-                                  'assets/icon/arms_up2.png',
-                                ),
+                                icon: _gameMode,
                                 iconSize: 44,
                                 onPressed: () {},
                               ),
@@ -160,12 +151,12 @@ class _GameState extends State<Game> {
                               //   icon: Image.asset(
                               //     'assets/icon/done.png',
                               //   ),
-                              //   iconSize: 44,
+                              //   iconSize: 80,
                               // ),
                               Icon(
                                 Icons.check_rounded,
                                 size: 80,
-                                color: Colors.green,
+                                color: Colors.green.withOpacity(1),
                               ),
                             ],
                           ),
@@ -412,29 +403,31 @@ class _GameState extends State<Game> {
     );
   }
 
-  IconData _getRandomGameMode() {
+  Image _getRandomGameMode() {
     int _randomNumber = Random().nextInt(2);
     //print(_randomNumber);
     switch (_randomNumber) {
       case 0:
-        return IconData(0xf51b, fontFamily: 'MaterialIcons');
+        return Image.asset('assets/icon/arms_up2.png');
         break;
       case 1:
-        return IconData(0xf8ed, fontFamily: 'MaterialIcons');
+        return Image.asset('assets/icon/music.png');
         break;
       default:
         print("_getRandomGameMode() -> ERROR");
-        return IconData(0xf8ed, fontFamily: 'MaterialIcons');
+        return Image.asset('assets/icon/arms_up2.png');
     }
   }
 
   void _updateGameMode() {
     setState(() {
       if (_gameModeGestures && !_gameModeSounds) {
-        _gameMode = IconData(0xf51b, fontFamily: 'MaterialIcons');
+        //_gameMode = IconData(0xf51b, fontFamily: 'MaterialIcons');
+        _gameMode = Image.asset('assets/icon/arms_up2.png');
         print("Gestures mode!");
       } else if (!_gameModeGestures && _gameModeSounds) {
-        _gameMode = IconData(0xf8ed, fontFamily: 'MaterialIcons');
+        // _gameMode = IconData(0xf8ed, fontFamily: 'MaterialIcons');
+        _gameMode = Image.asset('assets/icon/music.png');
         print("Sounds mode!");
       } else {
         _gameMode = _getRandomGameMode();
