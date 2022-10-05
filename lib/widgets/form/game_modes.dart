@@ -23,22 +23,22 @@ class GameModes extends StatelessWidget {
           padding: EdgeInsets.fromLTRB(
               0, MediaQuery.of(context).size.height * 0.01, 0, 0),
           child: CartoonText(
-            text: "GAME MODES: ",
+            text: "MODES: ",
             textSize: 22.0,
             strokeWidth: 1,
           ),
         ),
         Row(
           children: [
-            Icon(
-              IconData(0xf51b, fontFamily: 'MaterialIcons'),
+            IconButton(
+              icon: Image.asset('assets/icon/arms_up2.png'),
             ),
             Checkbox(
               value: gestures,
               onChanged: ((_) => setGestures()),
             ),
-            Icon(
-              IconData(0xf8ed, fontFamily: 'MaterialIcons'),
+            IconButton(
+              icon: Image.asset('assets/icon/music.png'),
             ),
             Checkbox(
               value: sounds,
