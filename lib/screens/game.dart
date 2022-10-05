@@ -38,8 +38,8 @@ class _GameState extends State<Game> {
   @override
   void initState() {
     super.initState();
+    Future.delayed(Duration.zero, (() => _getFormData(context)));
     _startTimer();
-    _gameMode = IconData(0xf51b, fontFamily: 'MaterialIcons');
   }
 
   @override
@@ -58,7 +58,7 @@ class _GameState extends State<Game> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
-    _getFormData(context);
+    //_getFormData(context);
     _screenName = _players[_indexPlayer].name;
     _screenPoints = _players[_indexPlayer].points.toString();
     //startTimer();
@@ -172,7 +172,7 @@ class _GameState extends State<Game> {
                         behavior: SnackBarBehavior.fixed,
                       ));
                       _players[_indexPlayer].points += 50;
-                      showListPlayersSolve();
+                      _showListPlayersSolve();
                       //_startTimer();
                       setState(() {
                         _timer.cancel();
@@ -256,7 +256,7 @@ class _GameState extends State<Game> {
         } else {
           setState(() {
             seconds--;
-            print('Time left: ' + seconds.toString());
+            //print('Time left: ' + seconds.toString());
           });
         }
       },
@@ -280,7 +280,7 @@ class _GameState extends State<Game> {
     }
   }
 
-  void showListPlayersSolve() {
+  void _showListPlayersSolve() {
     _updatePlayersSolve();
     print('$_playersSolve');
     showDialog(
@@ -358,7 +358,7 @@ class _GameState extends State<Game> {
 
   IconData _getRandomGameMode() {
     int _randomNumber = Random().nextInt(2);
-    print(_randomNumber);
+    //print(_randomNumber);
     switch (_randomNumber) {
       case 0:
         return IconData(0xf51b, fontFamily: 'MaterialIcons');
@@ -374,19 +374,30 @@ class _GameState extends State<Game> {
 
   void _updateGameMode() {
     setState(() {
-      _gameMode = _getRandomGameMode();
-      print(_gameMode.toString());
+      if (_gameModeGestures && !_gameModeSounds) {
+        _gameMode = IconData(0xf51b, fontFamily: 'MaterialIcons');
+        print("Gestures mode!");
+      } else if (!_gameModeGestures && _gameModeSounds) {
+        _gameMode = IconData(0xf8ed, fontFamily: 'MaterialIcons');
+        print("Sounds mode!");
+      } else {
+        _gameMode = _getRandomGameMode();
+      }
+      // print(_gameMode.toString());
     });
   }
 
   void _getFormData(BuildContext context) {
     Map _formData = ModalRoute.of(context).settings.arguments;
-    print(_formData);
-    _gameModeGestures = _formData["gamemode"]["gestures"];
-    _gameModeSounds = _formData["gamemode"]["sounds"];
-    _players = _formData["players"];
-    print(_gameModeGestures);
-    print(_gameModeSounds);
-    print(_players);
+    // print(_formData);
+    setState(() {
+      _gameModeGestures = _formData["gamemode"]["gestures"];
+      _gameModeSounds = _formData["gamemode"]["sounds"];
+      _players = _formData["players"];
+    });
+    // print(_gameModeGestures);
+    // print(_gameModeSounds);
+    // print(_players);
+    _updateGameMode();
   }
 }
