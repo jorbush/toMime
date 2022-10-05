@@ -176,32 +176,7 @@ class _GameState extends State<Game> {
                   cardController: _controller = CardController(),
                   swipeUpdateCallback:
                       (DragUpdateDetails details, Alignment align) {
-                    double _opacity = align.x / 10;
-                    if (align.x > 0) {
-                      //print('Card is going to the right.');
-                      if (_opacity > 1) {
-                        _opacity = 1;
-                      }
-                      setState(() {
-                        _opacityDone = _opacity;
-                      });
-                      //print(_opacityDone);
-                    } else if (align.x < 0) {
-                      //print('Card is going to the left.');
-                      _opacity *= -1;
-                      if (_opacity > 1) {
-                        _opacity = 1;
-                      }
-                      setState(() {
-                        _opacityClose = _opacity;
-                      });
-                      //print(_opacityClose);
-                    } else if (align.x == 0) {
-                      setState(() {
-                        _opacityClose = 0.0;
-                        _opacityDone = 0.0;
-                      });
-                    }
+                    _setOpacityIcons(align.x);
                   },
                   swipeCompleteCallback:
                       (CardSwipeOrientation orientation, int index) {
@@ -471,5 +446,34 @@ class _GameState extends State<Game> {
     // print(_gameModeSounds);
     // print(_players);
     _updateGameMode();
+  }
+
+  void _setOpacityIcons(double xValue) {
+    double _opacity = xValue / 10;
+    if (xValue > 0) {
+      //print('Card is going to the right.');
+      if (_opacity > 1) {
+        _opacity = 1;
+      }
+      setState(() {
+        _opacityDone = _opacity;
+      });
+      //print(_opacityDone);
+    } else if (xValue < 0) {
+      //print('Card is going to the left.');
+      _opacity *= -1;
+      if (_opacity > 1) {
+        _opacity = 1;
+      }
+      setState(() {
+        _opacityClose = _opacity;
+      });
+      //print(_opacityClose);
+    } else if (xValue == 0) {
+      setState(() {
+        _opacityClose = 0.0;
+        _opacityDone = 0.0;
+      });
+    }
   }
 }
