@@ -133,6 +133,14 @@ class _GameState extends State<Game> {
                                   'assets/icon/music.png',
                                 ),
                                 iconSize: 44,
+                                onPressed: () {},
+                              ),
+                              IconButton(
+                                icon: Image.asset(
+                                  'assets/icon/arms_up2.png',
+                                ),
+                                iconSize: 44,
+                                onPressed: () {},
                               ),
                             ],
                           ),
