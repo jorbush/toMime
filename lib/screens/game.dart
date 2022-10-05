@@ -34,6 +34,8 @@ class _GameState extends State<Game> {
   Image _gameMode;
   bool _gameModeGestures = true;
   bool _gameModeSounds = true;
+  double _opacityDone = 0.0;
+  double _opacityClose = 0.0;
 
   @override
   void initState() {
@@ -139,25 +141,21 @@ class _GameState extends State<Game> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Icon(
-                                Icons.close_rounded,
-                                size: 80,
-                                color: Colors.red,
-                              ),
-                              // IconButton(
-                              //   icon: Image.asset(
-                              //     'assets/icon/done.png',
-                              //   ),
-                              //   iconSize: 80,
-                              // ),
-                              Icon(
-                                Icons.check_rounded,
-                                size: 80,
-                                color: Colors.green.withOpacity(1),
-                              ),
+                              Stack(children: [
+                                Icon(
+                                  Icons.close_rounded,
+                                  size: mediaQuery.size.width * 0.75,
+                                  color: Colors.red.withOpacity(_opacityClose),
+                                ),
+                                Icon(
+                                  Icons.check_rounded,
+                                  size: mediaQuery.size.width * 0.75,
+                                  color: Colors.green.withOpacity(_opacityDone),
+                                ),
+                              ]),
                             ],
                           ),
                         ),
@@ -178,10 +176,31 @@ class _GameState extends State<Game> {
                   cardController: _controller = CardController(),
                   swipeUpdateCallback:
                       (DragUpdateDetails details, Alignment align) {
+                    double _opacity = align.x / 10;
                     if (align.x > 0) {
                       //print('Card is going to the right.');
+                      if (_opacity > 1) {
+                        _opacity = 1;
+                      }
+                      setState(() {
+                        _opacityDone = _opacity;
+                      });
+                      //print(_opacityDone);
                     } else if (align.x < 0) {
                       //print('Card is going to the left.');
+                      _opacity *= -1;
+                      if (_opacity > 1) {
+                        _opacity = 1;
+                      }
+                      setState(() {
+                        _opacityClose = _opacity;
+                      });
+                      //print(_opacityClose);
+                    } else if (align.x == 0) {
+                      setState(() {
+                        _opacityClose = 0.0;
+                        _opacityDone = 0.0;
+                      });
                     }
                   },
                   swipeCompleteCallback:
@@ -211,6 +230,8 @@ class _GameState extends State<Game> {
                         _timer.cancel();
                         _updatePlayer();
                         _updateGameMode();
+                        _opacityClose = 0.0;
+                        _opacityDone = 0.0;
                         print('Current player: ${_screenName.toUpperCase()}');
                       });
                     } else if (orientation == CardSwipeOrientation.LEFT) {
@@ -235,6 +256,8 @@ class _GameState extends State<Game> {
                       setState(() {
                         _updatePlayer();
                         _updateGameMode();
+                        _opacityClose = 0.0;
+                        _opacityDone = 0.0;
                         print('Current player: ${_screenName.toUpperCase()}');
                         if (_numCard == _cardImages.length) {
                           Navigator.pushNamed(context, '/end',
