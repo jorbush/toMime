@@ -79,9 +79,9 @@ class _GameState extends State<Game> {
               Padding(
                 padding: EdgeInsets.fromLTRB(
                   30,
-                  mediaQuery.size.height * 0.025,
+                  mediaQuery.size.height * 0.04,
                   30,
-                  mediaQuery.size.height * 0.015,
+                  mediaQuery.size.height * 0,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -186,7 +186,7 @@ class _GameState extends State<Game> {
                       ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
                         backgroundColor: Colors.green,
                         content: Container(
-                          height: 20,
+                          height: mediaQuery.size.height * 0.030,
                           child: Text(
                             "CORRECT",
                             textAlign: TextAlign.center,
@@ -215,7 +215,7 @@ class _GameState extends State<Game> {
                       ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
                         backgroundColor: Colors.red,
                         content: Container(
-                          height: 20,
+                          height: mediaQuery.size.height * 0.030,
                           child: Text(
                             "INCORRECT",
                             textAlign: TextAlign.center,
