@@ -20,13 +20,13 @@ class _GameState extends State<Game> {
   List<Player> _players;
   List<Player> _playersSolve = [];
   List<String> _cardImages = [
-    'assets/chick.jpeg',
-    'assets/hammer.jpg',
-    'assets/plane.jpg',
-    'assets/chicken.jpg',
-    'assets/ball.jpg',
-    'assets/car.jpg',
-    'assets/chainsaw.jpeg',
+    'assets/started_pack/chick.jpeg',
+    'assets/started_pack/hammer.jpg',
+    'assets/started_pack/plane.jpg',
+    'assets/started_pack/chicken.jpg',
+    'assets/started_pack/ball.jpg',
+    'assets/started_pack/car.jpg',
+    'assets/started_pack/chainsaw.jpeg',
   ];
   CardController _controller;
   Timer _timer;
@@ -70,7 +70,7 @@ class _GameState extends State<Game> {
         child: Container(
           decoration: BoxDecoration(
               image: DecorationImage(
-            image: AssetImage('assets/sky1.png'),
+            image: AssetImage('assets/backgrounds/sky1.png'),
             fit: BoxFit.cover,
           )),
           child: Column(

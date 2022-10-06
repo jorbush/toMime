@@ -95,7 +95,7 @@ class _PlayerItemState extends State<PlayerItem> {
             print('You have pressed the player ${widget.player.name}');
           },
           leading: CircleAvatar(
-            backgroundImage: AssetImage('assets/blank_profile.png'),
+            backgroundImage: AssetImage('assets/icon/blank_profile.png'),
           ),
           title: Text(
             widget.player.name.toUpperCase(),
