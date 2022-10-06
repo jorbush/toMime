@@ -25,8 +25,8 @@ class _GameState extends State<Game> {
     'assets/started_pack/plane.jpg',
     'assets/started_pack/chicken.jpg',
     'assets/started_pack/ball.jpg',
-    'assets/started_pack/car.jpg',
-    'assets/started_pack/chainsaw.jpeg',
+    'assets/started_pack/car.png',
+    'assets/started_pack/chainsaw.png',
   ];
   CardController _controller;
   Timer _timer;
