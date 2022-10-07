@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:to_mime/widgets/cartoon_text.dart';
+import '../widgets/utils/cartoon_text.dart';
 
 class Home extends StatefulWidget {
   @override
