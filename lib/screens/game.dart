@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tindercard/flutter_tindercard.dart';
+import 'package:to_mime/widgets/utils/confirm_dialog.dart';
 import '../models/player.dart';
 import '../widgets/utils/cartoon_text.dart';
 
@@ -61,6 +62,14 @@ class _GameState extends State<Game> {
   void dispose() {
     _timer.cancel();
     super.dispose();
+  }
+
+  void showConfirmDialog() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return ConfirmDialog();
+        });
   }
 
   @override
