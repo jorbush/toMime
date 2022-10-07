@@ -85,7 +85,7 @@ class _GameState extends State<Game> {
               Padding(
                 padding: EdgeInsets.fromLTRB(
                   30,
-                  mediaQuery.size.height * 0.04,
+                  mediaQuery.size.height * 0.07,
                   30,
                   mediaQuery.size.height * 0,
                 ),
@@ -302,7 +302,7 @@ class _GameState extends State<Game> {
               Padding(
                 padding: EdgeInsets.fromLTRB(
                   0,
-                  mediaQuery.size.height * 0.035,
+                  mediaQuery.size.height * 0.060,
                   0,
                   mediaQuery.size.height * 0.020,
                 ),
