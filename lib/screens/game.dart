@@ -115,6 +115,10 @@ class _GameState extends State<Game> {
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10),
+                              // border: !_flipEnabled
+                              //     ? Border.all(color: Colors.black)
+                              //     : null,
+                              // border: Border.all(color: Colors.black),
                             ),
                             padding: const EdgeInsets.all(8.0),
                             child: Card(
@@ -181,6 +185,10 @@ class _GameState extends State<Game> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
+                        // border: Border.all(color: Colors.black),
+                        // border: _flipEnabled
+                        //     ? Border.all(color: Colors.black)
+                        //     : null,
                       ),
                       padding: const EdgeInsets.all(8.0),
                       child: Card(
