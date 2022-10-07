@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:flip_card/flip_card.dart';
+import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tindercard/flutter_tindercard.dart';
 import '../models/player.dart';
@@ -27,20 +29,26 @@ class _GameState extends State<Game> {
     'assets/started_pack/car.png',
     'assets/started_pack/chainsaw.png',
   ];
-  CardController _controller;
+  CardController _controllerCard;
+  FlipCardController _controllerFlipCard;
   Timer _timer;
-  int seconds = 30;
+  int _seconds = 30;
   Image _gameMode;
   bool _gameModeGestures = true;
   bool _gameModeSounds = true;
   double _opacityDone = 0.0;
   double _opacityClose = 0.0;
+  bool _swipeEnabled;
+  bool _flipEnabled;
 
   @override
   void initState() {
     super.initState();
+    _controllerCard = CardController();
+    _controllerFlipCard = FlipCardController();
+    _swipeEnabled = false;
+    _flipEnabled = true;
     Future.delayed(Duration.zero, (() => _getFormData(context)));
-    _startTimer();
   }
 
   @override
@@ -86,7 +94,7 @@ class _GameState extends State<Game> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CartoonText(
-                      text: "$seconds",
+                      text: "$_seconds",
                       textSize: 70.0,
                     ),
                   ],
@@ -98,8 +106,10 @@ class _GameState extends State<Game> {
                 child: TinderSwapCard(
                   allowVerticalMovement: true,
                   orientation: AmassOrientation.BOTTOM,
-                  cardBuilder: (context, index) => Card(
-                    child: Stack(
+                  cardBuilder: (context, index) => FlipCard(
+                    key: Key('flip$index'),
+                    flipOnTouch: _flipEnabled,
+                    back: Stack(
                       fit: StackFit.expand,
                       children: [
                         Padding(
@@ -160,10 +170,30 @@ class _GameState extends State<Game> {
                         ),
                       ],
                     ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    // shape: RoundedRectangleBorder(
+                    //   borderRadius: BorderRadius.circular(10.0),
+                    // ),
+                    // clipBehavior: Clip.antiAliasWithSaveLayer,
+                    front: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Card(
+                          child: Image.asset(
+                            'assets/icon/to_mime_icon.png',
+                            fit: BoxFit.fill,
+                          ),
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        )),
+                    direction: FlipDirection.HORIZONTAL,
+                    speed: 1000,
+                    onFlipDone: (status) {
+                      _startTimer();
+                      setState(() {
+                        _flipEnabled = false;
+                      });
+                    },
                   ),
                   totalNum: _cardImages.length,
                   stackNum: 4,
@@ -172,11 +202,10 @@ class _GameState extends State<Game> {
                   maxHeight: mediaQuery.size.width * 0.9,
                   minWidth: mediaQuery.size.width * 0.8,
                   minHeight: mediaQuery.size.width * 0.8,
-                  cardController: _controller = CardController(),
+                  cardController: _controllerCard,
                   swipeUpdateCallback:
                       (DragUpdateDetails details, Alignment align) {
-                    //TODO: stack problem -> the next card has the icon
-                    //_setOpacityIcons(align.x);
+                    _setOpacityIcons(align.x);
                   },
                   swipeCompleteCallback:
                       (CardSwipeOrientation orientation, int index) {
@@ -207,6 +236,7 @@ class _GameState extends State<Game> {
                         _updateGameMode();
                         _opacityClose = 0.0;
                         _opacityDone = 0.0;
+                        _flipEnabled = true;
                         print('Current player: ${_screenName.toUpperCase()}');
                       });
                     } else if (orientation == CardSwipeOrientation.LEFT) {
@@ -233,12 +263,13 @@ class _GameState extends State<Game> {
                         _updateGameMode();
                         _opacityClose = 0.0;
                         _opacityDone = 0.0;
+                        _flipEnabled = true;
                         print('Current player: ${_screenName.toUpperCase()}');
                         if (_numCard == _cardImages.length) {
                           Navigator.pushNamed(context, '/end',
                               arguments: _players);
                         } else {
-                          restartTimer(30);
+                          _restartTimer(30);
                         }
                       });
                     }
@@ -288,19 +319,20 @@ class _GameState extends State<Game> {
     );
   }
 
-  void _startTimer() {
+  void _startTimer({int seconds = 30}) {
     const oneSec = const Duration(seconds: 1);
+    _restartTimer(seconds);
     _timer = new Timer.periodic(
       oneSec,
       (Timer timer) {
-        if (seconds <= 0) {
+        if (_seconds <= 0) {
           setState(() {
-            _controller.triggerLeft();
+            _controllerCard.triggerLeft();
             timer.cancel();
           });
         } else {
           setState(() {
-            seconds--;
+            _seconds--;
             //print('Time left: ' + seconds.toString());
           });
         }
@@ -308,10 +340,13 @@ class _GameState extends State<Game> {
     );
   }
 
-  void restartTimer(_seconds) {
-    _timer.cancel();
-    seconds = _seconds;
-    _startTimer();
+  void _restartTimer(int seconds) {
+    if (_timer != null) {
+      _timer.cancel();
+      setState(() {
+        _seconds = seconds;
+      });
+    }
   }
 
   void _updatePlayersSolve() {
@@ -383,7 +418,7 @@ class _GameState extends State<Game> {
                 if (_numCard == _cardImages.length) {
                   Navigator.pushNamed(context, '/end', arguments: _players);
                 } else {
-                  restartTimer(31);
+                  _restartTimer(30);
                 }
               },
               title: Text(
@@ -469,7 +504,7 @@ class _GameState extends State<Game> {
         _opacityClose = _opacity;
       });
       //print(_opacityClose);
-    } else if (xValue == 0) {
+    } else {
       setState(() {
         _opacityClose = 0.0;
         _opacityDone = 0.0;
