@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:to_mime/widgets/form/game_modes.dart';
+import './game_modes.dart';
 
 import '../form/players_list.dart';
-import '../cartoon_text.dart';
+import '../utils/cartoon_text.dart';
 import '../../models/player.dart';
 
 class NewGame extends StatefulWidget {

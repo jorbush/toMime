@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../cartoon_text.dart';
+import '../utils/cartoon_text.dart';
 
 class GameModes extends StatelessWidget {
   final Function setGestures;

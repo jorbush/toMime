@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_tindercard/flutter_tindercard.dart';
 import '../models/player.dart';
-import '../widgets/cartoon_text.dart';
+import '../widgets/utils/cartoon_text.dart';
 
 class Game extends StatefulWidget {
   @override
@@ -20,11 +20,11 @@ class _GameState extends State<Game> {
   List<Player> _players;
   List<Player> _playersSolve = [];
   List<String> _cardImages = [
-    'assets/started_pack/chick.jpeg',
-    'assets/started_pack/hammer.jpg',
-    'assets/started_pack/plane.jpg',
-    'assets/started_pack/chicken.jpg',
-    'assets/started_pack/ball.jpg',
+    'assets/started_pack/chick.png',
+    'assets/started_pack/hammer.png',
+    'assets/started_pack/plane.png',
+    'assets/started_pack/chicken.png',
+    'assets/started_pack/football_ball.png',
     'assets/started_pack/car.png',
     'assets/started_pack/chainsaw.png',
   ];
@@ -393,7 +393,7 @@ class _GameState extends State<Game> {
                     fontFamily: 'LuckiestGuy', color: Colors.grey[800]),
               ),
               leading: CircleAvatar(
-                backgroundImage: AssetImage('assets/blank_profile.png'),
+                backgroundImage: AssetImage('assets/icon/blank_profile.png'),
               ),
             ),
           );

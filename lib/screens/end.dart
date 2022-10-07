@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/cartoon_text.dart';
+import '../widgets/utils/cartoon_text.dart';
 import '../widgets/end/results_list.dart';
 import '../models/player.dart';
 
@@ -36,7 +36,7 @@ class End extends StatelessWidget {
                 ResultsList(players, mediaQuery.size.height * 0.47),
                 Padding(
                   padding: EdgeInsets.fromLTRB(
-                      0, mediaQuery.size.height * 0.1, 0, 0),
+                      0, mediaQuery.size.height * 0.05, 0, 0),
                   child: OutlinedButton(
                     style: OutlinedButton.styleFrom(
                       side: BorderSide(
