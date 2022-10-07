@@ -221,7 +221,7 @@ class _GameState extends State<Game> {
                   cardController: _controllerCard,
                   swipeUpdateCallback:
                       (DragUpdateDetails details, Alignment align) {
-                    _setOpacityIcons(align.x);
+                    // _setOpacityIcons(align.x); TODO
                   },
                   swipeCompleteCallback:
                       (CardSwipeOrientation orientation, int index) {
