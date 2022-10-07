@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flip_card/flip_card.dart';
-import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tindercard/flutter_tindercard.dart';
 import '../models/player.dart';
@@ -30,7 +29,7 @@ class _GameState extends State<Game> {
     'assets/started_pack/chainsaw.png',
   ];
   CardController _controllerCard;
-  FlipCardController _controllerFlipCard;
+  // FlipCardController _controllerFlipCard;
   Timer _timer;
   int _seconds = 30;
   Image _gameMode;
@@ -38,15 +37,15 @@ class _GameState extends State<Game> {
   bool _gameModeSounds = true;
   double _opacityDone = 0.0;
   double _opacityClose = 0.0;
-  bool _swipeEnabled;
+  // bool _swipeEnabled;
   bool _flipEnabled;
 
   @override
   void initState() {
     super.initState();
     _controllerCard = CardController();
-    _controllerFlipCard = FlipCardController();
-    _swipeEnabled = false;
+    // _controllerFlipCard = FlipCardController();
+    // _swipeEnabled = false;
     _flipEnabled = true;
     Future.delayed(Duration.zero, (() => _getFormData(context)));
   }
