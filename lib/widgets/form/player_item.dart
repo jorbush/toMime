@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../utils/cartoon_text.dart';
+import '../utils/confirm_dialog.dart';
 import '../../models/player.dart';
 
 class PlayerItem extends StatefulWidget {
@@ -39,50 +39,7 @@ class _PlayerItemState extends State<PlayerItem> {
       confirmDismiss: (direction) {
         return showDialog(
           context: context,
-          builder: (ctx) => AlertDialog(
-            title: null,
-            contentPadding: EdgeInsets.fromLTRB(
-                0,
-                MediaQuery.of(context).size.height * 0.04,
-                0,
-                MediaQuery.of(context).size.height * 0.025),
-            content: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CartoonText(
-                  text: 'Are you sure?',
-                  textSize: 24.0,
-                  strokeWidth: 1.5,
-                ),
-              ],
-            ),
-            actionsAlignment: MainAxisAlignment.center,
-            actions: <Widget>[
-              TextButton(
-                //Color.fromRGBO(0, 180, 255, 1)
-                child: CartoonText(
-                  text: 'No',
-                  textSize: 20,
-                  color: Color.fromRGBO(0, 180, 255, 1),
-                  strokeWidth: 1,
-                ),
-                onPressed: () {
-                  Navigator.of(ctx).pop(false);
-                },
-              ),
-              TextButton(
-                child: CartoonText(
-                  text: 'Yes',
-                  textSize: 20,
-                  color: Color.fromRGBO(0, 180, 255, 1),
-                  strokeWidth: 1,
-                ),
-                onPressed: () {
-                  Navigator.of(ctx).pop(true);
-                },
-              ),
-            ],
-          ),
+          builder: (_) => ConfirmDialog(),
         );
       },
       onDismissed: (direction) {
