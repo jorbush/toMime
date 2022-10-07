@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:to_mime/widgets/utils/outlined_cartoon_button.dart';
 import './game_modes.dart';
 
 import '../form/players_list.dart';
@@ -203,55 +204,35 @@ class _NewGameState extends State<NewGame> {
                   heightScreen: mediaQuery.size.height,
                 ),
                 GameModes(
-                    gestures: _gestures,
-                    sounds: _sounds,
-                    setGestures: _setGestures,
-                    setSounds: _setSounds),
-                OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    side: BorderSide(
-                        color: Colors.white,
-                        style: BorderStyle.solid,
-                        width: 2),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                  ),
-                  onPressed: () {
-                    if (_players.length > 2) {
-                      print('Starting game...');
-                      Map _gameModes = {
-                        'sounds': _sounds,
-                        'gestures': _gestures
-                      };
-                      Map _formData = {
-                        "players": _players,
-                        "gamemode": _gameModes
-                      };
-                      Navigator.pushNamed(context, '/game',
-                          arguments: _formData);
-                    } else {
-                      print('Not enought players to start the game.');
-                    }
+                  gestures: _gestures,
+                  sounds: _sounds,
+                  setGestures: _setGestures,
+                  setSounds: _setSounds,
+                ),
+                OutlinedCartoonButton(
+                  text: 'START GAME',
+                  functionOnClick: () {
+                    validateForm(context);
                   },
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(
-                        50,
-                        mediaQuery.size.height * 0.026,
-                        50,
-                        mediaQuery.size.height * 0.019),
-                    child: Text(
-                      'START GAME',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 23,
-                          fontFamily: 'LuckiestGuy'),
-                    ),
-                  ),
                 ),
               ])),
         ],
       ),
     );
+  }
+
+  void validateForm(BuildContext context) {
+    if (_players.length > 2) {
+      print('Starting game...');
+      Map _gameModes = {'sounds': _sounds, 'gestures': _gestures};
+      Map _formData = {"players": _players, "gamemode": _gameModes};
+      startNewGame(context, _formData);
+    } else {
+      print('Not enought players to start the game.');
+    }
+  }
+
+  void startNewGame(BuildContext context, Map<dynamic, dynamic> _formData) {
+    Navigator.pushNamed(context, '/game', arguments: _formData);
   }
 }

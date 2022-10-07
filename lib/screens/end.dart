@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:to_mime/widgets/utils/outlined_cartoon_button.dart';
 import '../widgets/utils/cartoon_text.dart';
 import '../widgets/end/results_list.dart';
 import '../models/player.dart';
@@ -37,32 +38,11 @@ class End extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.fromLTRB(
                       0, mediaQuery.size.height * 0.05, 0, 0),
-                  child: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      side: BorderSide(
-                          color: Colors.white,
-                          style: BorderStyle.solid,
-                          width: 2),
-                      shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(30.0)),
-                    ),
-                    onPressed: () {
+                  child: OutlinedCartoonButton(
+                    text: 'RETURN HOME',
+                    functionOnClick: () {
                       Navigator.popUntil(context, ModalRoute.withName('/form'));
                     },
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(
-                          50,
-                          mediaQuery.size.height * 0.026,
-                          50,
-                          mediaQuery.size.height * 0.019),
-                      child: Text(
-                        'RETURN HOME',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 23,
-                            fontFamily: 'LuckiestGuy'),
-                      ),
-                    ),
                   ),
                 ),
               ],
