@@ -67,7 +67,7 @@ flutter:
     - assets/icon/music.png
     - assets/icon/arms_up2.png
     - assets/icon/blank_profile.png
-    - assets/icon/to_mime_icon.png
+    - assets/icon/to_mime_icon_without_background.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

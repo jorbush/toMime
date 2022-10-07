@@ -112,7 +112,11 @@ class _GameState extends State<Game> {
                     back: Stack(
                       fit: StackFit.expand,
                       children: [
-                        Padding(
+                        Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
                             padding: const EdgeInsets.all(8.0),
                             child: Card(
                               child: Image.asset(
@@ -174,18 +178,30 @@ class _GameState extends State<Game> {
                     //   borderRadius: BorderRadius.circular(10.0),
                     // ),
                     // clipBehavior: Clip.antiAliasWithSaveLayer,
-                    front: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Card(
-                          child: Image.asset(
-                            'assets/icon/to_mime_icon.png',
-                            fit: BoxFit.fill,
+                    front: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      padding: const EdgeInsets.all(8.0),
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(0),
+                          child: Container(
+                            color: Color.fromRGBO(0, 180, 255, 1),
+                            padding: EdgeInsets.all(48.0),
+                            child: Image.asset(
+                              'assets/icon/to_mime_icon_without_background.png',
+                              fit: BoxFit.fill,
+                            ),
                           ),
-                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        )),
+                        ),
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
+                    ),
                     direction: FlipDirection.HORIZONTAL,
                     speed: 1000,
                     onFlipDone: (status) {
