@@ -37,7 +37,7 @@ class End extends StatelessWidget {
                 ResultsList(players, mediaQuery.size.height * 0.47),
                 Padding(
                   padding: EdgeInsets.fromLTRB(
-                      0, mediaQuery.size.height * 0.05, 0, 0),
+                      0, mediaQuery.size.height * 0.07, 0, 0),
                   child: OutlinedCartoonButton(
                     text: 'RETURN HOME',
                     functionOnClick: () {
