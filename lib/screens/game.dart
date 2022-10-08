@@ -231,30 +231,30 @@ class _GameState extends State<Game> {
                                 ],
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Stack(children: [
-                                    Icon(
-                                      Icons.close_rounded,
-                                      size: mediaQuery.size.width * 0.75,
-                                      color:
-                                          Colors.red.withOpacity(_opacityClose),
-                                    ),
-                                    Icon(
-                                      Icons.check_rounded,
-                                      size: mediaQuery.size.width * 0.75,
-                                      color: Colors.green
-                                          .withOpacity(_opacityDone),
-                                    ),
-                                  ]),
-                                ],
-                              ),
-                            ),
+                            // Padding(
+                            //   padding: const EdgeInsets.all(8.0),
+                            //   child: Row(
+                            //     crossAxisAlignment: CrossAxisAlignment.center,
+                            //     mainAxisAlignment:
+                            //         MainAxisAlignment.spaceEvenly,
+                            //     children: [
+                            //       Stack(children: [
+                            //         Icon(
+                            //           Icons.close_rounded,
+                            //           size: mediaQuery.size.width * 0.75,
+                            //           color:
+                            //               Colors.red.withOpacity(_opacityClose),
+                            //         ),
+                            //         Icon(
+                            //           Icons.check_rounded,
+                            //           size: mediaQuery.size.width * 0.75,
+                            //           color: Colors.green
+                            //               .withOpacity(_opacityDone),
+                            //         ),
+                            //       ]),
+                            //     ],
+                            //   ),
+                            // ),
                           ],
                         ),
                       ),
@@ -338,11 +338,11 @@ class _GameState extends State<Game> {
                           behavior: SnackBarBehavior.fixed,
                         ));
                         _players[_indexPlayer].points += 50;
-                        _showListPlayersSolve(_players);
+                        _showListPlayersSolve(_playersData);
                         //_startTimer();
                         setState(() {
                           _timer.cancel();
-                          _updatePlayer();
+                          _updatePlayer(_players);
                           _updateGameMode();
                           _opacityClose = 0.0;
                           _opacityDone = 0.0;
@@ -368,7 +368,7 @@ class _GameState extends State<Game> {
                           behavior: SnackBarBehavior.fixed,
                         ));
                         setState(() {
-                          _updatePlayer();
+                          _updatePlayer(_players);
                           _updateGameMode();
                           _opacityClose = 0.0;
                           _opacityDone = 0.0;
@@ -434,8 +434,8 @@ class _GameState extends State<Game> {
     }
   }
 
-  void _showListPlayersSolve(players) {
-    _updatePlayersSolve(players);
+  void _showListPlayersSolve(playersData) {
+    _updatePlayersSolve(playersData.players);
     print('$_playersSolve');
     showDialog(
         context: context,
@@ -448,23 +448,23 @@ class _GameState extends State<Game> {
               style:
                   TextStyle(fontFamily: 'LuckiestGuy', color: Colors.grey[900]),
             ),
-            content: _setupAlertDialoadContainer(),
+            content: _setupAlertDialoadContainer(playersData),
           );
         });
   }
 
-  void _updatePlayer() async {
+  void _updatePlayer(players) async {
     _indexPlayer++;
-    if (_indexPlayer >= _players.length) {
+    if (_indexPlayer >= players.length) {
       _indexPlayer = 0;
     }
-    _screenName = _players[_indexPlayer].name;
-    _screenPoints = _players[_indexPlayer].points.toString();
+    _screenName = players[_indexPlayer].name;
+    _screenPoints = players[_indexPlayer].points.toString();
     _numCard++;
   }
 
   ///   A list of players that solved the puzzle.
-  Widget _setupAlertDialoadContainer() {
+  Widget _setupAlertDialoadContainer(playersData) {
     return Container(
       height: 300.0, // Change as per your requirement
       width: 300.0, // Change as per your requirement
@@ -476,11 +476,11 @@ class _GameState extends State<Game> {
               onTap: () {
                 print(
                     'You have pressed the player ${_playersSolve[index].name}');
-                _updatePlayerPointsByName(_playersSolve[index].name);
+                playersData.updatePlayerPointsByName(_playersSolve[index].name);
                 _playersSolve = [];
                 Navigator.pop(context);
                 if (_numCard == _cardImages.length) {
-                  Navigator.pushNamed(context, '/end', arguments: _players);
+                  Navigator.pushNamed(context, '/end');
                 } else {
                   _restartTimer(30);
                 }
@@ -539,7 +539,7 @@ class _GameState extends State<Game> {
     setState(() {
       _gameModeGestures = _formData["gamemode"]["gestures"];
       _gameModeSounds = _formData["gamemode"]["sounds"];
-      _players = _formData["players"];
+      //_players = _formData["players"];
     });
     // print(_gameModeGestures);
     // print(_gameModeSounds);
