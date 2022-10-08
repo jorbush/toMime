@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:to_mime/providers/players.dart';
 import 'package:to_mime/widgets/utils/outlined_cartoon_button.dart';
 import '../widgets/utils/cartoon_text.dart';
 import '../widgets/end/results_list.dart';
-import '../models/player.dart';
 
 class End extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final List<Player> players = ModalRoute.of(context).settings.arguments;
-    players.sort((a, b) => b.points.compareTo(a.points));
+    Provider.of<Players>(context).orderByPoints();
     final mediaQuery = MediaQuery.of(context);
     //print('${players[0].name}');
     return Scaffold(
@@ -34,7 +34,7 @@ class End extends StatelessWidget {
                     children: [CartoonText(text: "RESULTS", textSize: 50.0)],
                   ),
                 ),
-                ResultsList(players, mediaQuery.size.height * 0.47),
+                ResultsList(mediaQuery.size.height * 0.47),
                 Padding(
                   padding: EdgeInsets.fromLTRB(
                       0, mediaQuery.size.height * 0.07, 0, 0),

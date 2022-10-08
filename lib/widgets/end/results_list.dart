@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:to_mime/providers/players.dart';
 import '../end/result_item.dart';
-import '../../models/player.dart';
 
 class ResultsList extends StatelessWidget {
-  final List<Player> players;
   final double listHeight;
 
-  ResultsList(this.players, this.listHeight);
+  ResultsList(this.listHeight);
 
   @override
   Widget build(BuildContext context) {
+    final _playersData = Provider.of<Players>(context);
     return SizedBox(
         height: listHeight,
         child: ListView.builder(
-            itemCount: players.length,
+            itemCount: _playersData.numPlayers,
             itemBuilder: (context, index) {
               return ResultItem(
-                player: players.elementAt(index),
+                player: _playersData.players.elementAt(index),
                 position: index + 1,
               );
             }));

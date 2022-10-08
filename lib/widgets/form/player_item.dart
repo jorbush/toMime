@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../providers/player.dart';
 import '../utils/confirm_dialog.dart';
-import '../../models/player.dart';
 
 class PlayerItem extends StatefulWidget {
   final Player player;

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:to_mime/providers/player.dart';
+import 'package:to_mime/providers/players.dart';
 import 'package:to_mime/widgets/utils/outlined_cartoon_button.dart';
 import './game_modes.dart';
+import 'package:provider/provider.dart';
 
 import '../form/players_list.dart';
 import '../utils/cartoon_text.dart';
-import '../../models/player.dart';
 
 class NewGame extends StatefulWidget {
   const NewGame({Key key}) : super(key: key);
@@ -15,71 +17,12 @@ class NewGame extends StatefulWidget {
 }
 
 class _NewGameState extends State<NewGame> {
-  String _playerName = "";
-  List<Player> _players = [];
-  String _lastPlayerName = "";
-  final int _maxPlayers = 10;
   bool _gestures = true;
   bool _sounds = true;
 
-  // Method for add a player to the game.
-  void _addNewPlayer(controller) async {
-    if (_canBeAdded()) {
-      setState(() {
-        print('lastPlayerName: $_lastPlayerName, playerName: $_playerName');
-        _addPlayer();
-      });
-      controller.clear();
-    }
-  }
-
-  // Method for add a player to the game.
-  void _addPlayer() async {
-    if (_playerName != '' && _players.length < _maxPlayers) {
-      _players.add(Player(name: _playerName, points: 0));
-      _lastPlayerName = _playerName;
-      print('Player $_playerName added');
-      Player p;
-      int playerCount = 0;
-      print('PLAYERS:');
-      for (p in _players) {
-        playerCount++;
-        print('   Player $playerCount: ${p.name}');
-      }
-    } else if (_players.length >= _maxPlayers) {
-      print("Too many players.");
-    } else {
-      print("TextField is empty");
-    }
-  }
-
-  // Method to prove that a player can be added to the game.
-  bool _canBeAdded() {
-    if (_hasAlreadyBeenAdded(_playerName)) {
-      print('Player $_playerName has been already added.');
-    }
-    return !_hasAlreadyBeenAdded(_playerName) || _lastPlayerName == '';
-  }
-
-  // Method to prove that a player has already been added.
-  bool _hasAlreadyBeenAdded(String pName) {
-    bool added = false;
-    for (Player p in _players) {
-      if (p.name == pName) {
-        added = true;
-      }
-    }
-    return added;
-  }
-
-  // Method to delete a player of the new game.
-  void _deleteNewPlayer(String namePlayer) async {
-    if (_hasAlreadyBeenAdded(namePlayer)) {
-      setState(() {
-        _players.removeWhere((player) => player.name == namePlayer);
-        print('Player $_playerName has been removed.');
-      });
-    }
+  @override
+  void initState() {
+    super.initState();
   }
 
   void _setGestures() {
@@ -99,6 +42,8 @@ class _NewGameState extends State<NewGame> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
+    final _playersData = Provider.of<Players>(context);
+    final _players = _playersData.players;
     var _controller = TextEditingController();
     return SingleChildScrollView(
       child: Column(
@@ -151,7 +96,7 @@ class _NewGameState extends State<NewGame> {
                     controller: _controller,
                     keyboardType: TextInputType.name,
                     onChanged: (name) {
-                      _playerName = name;
+                      _playersData.playerName = name;
                     },
                     style: TextStyle(
                         color: Colors.white,
@@ -164,7 +109,7 @@ class _NewGameState extends State<NewGame> {
                       hintText: "Enter here a name",
                       suffixIcon: IconButton(
                         onPressed: () {
-                          _addNewPlayer(_controller);
+                          _playersData.addNewPlayer(_controller);
                         },
                         icon: Icon(
                           Icons.check,
@@ -173,7 +118,7 @@ class _NewGameState extends State<NewGame> {
                       ),
                     ),
                     onSubmitted: (value) {
-                      _addNewPlayer(_controller);
+                      _playersData.addNewPlayer(_controller);
                     },
                   ),
                 ),
@@ -191,7 +136,7 @@ class _NewGameState extends State<NewGame> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       CartoonText(
-                        text: "${_players.length}/$_maxPlayers",
+                        text: "${_players.length}/${_playersData.maxPlayers}",
                         textSize: 28.0,
                         strokeWidth: 1.5,
                       ),
@@ -199,8 +144,6 @@ class _NewGameState extends State<NewGame> {
                   ),
                 ]),
                 PlayersList(
-                  players: _players,
-                  deletePlayer: _deleteNewPlayer,
                   heightScreen: mediaQuery.size.height,
                 ),
                 GameModes(
@@ -212,7 +155,7 @@ class _NewGameState extends State<NewGame> {
                 OutlinedCartoonButton(
                   text: 'START GAME',
                   functionOnClick: () {
-                    validateForm(context);
+                    validateForm(context, _players);
                   },
                 ),
               ])),
@@ -221,11 +164,11 @@ class _NewGameState extends State<NewGame> {
     );
   }
 
-  void validateForm(BuildContext context) {
-    if (_players.length > 2) {
+  void validateForm(BuildContext context, List<Player> players) {
+    if (players.length > 2) {
       print('Starting game...');
       Map _gameModes = {'sounds': _sounds, 'gestures': _gestures};
-      Map _formData = {"players": _players, "gamemode": _gameModes};
+      Map _formData = {"gamemode": _gameModes};
       startNewGame(context, _formData);
     } else {
       print('Not enought players to start the game.');

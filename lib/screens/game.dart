@@ -4,8 +4,10 @@ import 'dart:math';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tindercard/flutter_tindercard.dart';
+import 'package:provider/provider.dart';
+import 'package:to_mime/providers/player.dart';
+import 'package:to_mime/providers/players.dart';
 import 'package:to_mime/widgets/utils/confirm_dialog.dart';
-import '../models/player.dart';
 import '../widgets/utils/cartoon_text.dart';
 
 class Game extends StatefulWidget {
@@ -18,8 +20,6 @@ class _GameState extends State<Game> {
   String _screenName = 'JORDInito';
   int _indexPlayer = 0;
   int _numCard = 0;
-  List<Player> _players;
-  List<Player> _playersSolve = [];
   List<String> _cardImages = [
     'assets/started_pack/chick.png',
     'assets/started_pack/hammer.png',
@@ -40,6 +40,7 @@ class _GameState extends State<Game> {
   double _opacityClose = 0.0;
   // bool _swipeEnabled;
   bool _flipEnabled;
+  List<Player> _playersSolve = [];
 
   @override
   void initState() {
@@ -76,6 +77,9 @@ class _GameState extends State<Game> {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     //_getFormData(context);
+    final _playersData = Provider.of<Players>(context);
+
+    final _players = _playersData.players;
     _screenName = _players[_indexPlayer].name;
     _screenPoints = _players[_indexPlayer].points.toString();
     //startTimer();
@@ -334,7 +338,7 @@ class _GameState extends State<Game> {
                           behavior: SnackBarBehavior.fixed,
                         ));
                         _players[_indexPlayer].points += 50;
-                        _showListPlayersSolve();
+                        _showListPlayersSolve(_players);
                         //_startTimer();
                         setState(() {
                           _timer.cancel();
@@ -419,19 +423,19 @@ class _GameState extends State<Game> {
     }
   }
 
-  void _updatePlayersSolve() {
+  void _updatePlayersSolve(players) {
     _playersSolve.clear();
-    for (int i = 0; i < _players.length; i++) {
-      if (_players[i].name != _screenName) {
-        _playersSolve.add(_players[i]);
+    for (int i = 0; i < players.length; i++) {
+      if (players[i].name != _screenName) {
+        _playersSolve.add(players[i]);
         print(
-            'Player ${_players[i].name} added to playersSolve (screenName = $_screenName).');
+            'Player ${players[i].name} added to playersSolve (screenName = $_screenName).');
       }
     }
   }
 
-  void _showListPlayersSolve() {
-    _updatePlayersSolve();
+  void _showListPlayersSolve(players) {
+    _updatePlayersSolve(players);
     print('$_playersSolve');
     showDialog(
         context: context,
