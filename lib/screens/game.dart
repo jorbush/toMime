@@ -463,16 +463,6 @@ class _GameState extends State<Game> {
     _numCard++;
   }
 
-  void _updatePlayerPointsByName(String name) {
-    for (int i = 0; i < _players.length; i++) {
-      if (_players[i].name == _screenName) {
-        _players[i].points += 100;
-        print(
-            'Now player ${_players[i].name} has ${_players[i].points} points.');
-      }
-    }
-  }
-
   ///   A list of players that solved the puzzle.
   Widget _setupAlertDialoadContainer() {
     return Container(
