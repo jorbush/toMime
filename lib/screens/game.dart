@@ -108,242 +108,267 @@ class _GameState extends State<Game> {
                   ],
                 ),
               ),
-              Container(
-                padding: EdgeInsets.all(0),
-                height: 435,
-                child: TinderSwapCard(
-                  allowVerticalMovement: true,
-                  orientation: AmassOrientation.BOTTOM,
-                  cardBuilder: (context, index) => FlipCard(
-                    key: Key('flip$index'),
-                    flipOnTouch: _flipEnabled,
-                    back: Stack(
-                      fit: StackFit.expand,
-                      children: [
-                        Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              // border: !_flipEnabled
-                              //     ? Border.all(color: Colors.black)
-                              //     : null,
-                              // border: Border.all(color: Colors.black),
+              Stack(children: [
+                Padding(
+                  padding: EdgeInsets.fromLTRB(
+                    0,
+                    mediaQuery.size.height * 0.560,
+                    0,
+                    mediaQuery.size.height * 0.020,
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CartoonText(
+                            text: "PLAYER: ",
+                            textSize: 30.0,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(
+                              mediaQuery.size.height * 0.015,
+                              0,
+                              0,
+                              0,
                             ),
+                            child: CartoonText(
+                              text: _screenName,
+                              textSize: 30.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(
+                            0, mediaQuery.size.height * 0.025, 0, 0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CartoonText(
+                              text: "POINTS: ",
+                              textSize: 30.0,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(
+                                mediaQuery.size.height * 0.020,
+                                0,
+                                0,
+                                0,
+                              ),
+                              child: CartoonText(
+                                text: _screenPoints,
+                                textSize: 30.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(0),
+                  height: 435,
+                  child: TinderSwapCard(
+                    allowVerticalMovement: true,
+                    orientation: AmassOrientation.BOTTOM,
+                    cardBuilder: (context, index) => FlipCard(
+                      key: Key('flip$index'),
+                      flipOnTouch: _flipEnabled,
+                      back: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                // border: !_flipEnabled
+                                //     ? Border.all(color: Colors.black)
+                                //     : null,
+                                // border: Border.all(color: Colors.black),
+                              ),
+                              padding: const EdgeInsets.all(8.0),
+                              child: Card(
+                                child: Image.asset(
+                                  '${_cardImages[index]}',
+                                  fit: BoxFit.fill,
+                                ),
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                              )),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(
+                                0,
+                                mediaQuery.size.width * 0.045,
+                                mediaQuery.size.width * 0.045,
+                                0),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                // Icon(
+                                //   _gameMode,
+                                //   size: mediaQuery.size.width * 0.15,
+                                //   color: Colors.white,
+                                // ),
+                                IconButton(
+                                  icon: _gameMode,
+                                  iconSize: 44,
+                                  onPressed: () {},
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Card(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Stack(children: [
+                                  Icon(
+                                    Icons.close_rounded,
+                                    size: mediaQuery.size.width * 0.75,
+                                    color:
+                                        Colors.red.withOpacity(_opacityClose),
+                                  ),
+                                  Icon(
+                                    Icons.check_rounded,
+                                    size: mediaQuery.size.width * 0.75,
+                                    color:
+                                        Colors.green.withOpacity(_opacityDone),
+                                  ),
+                                ]),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      // shape: RoundedRectangleBorder(
+                      //   borderRadius: BorderRadius.circular(10.0),
+                      // ),
+                      // clipBehavior: Clip.antiAliasWithSaveLayer,
+                      front: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          // border: Border.all(color: Colors.black),
+                          // border: _flipEnabled
+                          //     ? Border.all(color: Colors.black)
+                          //     : null,
+                        ),
+                        padding: const EdgeInsets.all(8.0),
+                        child: Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(0),
+                            child: Container(
+                              color: Color.fromRGBO(0, 180, 255, 1),
+                              padding: EdgeInsets.all(48.0),
                               child: Image.asset(
-                                '${_cardImages[index]}',
+                                'assets/icon/to_mime_icon_without_background.png',
                                 fit: BoxFit.fill,
                               ),
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                            )),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(
-                              0,
-                              mediaQuery.size.width * 0.045,
-                              mediaQuery.size.width * 0.045,
-                              0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              // Icon(
-                              //   _gameMode,
-                              //   size: mediaQuery.size.width * 0.15,
-                              //   color: Colors.white,
-                              // ),
-                              IconButton(
-                                icon: _gameMode,
-                                iconSize: 44,
-                                onPressed: () {},
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Stack(children: [
-                                Icon(
-                                  Icons.close_rounded,
-                                  size: mediaQuery.size.width * 0.75,
-                                  color: Colors.red.withOpacity(_opacityClose),
-                                ),
-                                Icon(
-                                  Icons.check_rounded,
-                                  size: mediaQuery.size.width * 0.75,
-                                  color: Colors.green.withOpacity(_opacityDone),
-                                ),
-                              ]),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    // shape: RoundedRectangleBorder(
-                    //   borderRadius: BorderRadius.circular(10.0),
-                    // ),
-                    // clipBehavior: Clip.antiAliasWithSaveLayer,
-                    front: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        // border: Border.all(color: Colors.black),
-                        // border: _flipEnabled
-                        //     ? Border.all(color: Colors.black)
-                        //     : null,
-                      ),
-                      padding: const EdgeInsets.all(8.0),
-                      child: Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(0),
-                          child: Container(
-                            color: Color.fromRGBO(0, 180, 255, 1),
-                            padding: EdgeInsets.all(48.0),
-                            child: Image.asset(
-                              'assets/icon/to_mime_icon_without_background.png',
-                              fit: BoxFit.fill,
                             ),
                           ),
-                        ),
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
                         ),
                       ),
+                      direction: FlipDirection.HORIZONTAL,
+                      speed: 1000,
+                      onFlipDone: (status) {
+                        _startTimer();
+                        setState(() {
+                          _flipEnabled = false;
+                        });
+                      },
                     ),
-                    direction: FlipDirection.HORIZONTAL,
-                    speed: 1000,
-                    onFlipDone: (status) {
-                      _startTimer();
-                      setState(() {
-                        _flipEnabled = false;
-                      });
+                    totalNum: _cardImages.length,
+                    stackNum: 4,
+                    swipeEdge: 4.0,
+                    maxWidth: mediaQuery.size.width * 0.9,
+                    maxHeight: mediaQuery.size.width * 0.9,
+                    minWidth: mediaQuery.size.width * 0.8,
+                    minHeight: mediaQuery.size.width * 0.8,
+                    cardController: _controllerCard,
+                    swipeUpdateCallback:
+                        (DragUpdateDetails details, Alignment align) {
+                      // _setOpacityIcons(align.x); TODO
+                    },
+                    swipeCompleteCallback:
+                        (CardSwipeOrientation orientation, int index) {
+                      if (orientation == CardSwipeOrientation.RIGHT) {
+                        print('Card swiped to the right.');
+                        ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
+                          backgroundColor: Colors.green,
+                          content: Container(
+                            height: mediaQuery.size.height * 0.030,
+                            child: Text(
+                              "CORRECT",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 30.0,
+                                  fontFamily: 'LuckiestGuy'),
+                            ),
+                          ),
+                          duration: Duration(milliseconds: 1000),
+                          behavior: SnackBarBehavior.fixed,
+                        ));
+                        _players[_indexPlayer].points += 50;
+                        _showListPlayersSolve();
+                        //_startTimer();
+                        setState(() {
+                          _timer.cancel();
+                          _updatePlayer();
+                          _updateGameMode();
+                          _opacityClose = 0.0;
+                          _opacityDone = 0.0;
+                          _flipEnabled = true;
+                          print('Current player: ${_screenName.toUpperCase()}');
+                        });
+                      } else if (orientation == CardSwipeOrientation.LEFT) {
+                        print('Card swiped to the left.');
+                        ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
+                          backgroundColor: Colors.red,
+                          content: Container(
+                            height: mediaQuery.size.height * 0.030,
+                            child: Text(
+                              "INCORRECT",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 30.0,
+                                  fontFamily: 'LuckiestGuy'),
+                            ),
+                          ),
+                          duration: Duration(milliseconds: 1000),
+                          behavior: SnackBarBehavior.fixed,
+                        ));
+                        setState(() {
+                          _updatePlayer();
+                          _updateGameMode();
+                          _opacityClose = 0.0;
+                          _opacityDone = 0.0;
+                          _flipEnabled = true;
+                          print('Current player: ${_screenName.toUpperCase()}');
+                          if (_numCard == _cardImages.length) {
+                            Navigator.pushNamed(context, '/end',
+                                arguments: _players);
+                          } else {
+                            _restartTimer(30);
+                          }
+                        });
+                      }
                     },
                   ),
-                  totalNum: _cardImages.length,
-                  stackNum: 4,
-                  swipeEdge: 4.0,
-                  maxWidth: mediaQuery.size.width * 0.9,
-                  maxHeight: mediaQuery.size.width * 0.9,
-                  minWidth: mediaQuery.size.width * 0.8,
-                  minHeight: mediaQuery.size.width * 0.8,
-                  cardController: _controllerCard,
-                  swipeUpdateCallback:
-                      (DragUpdateDetails details, Alignment align) {
-                    // _setOpacityIcons(align.x); TODO
-                  },
-                  swipeCompleteCallback:
-                      (CardSwipeOrientation orientation, int index) {
-                    if (orientation == CardSwipeOrientation.RIGHT) {
-                      print('Card swiped to the right.');
-                      ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
-                        backgroundColor: Colors.green,
-                        content: Container(
-                          height: mediaQuery.size.height * 0.030,
-                          child: Text(
-                            "CORRECT",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 30.0,
-                                fontFamily: 'LuckiestGuy'),
-                          ),
-                        ),
-                        duration: Duration(milliseconds: 1000),
-                        behavior: SnackBarBehavior.fixed,
-                      ));
-                      _players[_indexPlayer].points += 50;
-                      _showListPlayersSolve();
-                      //_startTimer();
-                      setState(() {
-                        _timer.cancel();
-                        _updatePlayer();
-                        _updateGameMode();
-                        _opacityClose = 0.0;
-                        _opacityDone = 0.0;
-                        _flipEnabled = true;
-                        print('Current player: ${_screenName.toUpperCase()}');
-                      });
-                    } else if (orientation == CardSwipeOrientation.LEFT) {
-                      print('Card swiped to the left.');
-                      ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
-                        backgroundColor: Colors.red,
-                        content: Container(
-                          height: mediaQuery.size.height * 0.030,
-                          child: Text(
-                            "INCORRECT",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 30.0,
-                                fontFamily: 'LuckiestGuy'),
-                          ),
-                        ),
-                        duration: Duration(milliseconds: 1000),
-                        behavior: SnackBarBehavior.fixed,
-                      ));
-
-                      setState(() {
-                        _updatePlayer();
-                        _updateGameMode();
-                        _opacityClose = 0.0;
-                        _opacityDone = 0.0;
-                        _flipEnabled = true;
-                        print('Current player: ${_screenName.toUpperCase()}');
-                        if (_numCard == _cardImages.length) {
-                          Navigator.pushNamed(context, '/end',
-                              arguments: _players);
-                        } else {
-                          _restartTimer(30);
-                        }
-                      });
-                    }
-                  },
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(
-                  0,
-                  mediaQuery.size.height * 0.060,
-                  0,
-                  mediaQuery.size.height * 0.020,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CartoonText(text: "PLAYER: ", textSize: 30.0),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(
-                          mediaQuery.size.height * 0.015, 0, 0, 0),
-                      child: CartoonText(
-                        text: _screenName,
-                        textSize: 30.0,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CartoonText(text: "POINTS: ", textSize: 30.0),
-                  Padding(
-                      padding: EdgeInsets.fromLTRB(
-                        mediaQuery.size.height * 0.020,
-                        0,
-                        0,
-                        0,
-                      ),
-                      child: CartoonText(text: _screenPoints, textSize: 30.0)),
-                ],
-              ),
+              ]),
             ],
           ),
         ),
