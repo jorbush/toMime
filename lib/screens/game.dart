@@ -176,106 +176,119 @@ class _GameState extends State<Game> {
                     cardBuilder: (context, index) => FlipCard(
                       key: Key('flip$index'),
                       flipOnTouch: _flipEnabled,
-                      back: Stack(
-                        fit: StackFit.expand,
-                        children: [
-                          Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                                // border: !_flipEnabled
-                                //     ? Border.all(color: Colors.black)
-                                //     : null,
-                                // border: Border.all(color: Colors.black),
+                      back: Card(
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  // border: !_flipEnabled
+                                  //     ? Border.all(color: Colors.black)
+                                  //     : null,
+                                  // border: Border.all(color: Colors.black),
+                                ),
+                                padding: const EdgeInsets.all(8.0),
+                                child: Card(
+                                  child: Image.asset(
+                                    '${_cardImages[index]}',
+                                    fit: BoxFit.fill,
+                                  ),
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                )),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(
+                                  0,
+                                  mediaQuery.size.width * 0.045,
+                                  mediaQuery.size.width * 0.045,
+                                  0),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  // Icon(
+                                  //   _gameMode,
+                                  //   size: mediaQuery.size.width * 0.15,
+                                  //   color: Colors.white,
+                                  // ),
+                                  IconButton(
+                                    icon: _gameMode,
+                                    iconSize: 44,
+                                    onPressed: () {},
+                                  ),
+                                ],
                               ),
+                            ),
+                            Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Card(
-                                child: Image.asset(
-                                  '${_cardImages[index]}',
-                                  fit: BoxFit.fill,
-                                ),
-                                clipBehavior: Clip.antiAliasWithSaveLayer,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                              )),
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(
-                                0,
-                                mediaQuery.size.width * 0.045,
-                                mediaQuery.size.width * 0.045,
-                                0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                // Icon(
-                                //   _gameMode,
-                                //   size: mediaQuery.size.width * 0.15,
-                                //   color: Colors.white,
-                                // ),
-                                IconButton(
-                                  icon: _gameMode,
-                                  iconSize: 44,
-                                  onPressed: () {},
-                                ),
-                              ],
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Stack(children: [
+                                    Icon(
+                                      Icons.close_rounded,
+                                      size: mediaQuery.size.width * 0.75,
+                                      color:
+                                          Colors.red.withOpacity(_opacityClose),
+                                    ),
+                                    Icon(
+                                      Icons.check_rounded,
+                                      size: mediaQuery.size.width * 0.75,
+                                      color: Colors.green
+                                          .withOpacity(_opacityDone),
+                                    ),
+                                  ]),
+                                ],
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Stack(children: [
-                                  Icon(
-                                    Icons.close_rounded,
-                                    size: mediaQuery.size.width * 0.75,
-                                    color:
-                                        Colors.red.withOpacity(_opacityClose),
-                                  ),
-                                  Icon(
-                                    Icons.check_rounded,
-                                    size: mediaQuery.size.width * 0.75,
-                                    color:
-                                        Colors.green.withOpacity(_opacityDone),
-                                  ),
-                                ]),
-                              ],
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       // shape: RoundedRectangleBorder(
                       //   borderRadius: BorderRadius.circular(10.0),
                       // ),
                       // clipBehavior: Clip.antiAliasWithSaveLayer,
-                      front: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          // border: Border.all(color: Colors.black),
-                          // border: _flipEnabled
-                          //     ? Border.all(color: Colors.black)
-                          //     : null,
+                      front: Card(
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
                         ),
-                        padding: const EdgeInsets.all(8.0),
-                        child: Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(0),
-                            child: Container(
-                              color: Color.fromRGBO(0, 180, 255, 1),
-                              padding: EdgeInsets.all(48.0),
-                              child: Image.asset(
-                                'assets/icon/to_mime_icon_without_background.png',
-                                fit: BoxFit.fill,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            // border: Border.all(color: Colors.black),
+                            // border: _flipEnabled
+                            //     ? Border.all(color: Colors.black)
+                            //     : null,
+                          ),
+                          padding: const EdgeInsets.all(8.0),
+                          child: Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(0),
+                              child: Container(
+                                color: Color.fromRGBO(0, 180, 255, 1),
+                                padding: EdgeInsets.all(48.0),
+                                child: Image.asset(
+                                  'assets/icon/to_mime_icon_without_background.png',
+                                  fit: BoxFit.fill,
+                                ),
                               ),
                             ),
-                          ),
-                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
                           ),
                         ),
                       ),
