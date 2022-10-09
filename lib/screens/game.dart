@@ -174,14 +174,31 @@ class _GameState extends State<Game> {
         builder: (BuildContext context) {
           return AlertDialog(
             backgroundColor: Color.fromRGBO(0, 180, 255, 1),
-            title: Text(
-              'Who has solved it?',
-              textAlign: TextAlign.center,
-              style:
-                  TextStyle(fontFamily: 'LuckiestGuy', color: Colors.grey[900]),
+            title: null,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(20.0),
+              ),
             ),
-            content: ListSolve(
-                playersSolve: _playersSolve, setReward: _setRewardPlayer),
+            content: Container(
+              height: MediaQuery.of(context).size.height * 0.3,
+              child: Column(
+                children: [
+                  CartoonText(
+                    text: 'Who has solved it?',
+                    textSize: 24.0,
+                    strokeWidth: 1.5,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                    child: ListSolve(
+                      playersSolve: _playersSolve,
+                      setReward: _setRewardPlayer,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           );
         });
   }

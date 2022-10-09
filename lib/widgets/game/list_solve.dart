@@ -16,8 +16,9 @@ class ListSolve extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _playersData = Provider.of<Players>(context);
+    final mediaQuery = MediaQuery.of(context);
     return Container(
-      height: 300.0, // Change as per your requirement
+      height: mediaQuery.size.height * 0.24, // Change as per your requirement
       width: 300.0, // Change as per your requirement
       child: new ListView.builder(
         itemCount: playersSolve.length,
@@ -30,7 +31,9 @@ class ListSolve extends StatelessWidget {
               title: Text(
                 playersSolve[index].name.toUpperCase(),
                 style: TextStyle(
-                    fontFamily: 'LuckiestGuy', color: Colors.grey[800]),
+                  fontFamily: 'LuckiestGuy',
+                  color: Colors.grey[800],
+                ),
               ),
               leading: CircleAvatar(
                 backgroundImage: AssetImage('assets/icon/blank_profile.png'),
