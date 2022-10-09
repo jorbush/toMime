@@ -8,6 +8,11 @@ class ConfirmDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: null,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(20.0),
+        ),
+      ),
       backgroundColor: Color.fromRGBO(0, 180, 255, 1),
       contentPadding: EdgeInsets.fromLTRB(
           0,
