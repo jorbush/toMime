@@ -85,8 +85,7 @@ class Players with ChangeNotifier {
     }
   }
 
-  Future<void> deletePlayer() async {
-    String namePlayer = _playerName;
+  Future<void> deletePlayer(String namePlayer) async {
     if (_hasAlreadyBeenAdded(namePlayer)) {
       _players.removeWhere((player) => player.name == namePlayer);
       print('Player $namePlayer has been removed.');

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../providers/player.dart';
 import '../utils/confirm_dialog.dart';
 
-class PlayerItem extends StatefulWidget {
+class PlayerItem extends StatelessWidget {
   final Player player;
   final Function deletePlayer;
 
@@ -13,14 +13,9 @@ class PlayerItem extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<PlayerItem> createState() => _PlayerItemState();
-}
-
-class _PlayerItemState extends State<PlayerItem> {
-  @override
   Widget build(BuildContext context) {
     return Dismissible(
-      key: ValueKey(widget.player.name),
+      key: ValueKey(player.name),
       background: Container(
         color: Theme.of(context).errorColor,
         child: Icon(
@@ -44,18 +39,18 @@ class _PlayerItemState extends State<PlayerItem> {
       },
       onDismissed: (direction) {
         //Provider.of<Cart>(context, listen: false).removeItem(productId);
-        widget.deletePlayer(widget.player.name);
+        deletePlayer(player.name);
       },
       child: Card(
         child: ListTile(
           onTap: () {
-            print('You have pressed the player ${widget.player.name}');
+            print('You have pressed the player ${player.name}');
           },
           leading: CircleAvatar(
             backgroundImage: AssetImage('assets/icon/blank_profile.png'),
           ),
           title: Text(
-            widget.player.name.toUpperCase(),
+            player.name.toUpperCase(),
             style: TextStyle(
               fontFamily: 'LuckiestGuy',
               color: Colors.grey[800],
