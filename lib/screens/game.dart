@@ -7,6 +7,7 @@ import 'package:flutter_tindercard/flutter_tindercard.dart';
 import 'package:provider/provider.dart';
 import 'package:to_mime/providers/player.dart';
 import 'package:to_mime/providers/players.dart';
+import 'package:to_mime/widgets/game/player_info.dart';
 import 'package:to_mime/widgets/utils/confirm_dialog.dart';
 import '../widgets/utils/cartoon_text.dart';
 
@@ -113,64 +114,7 @@ class _GameState extends State<Game> {
                 ),
               ),
               Stack(children: [
-                Padding(
-                  padding: EdgeInsets.fromLTRB(
-                    0,
-                    mediaQuery.size.height * 0.560,
-                    0,
-                    mediaQuery.size.height * 0.020,
-                  ),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CartoonText(
-                            text: "PLAYER: ",
-                            textSize: 30.0,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(
-                              mediaQuery.size.height * 0.015,
-                              0,
-                              0,
-                              0,
-                            ),
-                            child: CartoonText(
-                              text: _screenName,
-                              textSize: 30.0,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(
-                            0, mediaQuery.size.height * 0.025, 0, 0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CartoonText(
-                              text: "POINTS: ",
-                              textSize: 30.0,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(
-                                mediaQuery.size.height * 0.020,
-                                0,
-                                0,
-                                0,
-                              ),
-                              child: CartoonText(
-                                text: _screenPoints,
-                                textSize: 30.0,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                PlayerInfo(name: _screenName, points: _screenPoints),
                 Container(
                   padding: EdgeInsets.all(0),
                   height: 435,
