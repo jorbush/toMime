@@ -9,8 +9,12 @@ import '../widgets/end/results_list.dart';
 class End extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Provider.of<Players>(context).orderByPoints();
+    final _playersData = Provider.of<Players>(context);
+    _playersData.orderByPoints();
     final mediaQuery = MediaQuery.of(context);
+    if (_playersData == null || _playersData.numPlayers == 0) {
+      Navigator.popUntil(context, ModalRoute.withName('/form'));
+    }
     //print('${players[0].name}');
     return Scaffold(
         backgroundColor: Color.fromRGBO(0, 180, 255, 1),
