@@ -17,37 +17,43 @@ class GameModes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Padding(
-          padding: EdgeInsets.fromLTRB(
-              0, MediaQuery.of(context).size.height * 0.01, 0, 0),
-          child: CartoonText(
-            text: "MODES: ",
-            textSize: 22.0,
-            strokeWidth: 1,
+    final mediaQuery = MediaQuery.of(context);
+
+    return Padding(
+      padding: EdgeInsets.fromLTRB(
+          0, mediaQuery.size.height * 0.02, 0, mediaQuery.size.height * 0.06),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Padding(
+            padding:
+                EdgeInsets.fromLTRB(0, mediaQuery.size.height * 0.01, 0, 0),
+            child: CartoonText(
+              text: "MODES: ",
+              textSize: 22.0,
+              strokeWidth: 1,
+            ),
           ),
-        ),
-        Row(
-          children: [
-            IconButton(
-              icon: Image.asset('assets/icon/arms_up2.png'),
-            ),
-            Checkbox(
-              value: gestures,
-              onChanged: ((_) => setGestures()),
-            ),
-            IconButton(
-              icon: Image.asset('assets/icon/music.png'),
-            ),
-            Checkbox(
-              value: sounds,
-              onChanged: ((_) => setSounds()),
-            )
-          ],
-        ),
-      ],
+          Row(
+            children: [
+              IconButton(
+                icon: Image.asset('assets/icon/arms_up2.png'),
+              ),
+              Checkbox(
+                value: gestures,
+                onChanged: ((_) => setGestures()),
+              ),
+              IconButton(
+                icon: Image.asset('assets/icon/music.png'),
+              ),
+              Checkbox(
+                value: sounds,
+                onChanged: ((_) => setSounds()),
+              )
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

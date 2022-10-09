@@ -13,8 +13,12 @@ class PlayersList extends StatelessWidget {
   Widget build(BuildContext context) {
     final _playersData = Provider.of<Players>(context);
     return Padding(
-      padding:
-          EdgeInsets.fromLTRB(0, heightScreen * 0.02, 0, heightScreen * 0.08),
+      padding: EdgeInsets.fromLTRB(
+        0,
+        heightScreen * 0.02,
+        0,
+        heightScreen * 0,
+      ),
       child: SizedBox(
         height: heightScreen * 0.30,
         child: ListView.builder(

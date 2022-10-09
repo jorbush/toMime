@@ -49,29 +49,33 @@ class _NewGameState extends State<NewGame> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Stack(children: [
-            Row(children: [
+          Stack(
+            children: [
+              Row(children: [
+                Padding(
+                  padding: EdgeInsets.fromLTRB(
+                      mediaQuery.size.width * 0.02, 0, 0, 0),
+                  child: IconButton(
+                    icon: Icon(Icons.arrow_back_ios),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    color: Colors.white,
+                  ),
+                ),
+              ]),
               Padding(
                 padding:
-                    EdgeInsets.fromLTRB(mediaQuery.size.width * 0.02, 0, 0, 0),
-                child: IconButton(
-                  icon: Icon(Icons.arrow_back_ios),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  color: Colors.white,
+                    EdgeInsets.fromLTRB(0, mediaQuery.size.height * 0.04, 0, 0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CartoonText(text: "NEW GAME", textSize: 40.0),
+                  ],
                 ),
               ),
-            ]),
-            Padding(
-              padding:
-                  EdgeInsets.fromLTRB(0, mediaQuery.size.height * 0.04, 0, 0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [CartoonText(text: "NEW GAME", textSize: 40.0)],
-              ),
-            ),
-          ]),
+            ],
+          ),
           Padding(
               padding:
                   EdgeInsets.fromLTRB(24, 0, 24, mediaQuery.size.height * 0.02),
@@ -90,8 +94,12 @@ class _NewGameState extends State<NewGame> {
                   ],
                 ),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(0, mediaQuery.size.height * 0.01,
-                      0, mediaQuery.size.height * 0.03),
+                  padding: EdgeInsets.fromLTRB(
+                    0,
+                    mediaQuery.size.height * 0.01,
+                    0,
+                    mediaQuery.size.height * 0.03,
+                  ),
                   child: TextField(
                     controller: _controller,
                     keyboardType: TextInputType.name,
