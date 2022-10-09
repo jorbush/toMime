@@ -155,7 +155,7 @@ class _NewGameState extends State<NewGame> {
                 OutlinedCartoonButton(
                   text: 'START GAME',
                   functionOnClick: () {
-                    validateForm(context, _players);
+                    validateForm(context, _players, _playersData);
                   },
                 ),
               ])),
@@ -164,18 +164,21 @@ class _NewGameState extends State<NewGame> {
     );
   }
 
-  void validateForm(BuildContext context, List<Player> players) {
+  void validateForm(
+      BuildContext context, List<Player> players, Players playersData) {
     if (players.length > 2) {
       print('Starting game...');
       Map _gameModes = {'sounds': _sounds, 'gestures': _gestures};
       Map _formData = {"gamemode": _gameModes};
-      startNewGame(context, _formData);
+      startNewGame(context, _formData, playersData);
     } else {
       print('Not enought players to start the game.');
     }
   }
 
-  void startNewGame(BuildContext context, Map<dynamic, dynamic> _formData) {
+  void startNewGame(BuildContext context, Map<dynamic, dynamic> _formData,
+      Players playersData) {
+    playersData.resetPlayersPoints();
     Navigator.pushNamed(context, '/game', arguments: _formData);
   }
 }

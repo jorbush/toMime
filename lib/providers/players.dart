@@ -32,6 +32,7 @@ class Players with ChangeNotifier {
 
   Future<void> resetPlayersPoints() async {
     _players.forEach((player) => player.resetPoints());
+    print("Reset players\' points");
     notifyListeners();
   }
 
