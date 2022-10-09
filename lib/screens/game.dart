@@ -1,15 +1,15 @@
 import 'dart:async';
 import 'dart:math';
-
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tindercard/flutter_tindercard.dart';
 import 'package:provider/provider.dart';
-import 'package:to_mime/providers/player.dart';
-import 'package:to_mime/providers/players.dart';
-import 'package:to_mime/widgets/game/list_solve.dart';
-import 'package:to_mime/widgets/game/player_info.dart';
-import 'package:to_mime/widgets/utils/confirm_dialog.dart';
+
+import '../providers/player.dart';
+import '../providers/players.dart';
+import '../widgets/game/list_solve.dart';
+import '../widgets/game/player_info.dart';
+import '../widgets/utils/confirm_dialog.dart';
 import '../widgets/utils/cartoon_text.dart';
 
 class Game extends StatefulWidget {

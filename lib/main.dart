@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:to_mime/providers/players.dart';
-import 'package:to_mime/screens/form.dart';
-import 'package:to_mime/screens/home.dart';
-import 'package:to_mime/screens/settings.dart';
 import 'package:provider/provider.dart';
 
-import 'screens/end.dart';
-import 'screens/game.dart';
+import './screens/end.dart';
+import './screens/game.dart';
+import './providers/players.dart';
+import './screens/form.dart';
+import './screens/home.dart';
+import './screens/settings.dart';
 
 void main() => runApp(MyApp());
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'cartoon_text.dart';
+
+import './cartoon_text.dart';
 
 class ConfirmDialog extends StatelessWidget {
   const ConfirmDialog({Key key}) : super(key: key);

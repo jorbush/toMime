@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../utils/cartoon_text.dart';
 
 class PlayerInfo extends StatelessWidget {

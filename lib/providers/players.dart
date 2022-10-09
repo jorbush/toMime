@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:to_mime/providers/player.dart';
+import './player.dart';
 
 class Players with ChangeNotifier {
   List<Player> _players = [];

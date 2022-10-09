@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:to_mime/providers/player.dart';
-import 'package:to_mime/providers/players.dart';
-import 'package:to_mime/widgets/utils/outlined_cartoon_button.dart';
-import './game_modes.dart';
 import 'package:provider/provider.dart';
 
 import '../form/players_list.dart';
 import '../utils/cartoon_text.dart';
+import '../../providers/player.dart';
+import '../../providers/players.dart';
+import '../utils/outlined_cartoon_button.dart';
+import './game_modes.dart';
 
 class NewGame extends StatefulWidget {
   const NewGame({Key key}) : super(key: key);

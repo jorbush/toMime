@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:to_mime/providers/players.dart';
-import 'package:to_mime/widgets/utils/outlined_cartoon_button.dart';
+
+import '../providers/players.dart';
+import '../widgets/utils/outlined_cartoon_button.dart';
 import '../widgets/utils/cartoon_text.dart';
 import '../widgets/end/results_list.dart';
 
