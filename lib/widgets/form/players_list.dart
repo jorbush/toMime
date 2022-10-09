@@ -7,7 +7,10 @@ import './player_item.dart';
 class PlayersList extends StatelessWidget {
   final double heightScreen;
 
-  const PlayersList({Key key, @required this.heightScreen}) : super(key: key);
+  const PlayersList({
+    Key key,
+    @required this.heightScreen,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +25,7 @@ class PlayersList extends StatelessWidget {
       child: SizedBox(
         height: heightScreen * 0.30,
         child: ListView.builder(
+          padding: EdgeInsets.only(top: 0),
           itemCount: _playersData.players.length,
           itemBuilder: (context, index) {
             return PlayerItem(
