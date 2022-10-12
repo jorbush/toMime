@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class Card {
+class CardItem {
   final String name;
   final String imgPath;
 
-  Card({
+  CardItem({
     @required this.name,
     @required this.imgPath,
   });
