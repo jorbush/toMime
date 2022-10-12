@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tindercard/flutter_tindercard.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/player.dart';
+import '../models/player.dart';
 import '../providers/players.dart';
 import '../widgets/game/list_solve.dart';
 import '../widgets/game/player_info.dart';

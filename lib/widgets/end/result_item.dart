@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../providers/player.dart';
+import '../../models/player.dart';
 import '../utils/cartoon_text.dart';
 
 class ResultItem extends StatelessWidget {

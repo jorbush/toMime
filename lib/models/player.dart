@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 
-class Player with ChangeNotifier {
+class Player {
   final String name;
   int points;
 
@@ -12,11 +12,11 @@ class Player with ChangeNotifier {
 
   void setPoints(int pointsPlayer) {
     points = pointsPlayer;
-    notifyListeners();
+    //notifyListeners();
   }
 
   void resetPoints() {
     points = 0;
-    notifyListeners();
+    //notifyListeners();
   }
 }

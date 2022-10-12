@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../form/players_list.dart';
 import '../utils/cartoon_text.dart';
-import '../../providers/player.dart';
+import '../../models/player.dart';
 import '../../providers/players.dart';
 import '../utils/outlined_cartoon_button.dart';
 import './game_modes.dart';
