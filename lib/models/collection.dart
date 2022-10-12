@@ -8,7 +8,7 @@ class Collection {
   final String title;
   final String description;
   final double price;
-  final String imageUrl;
+  final String imgPath;
 
   bool isSelected;
   bool isBought;
@@ -19,7 +19,7 @@ class Collection {
     @required this.title,
     @required this.description,
     @required this.price,
-    @required this.imageUrl,
+    @required this.imgPath,
     this.isSelected = false,
     this.isBought = false,
   });
