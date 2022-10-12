@@ -14,8 +14,8 @@ class Collection {
   bool isBought;
 
   Collection({
-    @required this.cards,
     @required this.id,
+    @required this.cards,
     @required this.title,
     @required this.description,
     @required this.price,
