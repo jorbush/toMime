@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:to_mime/widgets/utils/header_back.dart';
 
 import '../form/players_list.dart';
 import '../utils/cartoon_text.dart';
@@ -49,33 +50,7 @@ class _NewGameState extends State<NewGame> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Stack(
-            children: [
-              Row(children: [
-                Padding(
-                  padding: EdgeInsets.fromLTRB(
-                      mediaQuery.size.width * 0.02, 0, 0, 0),
-                  child: IconButton(
-                    icon: Icon(Icons.arrow_back_ios),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    color: Colors.white,
-                  ),
-                ),
-              ]),
-              Padding(
-                padding:
-                    EdgeInsets.fromLTRB(0, mediaQuery.size.height * 0.04, 0, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CartoonText(text: "NEW GAME", textSize: 40.0),
-                  ],
-                ),
-              ),
-            ],
-          ),
+          HeaderBack(text: "NEW GAME"),
           Padding(
               padding:
                   EdgeInsets.fromLTRB(24, 0, 24, mediaQuery.size.height * 0.02),
