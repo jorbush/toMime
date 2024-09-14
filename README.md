@@ -2,6 +2,8 @@
 
 A fun miming game to play with friends built with Flutter.
 
+[![toMime video](https://img.youtube.com/vi/5OgNrjb7bYM/0.jpg)](https://www.youtube.com/watch?v=5OgNrjb7bYM&list=PLCpj_sbtRUDBjPJnVny3cJyoWUETjXD2D&index=13&ab_channel=JordiBonet)
+
 ## Requirements
 
 - [Flutter](https://docs.flutter.dev/get-started/install)
