@@ -73,3 +73,10 @@ lib/
 ## State Management
 
 The app uses the **Provider Pattern** for managing the state of the game. This ensures that the state of the players, collections, and game progress is efficiently handled and updated across the application.
+
+## Documentation
+
+The documentation for the project can be found in the `docs` directory. It includes the following files:
+
+- `dalle.md`: Contains the DALL-E prompt used for generating the cartoon images used in the app.
+- `database_structure.md`: Describes the database structure that will be used for storing user and collection information.
