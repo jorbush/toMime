@@ -40,7 +40,7 @@ class _GameState extends State<Game> {
   bool _gameModeSounds = true;
   double _opacityDone = 0.0;
   double _opacityClose = 0.0;
-  // bool _swipeEnabled;
+  bool _swipeEnabled;
   bool _flipEnabled;
   List<Player> _playersSolve = [];
 
@@ -49,7 +49,7 @@ class _GameState extends State<Game> {
     super.initState();
     _controllerCard = CardController();
     // _controllerFlipCard = FlipCardController();
-    // _swipeEnabled = false;
+    _swipeEnabled = false;
     _flipEnabled = true;
     Future.delayed(Duration.zero, (() => _getFormData(context)));
   }
@@ -309,7 +309,6 @@ class _GameState extends State<Game> {
       padding: EdgeInsets.all(0),
       height: 435,
       child: TinderSwapCard(
-        allowVerticalMovement: true,
         orientation: AmassOrientation.BOTTOM,
         cardBuilder: (context, index) => FlipCard(
           key: Key('flip$index'),
@@ -433,6 +432,7 @@ class _GameState extends State<Game> {
             _startTimer();
             setState(() {
               _flipEnabled = false;
+              _swipeEnabled = true;
             });
           },
         ),
@@ -476,6 +476,7 @@ class _GameState extends State<Game> {
               _opacityClose = 0.0;
               _opacityDone = 0.0;
               _flipEnabled = true;
+              _swipeEnabled = false;
               print('Current player: ${_screenName.toUpperCase()}');
             });
           } else if (orientation == CardSwipeOrientation.LEFT) {
@@ -502,6 +503,7 @@ class _GameState extends State<Game> {
               _opacityClose = 0.0;
               _opacityDone = 0.0;
               _flipEnabled = true;
+              _swipeEnabled = false;
               print('Current player: ${_screenName.toUpperCase()}');
               if (_numCard == _cardImages.length) {
                 Navigator.pushNamed(context, '/end', arguments: _players);
