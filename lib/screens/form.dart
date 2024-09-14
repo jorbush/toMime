@@ -11,8 +11,7 @@ class FormGame extends StatelessWidget {
         backgroundColor: Color.fromRGBO(0, 180, 255, 1),
         resizeToAvoidBottomInset: false,
         body: Padding(
-            padding:
-                EdgeInsets.fromLTRB(16, mediaQuery.size.height * 0.07, 16, 0),
+            padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
             child: Column(children: [
               Padding(
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),

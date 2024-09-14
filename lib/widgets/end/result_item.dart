@@ -1,8 +1,7 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import '../utils/cartoon_text.dart';
+
 import '../../models/player.dart';
+import '../utils/cartoon_text.dart';
 
 class ResultItem extends StatelessWidget {
   final Player player;

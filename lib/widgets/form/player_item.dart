@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import '../utils/cartoon_text.dart';
-import '../../models/player.dart';
 
-class PlayerItem extends StatefulWidget {
+import '../../models/player.dart';
+import '../utils/confirm_dialog.dart';
+
+class PlayerItem extends StatelessWidget {
   final Player player;
   final Function deletePlayer;
 
@@ -13,14 +14,9 @@ class PlayerItem extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<PlayerItem> createState() => _PlayerItemState();
-}
-
-class _PlayerItemState extends State<PlayerItem> {
-  @override
   Widget build(BuildContext context) {
     return Dismissible(
-      key: ValueKey(widget.player.name),
+      key: ValueKey(player.name),
       background: Container(
         color: Theme.of(context).errorColor,
         child: Icon(
@@ -39,66 +35,23 @@ class _PlayerItemState extends State<PlayerItem> {
       confirmDismiss: (direction) {
         return showDialog(
           context: context,
-          builder: (ctx) => AlertDialog(
-            title: null,
-            contentPadding: EdgeInsets.fromLTRB(
-                0,
-                MediaQuery.of(context).size.height * 0.04,
-                0,
-                MediaQuery.of(context).size.height * 0.025),
-            content: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CartoonText(
-                  text: 'Are you sure?',
-                  textSize: 24.0,
-                  strokeWidth: 1.5,
-                ),
-              ],
-            ),
-            actionsAlignment: MainAxisAlignment.center,
-            actions: <Widget>[
-              TextButton(
-                //Color.fromRGBO(0, 180, 255, 1)
-                child: CartoonText(
-                  text: 'No',
-                  textSize: 20,
-                  color: Color.fromRGBO(0, 180, 255, 1),
-                  strokeWidth: 1,
-                ),
-                onPressed: () {
-                  Navigator.of(ctx).pop(false);
-                },
-              ),
-              TextButton(
-                child: CartoonText(
-                  text: 'Yes',
-                  textSize: 20,
-                  color: Color.fromRGBO(0, 180, 255, 1),
-                  strokeWidth: 1,
-                ),
-                onPressed: () {
-                  Navigator.of(ctx).pop(true);
-                },
-              ),
-            ],
-          ),
+          builder: (_) => ConfirmDialog(),
         );
       },
       onDismissed: (direction) {
         //Provider.of<Cart>(context, listen: false).removeItem(productId);
-        widget.deletePlayer(widget.player.name);
+        deletePlayer(player.name);
       },
       child: Card(
         child: ListTile(
           onTap: () {
-            print('You have pressed the player ${widget.player.name}');
+            print('You have pressed the player ${player.name}');
           },
           leading: CircleAvatar(
             backgroundImage: AssetImage('assets/icon/blank_profile.png'),
           ),
           title: Text(
-            widget.player.name.toUpperCase(),
+            player.name.toUpperCase(),
             style: TextStyle(
               fontFamily: 'LuckiestGuy',
               color: Colors.grey[800],
