@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class CardItem {
   final String name;
   final String imgPath;
