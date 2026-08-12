@@ -74,7 +74,7 @@ class _GameState extends State<Game> {
     final mediaQuery = MediaQuery.of(context);
     //_getFormData(context);
     final _playersData = Provider.of<Players>(context);
-    if (_playersData == null || _playersData.numPlayers == 0) {
+    if (_playersData.numPlayers == 0) {
       Navigator.popUntil(context, ModalRoute.withName('/form'));
     }
     final _players = _playersData.players;
