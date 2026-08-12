@@ -308,7 +308,8 @@ class _GameState extends State<Game> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       IconButton(
-                        icon: _gameMode ?? Image.asset('assets/icon/arms_up2.png'),
+                        icon: _gameMode ??
+                            Image.asset('assets/icon/arms_up2.png'),
                         iconSize: 44,
                         onPressed: () {},
                       ),

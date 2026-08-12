@@ -90,7 +90,8 @@ class _CustomCardSwiperState extends State<CustomCardSwiper>
   }
 
   void swipeLeft() {
-    if (_currentIndex >= widget.itemCount || _animController.isAnimating) return;
+    if (_currentIndex >= widget.itemCount || _animController.isAnimating)
+      return;
     _swipeDirection = SwipeDirection.left;
     final screenWidth = MediaQuery.of(context).size.width;
     _slideAnimation = Tween<Offset>(
@@ -101,7 +102,8 @@ class _CustomCardSwiperState extends State<CustomCardSwiper>
   }
 
   void swipeRight() {
-    if (_currentIndex >= widget.itemCount || _animController.isAnimating) return;
+    if (_currentIndex >= widget.itemCount || _animController.isAnimating)
+      return;
     _swipeDirection = SwipeDirection.right;
     final screenWidth = MediaQuery.of(context).size.width;
     _slideAnimation = Tween<Offset>(
@@ -112,19 +114,23 @@ class _CustomCardSwiperState extends State<CustomCardSwiper>
   }
 
   void _onPanUpdate(DragUpdateDetails details) {
-    if (_currentIndex >= widget.itemCount || _animController.isAnimating) return;
+    if (_currentIndex >= widget.itemCount || _animController.isAnimating)
+      return;
     setState(() {
       _dragOffset += details.delta;
     });
   }
 
   void _onPanEnd(DragEndDetails details) {
-    if (_currentIndex >= widget.itemCount || _animController.isAnimating) return;
+    if (_currentIndex >= widget.itemCount || _animController.isAnimating)
+      return;
     const threshold = 100.0;
 
-    if (_dragOffset.dx > threshold || details.velocity.pixelsPerSecond.dx > 500) {
+    if (_dragOffset.dx > threshold ||
+        details.velocity.pixelsPerSecond.dx > 500) {
       swipeRight();
-    } else if (_dragOffset.dx < -threshold || details.velocity.pixelsPerSecond.dx < -500) {
+    } else if (_dragOffset.dx < -threshold ||
+        details.velocity.pixelsPerSecond.dx < -500) {
       swipeLeft();
     } else {
       // Snap back to center
