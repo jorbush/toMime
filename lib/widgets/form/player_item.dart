@@ -8,9 +8,9 @@ class PlayerItem extends StatelessWidget {
   final Function deletePlayer;
 
   const PlayerItem({
-    Key key,
-    @required this.player,
-    @required this.deletePlayer,
+    Key? key,
+    required this.player,
+    required this.deletePlayer,
   }) : super(key: key);
 
   @override
@@ -18,7 +18,7 @@ class PlayerItem extends StatelessWidget {
     return Dismissible(
       key: ValueKey(player.name),
       background: Container(
-        color: Theme.of(context).errorColor,
+        color: Theme.of(context).colorScheme.error,
         child: Icon(
           Icons.delete,
           color: Colors.white,

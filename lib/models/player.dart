@@ -6,8 +6,8 @@ class Player {
   int points;
 
   Player({
-    @required this.name,
-    @required this.points,
+    required this.name,
+    required this.points,
   });
 
   void setPoints(int pointsPlayer) {

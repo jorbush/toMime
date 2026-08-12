@@ -8,33 +8,21 @@ class ResultItem extends StatelessWidget {
   final int position;
 
   const ResultItem({
-    Key key,
-    @required this.player,
-    @required this.position,
+    Key? key,
+    required this.player,
+    required this.position,
   }) : super(key: key);
 
   Color getTextColor(int position) {
     switch (position) {
       case 1:
-        {
-          return Color.fromRGBO(255, 215, 0, 1);
-        }
-        break;
+        return Color.fromRGBO(255, 215, 0, 1);
       case 2:
-        {
-          return Color.fromRGBO(192, 192, 192, 1);
-        }
-        break;
+        return Color.fromRGBO(192, 192, 192, 1);
       case 3:
-        {
-          return Color.fromRGBO(205, 127, 50, 1);
-        }
-        break;
+        return Color.fromRGBO(205, 127, 50, 1);
       default:
-        {
-          return Colors.white;
-        }
-        break;
+        return Colors.white;
     }
   }
 

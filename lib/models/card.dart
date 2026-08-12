@@ -5,8 +5,8 @@ class CardItem {
   final String imgPath;
 
   CardItem({
-    @required this.name,
-    @required this.imgPath,
+    required this.name,
+    required this.imgPath,
   });
 
   String get path {

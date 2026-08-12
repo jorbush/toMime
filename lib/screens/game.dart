@@ -2,11 +2,11 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_tindercard/flutter_tindercard.dart';
 import 'package:provider/provider.dart';
 
 import '../models/player.dart';
 import '../providers/players.dart';
+import '../widgets/game/card_swiper.dart';
 import '../widgets/game/list_solve.dart';
 import '../widgets/game/player_info.dart';
 import '../widgets/utils/confirm_dialog.dart';
@@ -22,7 +22,7 @@ class _GameState extends State<Game> {
   String _screenName = 'JORDInito';
   int _indexPlayer = 0;
   int _numCard = 0;
-  List<String> _cardImages = [
+  final List<String> _cardImages = [
     'assets/started_pack/chick.png',
     'assets/started_pack/hammer.png',
     'assets/started_pack/plane.png',
@@ -31,25 +31,19 @@ class _GameState extends State<Game> {
     'assets/started_pack/car.png',
     'assets/started_pack/chainsaw.png',
   ];
-  CardController _controllerCard;
-  // FlipCardController _controllerFlipCard;
-  Timer _timer;
+  late CustomCardSwiperController _controllerCard;
+  Timer? _timer;
   int _seconds = 30;
-  Image _gameMode;
+  Image? _gameMode;
   bool _gameModeGestures = true;
   bool _gameModeSounds = true;
-  double _opacityDone = 0.0;
-  double _opacityClose = 0.0;
-  bool _swipeEnabled;
-  bool _flipEnabled;
+  bool _flipEnabled = true;
   List<Player> _playersSolve = [];
 
   @override
   void initState() {
     super.initState();
-    _controllerCard = CardController();
-    // _controllerFlipCard = FlipCardController();
-    _swipeEnabled = false;
+    _controllerCard = CustomCardSwiperController();
     _flipEnabled = true;
     Future.delayed(Duration.zero, (() => _getFormData(context)));
   }
@@ -63,7 +57,7 @@ class _GameState extends State<Game> {
 
   @override
   void dispose() {
-    _timer.cancel();
+    _timer?.cancel();
     super.dispose();
   }
 
@@ -150,14 +144,14 @@ class _GameState extends State<Game> {
 
   void _restartTimer(int seconds) {
     if (_timer != null) {
-      _timer.cancel();
+      _timer!.cancel();
       setState(() {
         _seconds = seconds;
       });
     }
   }
 
-  void _updatePlayersSolve(players) {
+  void _updatePlayersSolve(List<Player> players) {
     _playersSolve.clear();
     for (int i = 0; i < players.length; i++) {
       if (players[i].name != _screenName) {
@@ -168,7 +162,7 @@ class _GameState extends State<Game> {
     }
   }
 
-  void _showListPlayersSolve(playersData) {
+  void _showListPlayersSolve(Players playersData) {
     _updatePlayersSolve(playersData.players);
     print('$_playersSolve');
     showDialog(
@@ -182,9 +176,9 @@ class _GameState extends State<Game> {
                 Radius.circular(20.0),
               ),
             ),
-            content: Container(
-              height: MediaQuery.of(context).size.height * 0.3,
+            content: SingleChildScrollView(
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   CartoonText(
                     text: 'Who has solved it?',
@@ -205,7 +199,7 @@ class _GameState extends State<Game> {
         });
   }
 
-  void _updatePlayer(players) async {
+  void _updatePlayer(List<Player> players) async {
     _indexPlayer++;
     if (_indexPlayer >= players.length) {
       _indexPlayer = 0;
@@ -215,7 +209,7 @@ class _GameState extends State<Game> {
     _numCard++;
   }
 
-  void _setRewardPlayer(int index, playersData, BuildContext context) {
+  void _setRewardPlayer(int index, Players playersData, BuildContext context) {
     print('You have pressed the player ${_playersSolve[index].name}');
     playersData.updatePlayerPointsByName(_playersSolve[index].name);
     _playersSolve = [];
@@ -229,14 +223,11 @@ class _GameState extends State<Game> {
 
   Image _getRandomGameMode() {
     int _randomNumber = Random().nextInt(2);
-    //print(_randomNumber);
     switch (_randomNumber) {
       case 0:
         return Image.asset('assets/icon/arms_up2.png');
-        break;
       case 1:
         return Image.asset('assets/icon/music.png');
-        break;
       default:
         print("_getRandomGameMode() -> ERROR");
         return Image.asset('assets/icon/arms_up2.png');
@@ -246,71 +237,38 @@ class _GameState extends State<Game> {
   void _updateGameMode() {
     setState(() {
       if (_gameModeGestures && !_gameModeSounds) {
-        //_gameMode = IconData(0xf51b, fontFamily: 'MaterialIcons');
         _gameMode = Image.asset('assets/icon/arms_up2.png');
         print("Gestures mode!");
       } else if (!_gameModeGestures && _gameModeSounds) {
-        // _gameMode = IconData(0xf8ed, fontFamily: 'MaterialIcons');
         _gameMode = Image.asset('assets/icon/music.png');
         print("Sounds mode!");
       } else {
         _gameMode = _getRandomGameMode();
       }
-      // print(_gameMode.toString());
     });
   }
 
   void _getFormData(BuildContext context) {
-    Map _formData = ModalRoute.of(context).settings.arguments;
-    // print(_formData);
-    setState(() {
-      _gameModeGestures = _formData["gamemode"]["gestures"];
-      _gameModeSounds = _formData["gamemode"]["sounds"];
-      //_players = _formData["players"];
-    });
-    // print(_gameModeGestures);
-    // print(_gameModeSounds);
-    // print(_players);
-    _updateGameMode();
-  }
-
-  void _setOpacityIcons(double xValue) {
-    double _opacity = xValue / 10;
-    if (xValue > 0) {
-      //print('Card is going to the right.');
-      if (_opacity > 1) {
-        _opacity = 1;
-      }
+    final route = ModalRoute.of(context);
+    if (route != null && route.settings.arguments != null) {
+      Map _formData = route.settings.arguments as Map;
       setState(() {
-        _opacityDone = _opacity;
-      });
-      //print(_opacityDone);
-    } else if (xValue < 0) {
-      //print('Card is going to the left.');
-      _opacity *= -1;
-      if (_opacity > 1) {
-        _opacity = 1;
-      }
-      setState(() {
-        _opacityClose = _opacity;
-      });
-      //print(_opacityClose);
-    } else {
-      setState(() {
-        _opacityClose = 0.0;
-        _opacityDone = 0.0;
+        _gameModeGestures = _formData["gamemode"]?["gestures"] ?? true;
+        _gameModeSounds = _formData["gamemode"]?["sounds"] ?? true;
       });
     }
+    _updateGameMode();
   }
 
   Container SwipeCards(MediaQueryData mediaQuery, BuildContext context,
       List<Player> _players, Players _playersData) {
     return Container(
-      padding: EdgeInsets.all(0),
+      padding: const EdgeInsets.all(0),
       height: 435,
-      child: TinderSwapCard(
-        orientation: AmassOrientation.BOTTOM,
-        cardBuilder: (context, index) => FlipCard(
+      child: CustomCardSwiper(
+        controller: _controllerCard,
+        itemCount: _cardImages.length,
+        itemBuilder: (context, index) => FlipCard(
           key: Key('flip$index'),
           flipOnTouch: _flipEnabled,
           back: Card(
@@ -322,76 +280,44 @@ class _GameState extends State<Game> {
               fit: StackFit.expand,
               children: [
                 Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      // border: !_flipEnabled
-                      //     ? Border.all(color: Colors.black)
-                      //     : null,
-                      // border: Border.all(color: Colors.black),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  padding: const EdgeInsets.all(8.0),
+                  child: Card(
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
                     ),
-                    padding: const EdgeInsets.all(8.0),
-                    child: Card(
-                      child: Image.asset(
-                        '${_cardImages[index]}',
-                        fit: BoxFit.fill,
-                      ),
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                    )),
+                    child: Image.asset(
+                      _cardImages[index],
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                ),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(0, mediaQuery.size.width * 0.045,
-                      mediaQuery.size.width * 0.045, 0),
+                  padding: EdgeInsets.fromLTRB(
+                    0,
+                    mediaQuery.size.width * 0.045,
+                    mediaQuery.size.width * 0.045,
+                    0,
+                  ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      // Icon(
-                      //   _gameMode,
-                      //   size: mediaQuery.size.width * 0.15,
-                      //   color: Colors.white,
-                      // ),
                       IconButton(
-                        icon: _gameMode,
+                        icon: _gameMode ?? Image.asset('assets/icon/arms_up2.png'),
                         iconSize: 44,
                         onPressed: () {},
                       ),
                     ],
                   ),
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.all(8.0),
-                //   child: Row(
-                //     crossAxisAlignment: CrossAxisAlignment.center,
-                //     mainAxisAlignment:
-                //         MainAxisAlignment.spaceEvenly,
-                //     children: [
-                //       Stack(children: [
-                //         Icon(
-                //           Icons.close_rounded,
-                //           size: mediaQuery.size.width * 0.75,
-                //           color:
-                //               Colors.red.withOpacity(_opacityClose),
-                //         ),
-                //         Icon(
-                //           Icons.check_rounded,
-                //           size: mediaQuery.size.width * 0.75,
-                //           color: Colors.green
-                //               .withOpacity(_opacityDone),
-                //         ),
-                //       ]),
-                //     ],
-                //   ),
-                // ),
               ],
             ),
           ),
-          // shape: RoundedRectangleBorder(
-          //   borderRadius: BorderRadius.circular(10.0),
-          // ),
-          // clipBehavior: Clip.antiAliasWithSaveLayer,
           front: Card(
             clipBehavior: Clip.antiAliasWithSaveLayer,
             shape: RoundedRectangleBorder(
@@ -401,27 +327,20 @@ class _GameState extends State<Game> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
-                // border: Border.all(color: Colors.black),
-                // border: _flipEnabled
-                //     ? Border.all(color: Colors.black)
-                //     : null,
               ),
               padding: const EdgeInsets.all(8.0),
               child: Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(0),
-                  child: Container(
-                    color: Color.fromRGBO(0, 180, 255, 1),
-                    padding: EdgeInsets.all(48.0),
-                    child: Image.asset(
-                      'assets/icon/to_mime_icon_without_background.png',
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                ),
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Container(
+                  color: const Color.fromRGBO(0, 180, 255, 1),
+                  padding: const EdgeInsets.all(48.0),
+                  child: Image.asset(
+                    'assets/icon/to_mime_icon_without_background.png',
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
             ),
@@ -432,29 +351,17 @@ class _GameState extends State<Game> {
             _startTimer();
             setState(() {
               _flipEnabled = false;
-              _swipeEnabled = true;
             });
           },
         ),
-        totalNum: _cardImages.length,
-        stackNum: 4,
-        swipeEdge: 4.0,
-        maxWidth: mediaQuery.size.width * 0.9,
-        maxHeight: mediaQuery.size.width * 0.9,
-        minWidth: mediaQuery.size.width * 0.8,
-        minHeight: mediaQuery.size.width * 0.8,
-        cardController: _controllerCard,
-        swipeUpdateCallback: (DragUpdateDetails details, Alignment align) {
-          // _setOpacityIcons(align.x); TODO
-        },
-        swipeCompleteCallback: (CardSwipeOrientation orientation, int index) {
-          if (orientation == CardSwipeOrientation.RIGHT) {
+        onSwipe: (direction, index) {
+          if (direction == SwipeDirection.right) {
             print('Card swiped to the right.');
-            ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: Colors.green,
-              content: Container(
+              content: SizedBox(
                 height: mediaQuery.size.height * 0.030,
-                child: Text(
+                child: const Text(
                   "CORRECT",
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -463,29 +370,25 @@ class _GameState extends State<Game> {
                       fontFamily: 'LuckiestGuy'),
                 ),
               ),
-              duration: Duration(milliseconds: 1000),
+              duration: const Duration(milliseconds: 1000),
               behavior: SnackBarBehavior.fixed,
             ));
             _players[_indexPlayer].points += 50;
             _showListPlayersSolve(_playersData);
-            //_startTimer();
             setState(() {
-              _timer.cancel();
+              _timer?.cancel();
               _updatePlayer(_players);
               _updateGameMode();
-              _opacityClose = 0.0;
-              _opacityDone = 0.0;
               _flipEnabled = true;
-              _swipeEnabled = false;
               print('Current player: ${_screenName.toUpperCase()}');
             });
-          } else if (orientation == CardSwipeOrientation.LEFT) {
+          } else if (direction == SwipeDirection.left) {
             print('Card swiped to the left.');
-            ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: Colors.red,
-              content: Container(
+              content: SizedBox(
                 height: mediaQuery.size.height * 0.030,
-                child: Text(
+                child: const Text(
                   "INCORRECT",
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -494,16 +397,13 @@ class _GameState extends State<Game> {
                       fontFamily: 'LuckiestGuy'),
                 ),
               ),
-              duration: Duration(milliseconds: 1000),
+              duration: const Duration(milliseconds: 1000),
               behavior: SnackBarBehavior.fixed,
             ));
             setState(() {
               _updatePlayer(_players);
               _updateGameMode();
-              _opacityClose = 0.0;
-              _opacityDone = 0.0;
               _flipEnabled = true;
-              _swipeEnabled = false;
               print('Current player: ${_screenName.toUpperCase()}');
               if (_numCard == _cardImages.length) {
                 Navigator.pushNamed(context, '/end', arguments: _players);

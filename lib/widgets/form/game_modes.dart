@@ -3,17 +3,18 @@ import 'package:flutter/material.dart';
 import '../utils/cartoon_text.dart';
 
 class GameModes extends StatelessWidget {
-  final Function setGestures;
-  final Function setSounds;
+  final VoidCallback setGestures;
+  final VoidCallback setSounds;
   final bool gestures;
   final bool sounds;
 
   const GameModes({
-    @required this.gestures,
-    @required this.sounds,
-    @required this.setGestures,
-    @required this.setSounds,
-  });
+    Key? key,
+    required this.gestures,
+    required this.sounds,
+    required this.setGestures,
+    required this.setSounds,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +39,7 @@ class GameModes extends StatelessWidget {
             children: [
               IconButton(
                 icon: Image.asset('assets/icon/arms_up2.png'),
+                onPressed: setGestures,
               ),
               Checkbox(
                 value: gestures,
@@ -45,6 +47,7 @@ class GameModes extends StatelessWidget {
               ),
               IconButton(
                 icon: Image.asset('assets/icon/music.png'),
+                onPressed: setSounds,
               ),
               Checkbox(
                 value: sounds,

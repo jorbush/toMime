@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 
 class OutlinedCartoonButton extends StatelessWidget {
   final String text;
-  final Function functionOnClick;
-  const OutlinedCartoonButton({this.text, this.functionOnClick});
+  final VoidCallback? functionOnClick;
+
+  const OutlinedCartoonButton({
+    Key? key,
+    required this.text,
+    this.functionOnClick,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

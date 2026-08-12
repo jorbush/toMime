@@ -12,13 +12,14 @@ class ResultsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _playersData = Provider.of<Players>(context);
+    final sorted = _playersData.sortedPlayers;
     return SizedBox(
         height: listHeight,
         child: ListView.builder(
-            itemCount: _playersData.numPlayers,
+            itemCount: sorted.length,
             itemBuilder: (context, index) {
               return ResultItem(
-                player: _playersData.players.elementAt(index),
+                player: sorted[index],
                 position: index + 1,
               );
             }));

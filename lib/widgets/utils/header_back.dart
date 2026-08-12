@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:to_mime/widgets/utils/cartoon_text.dart';
 
 class HeaderBack extends StatelessWidget {
-  final String text;
+  final String? text;
 
-  const HeaderBack({this.text = null});
+  const HeaderBack({Key? key, this.text}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class HeaderBack extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CartoonText(text: text, textSize: 40.0),
+                  CartoonText(text: text!, textSize: 40.0),
                 ],
               ),
             ),

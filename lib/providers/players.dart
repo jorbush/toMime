@@ -36,16 +36,25 @@ class Players with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> orderByPoints() async {
+  List<Player> get sortedPlayers {
+    final list = [..._players];
+    list.sort((a, b) => b.points.compareTo(a.points));
+    return list;
+  }
+
+  void orderByPoints() {
     _players.sort((a, b) => b.points.compareTo(a.points));
-    notifyListeners();
   }
 
-  Player findByName(String name) {
-    return _players.firstWhere((player) => player.name == name);
+  Player? findByName(String name) {
+    try {
+      return _players.firstWhere((player) => player.name == name);
+    } catch (_) {
+      return null;
+    }
   }
 
-  Future<void> updatePlayerPointsByName(String name) {
+  void updatePlayerPointsByName(String name) {
     for (int i = 0; i < _players.length; i++) {
       if (_players[i].name == name) {
         _players[i].points += 100;
@@ -116,7 +125,7 @@ class Players with ChangeNotifier {
   }
 
   // Method for add a player to the game.
-  void addNewPlayer(controller) async {
+  void addNewPlayer(dynamic controller) async {
     if (_canBeAdded()) {
       print('lastPlayerName: $_lastPlayerName, playerName: $_playerName');
       addPlayer(_playerName);

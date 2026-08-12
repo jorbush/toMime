@@ -5,7 +5,6 @@ import '../widgets/form/new_game.dart';
 class FormGame extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     return Scaffold(
         backgroundColor: Color.fromRGBO(0, 180, 255, 1),

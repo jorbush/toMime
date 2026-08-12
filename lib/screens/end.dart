@@ -10,7 +10,6 @@ class End extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _playersData = Provider.of<Players>(context);
-    _playersData.orderByPoints();
     final mediaQuery = MediaQuery.of(context);
     if (_playersData == null || _playersData.numPlayers == 0) {
       Navigator.popUntil(context, ModalRoute.withName('/form'));

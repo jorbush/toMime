@@ -63,7 +63,7 @@ class _HomeState extends State<Home> {
                       onPressed: () {
                         Navigator.pushNamed(context, '/form');
                       },
-                      child: null,
+                      child: const SizedBox.expand(),
                     ),
                   ),
                 ),

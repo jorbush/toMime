@@ -7,12 +7,14 @@ class CartoonText extends StatelessWidget {
   final String fontFamily;
   final Color color;
 
-  CartoonText(
-      {@required this.text,
-      @required this.textSize,
-      this.strokeWidth = 2,
-      this.fontFamily = 'LuckiestGuy',
-      this.color = Colors.white});
+  const CartoonText({
+    Key? key,
+    required this.text,
+    required this.textSize,
+    this.strokeWidth = 2,
+    this.fontFamily = 'LuckiestGuy',
+    this.color = Colors.white,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -8,8 +8,8 @@ class PlayersList extends StatelessWidget {
   final double heightScreen;
 
   const PlayersList({
-    Key key,
-    @required this.heightScreen,
+    Key? key,
+    required this.heightScreen,
   }) : super(key: key);
 
   @override

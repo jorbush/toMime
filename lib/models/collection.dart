@@ -14,12 +14,12 @@ class Collection {
   bool isBought;
 
   Collection({
-    @required this.id,
-    @required this.cards,
-    @required this.title,
-    @required this.description,
-    @required this.price,
-    @required this.imgPath,
+    required this.id,
+    required this.cards,
+    required this.title,
+    required this.description,
+    required this.price,
+    required this.imgPath,
     this.isSelected = false,
     this.isBought = false,
   });

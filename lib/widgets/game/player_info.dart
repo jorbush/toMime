@@ -7,9 +7,9 @@ class PlayerInfo extends StatelessWidget {
   final String points;
 
   const PlayerInfo({
-    Key key,
-    @required this.name,
-    @required this.points,
+    Key? key,
+    required this.name,
+    required this.points,
   }) : super(key: key);
 
   @override
@@ -19,7 +19,7 @@ class PlayerInfo extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.fromLTRB(
         0,
-        mediaQuery.size.height * 0.560,
+        mediaQuery.size.height * 0.510,
         0,
         mediaQuery.size.height * 0.020,
       ),

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import './cartoon_text.dart';
 
 class ConfirmDialog extends StatelessWidget {
-  const ConfirmDialog({Key key}) : super(key: key);
+  const ConfirmDialog({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

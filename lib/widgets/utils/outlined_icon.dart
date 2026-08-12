@@ -6,10 +6,11 @@ class OutlinedIconCartoon extends StatelessWidget {
   final double sizeIcon;
 
   const OutlinedIconCartoon({
-    @required this.iconData,
+    Key? key,
+    required this.iconData,
     this.colorIcon = Colors.white,
     this.sizeIcon = 80,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

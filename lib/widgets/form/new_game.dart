@@ -11,7 +11,7 @@ import '../utils/outlined_cartoon_button.dart';
 import './game_modes.dart';
 
 class NewGame extends StatefulWidget {
-  const NewGame({Key key}) : super(key: key);
+  const NewGame({Key? key}) : super(key: key);
 
   @override
   State<NewGame> createState() => _NewGameState();

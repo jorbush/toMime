@@ -13,7 +13,7 @@ class Collections with ChangeNotifier {
   }
 
   List<Collection> get selectedCollections {
-    // return collections which isSelected
+    return _collections.where((c) => c.isSelected).toList();
   }
 
   Future<void> fetchAndSetCollections() async {
